@@ -1,4 +1,5 @@
 
+import { useSelector } from "react-redux";
 import { DetailsCard } from "./DetailsCard";
 import NewReleaseImage from "./NewReleaseImage";
 import NewReleaseInfo from "./NewReleaseInfo";
@@ -8,17 +9,22 @@ import NewReleaseInfo from "./NewReleaseInfo";
 const NewReleaseDetails = ({
   image,
   art,
-  location,
   artist,
-  links,
+  instagram,
+  discord,
+  twitter,
+  city,
+  country,
   artDesc,
   moreInfo,
   mintDate,
   price,
   items,
-  royalty
+  royalty,
+  id
 }) => {
-  
+  const collection = useSelector((state) => state.collection.collections.filter((item) => item._id == id));
+
   return (
     <section className="text-white font-Montserrat">
       <div className=" mt-[8px] mr-[8px] sm:mr-[16px] ml-[8px]"> 
@@ -29,26 +35,23 @@ const NewReleaseDetails = ({
         
       </div>
      
-      {moreInfo.map((info, index) => {
+      {collection.map((info, index) => {
         return (
           <div key={index} className=" ">
             <DetailsCard
-              image={info.image}
+              image={info.artistUrl}
               title={info.title}
-              desc={info.desc}
-              desc2={info.desc2}
-              desc3={info.desc3}
-              art={art}
-              location={location}
+              desc2={info.mintingDetails}
+              desc3={info.aboutMe}
+              city={info.city}
+              country={info.country}
               artist={artist}
-              links={links}
+              buyLink={info.nmkrLink}
               artDesc={artDesc}
               mintDate={mintDate}
               price={price}
               items={items}
               royalty={royalty}
-  
-              
             />
           </div>
         );

@@ -1,5 +1,6 @@
 import LeaderboardItem from "./LeaderBoardItem";
 import photo from "@/assets/images/ProfilePhoto.png";
+import { useSelector } from "react-redux";
 
 const DUMMY_LEADERS = [
   {
@@ -35,9 +36,12 @@ const DUMMY_LEADERS = [
 ];
 
 const LeaderBoardList = () => {
+  const collectors = useSelector((collector) => collector.collector.collectors);
+  const patrons = collectors.filter((collector) => collector.policyIds.length > 0);
+
   return (
     <ul className="bg-primary-color p-4 grid gap-3 rounded-lg sm:max-w-[60vw] m-auto">
-      {DUMMY_LEADERS.map((leader, index) => {
+      {patrons.map((leader, index) => {
         return (
           <div
             key={index}
@@ -47,7 +51,8 @@ const LeaderBoardList = () => {
               position={index + 1}
               image={leader.image}
               name={leader.name}
-              amount={leader.amount}
+              amount={leader.units}
+              policyId ={leader.policyIds}
             />
           </div>
         );

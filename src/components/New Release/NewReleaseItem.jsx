@@ -2,7 +2,7 @@ import Link from "next/link";
 import NewReleaseImage from "./NewReleaseImage";
 import NewReleaseInfo from "./NewReleaseInfo";
 
-const NewReleaseItem = ({ image, art, location, artist, links, id }) => {
+const NewReleaseItem = ({ image, artist, id, city, country, instagram, discord, twitter, price }) => {
   return (
     <div className="mb-[16px] xl:mb-[0px] xl:w-full bg-primary-colorborder border border-light-purple  rounded-[10px] xl:rounded-[20px] overflow-hidden ">
       <div>
@@ -12,10 +12,13 @@ const NewReleaseItem = ({ image, art, location, artist, links, id }) => {
       </div>
       <div className="items-center xl:h-[12vh] xl:w-full">
         <NewReleaseInfo
-          art={art}
-          location={location}
           artist={artist}
-          links={links}
+          discord={discord}
+          instagram={instagram}
+          twitter={twitter}
+          city={city}
+          country={country}
+          price={price}
         />
       </div>
     </div>

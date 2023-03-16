@@ -4,6 +4,8 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import NewReleaseItem from "../../New Release/NewReleaseItem";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import SergeImage from "@/assets/images/SergeImage.png"
 
@@ -63,16 +65,31 @@ const NewReleaseSection = () => {
     lazyLoad: 'ondemand',
 
   };
-  const displayCarrousel = DUMMY_RELEASES.map((release) => {
+
+  const [collections, setCollections] = useState([]);
+  const store = useSelector(state => state);
+
+  useEffect(() => {
+    if (store) {
+      setCollections(store.collection.collections.filter((item) => item.newRelease == "1"));
+    }
+
+  }, [store]);
+
+  const displayCarrousel = collections.map((release) => {
     return (
-      <Box key={release.id}>
+      <Box key={release._id}>
       <NewReleaseItem
-        id={release.id}
-        image={release.image}
-        art={release.source}
-        location={release.location}
-        artist={release.author}
-        links={release.links}
+        id={release._id}
+        image={release.bannerUrl}
+        artist={release.name}
+        artistUrl={release.artistUrl}
+        city={release.city}
+        country={release.country}
+        instagram={release.instagram}
+        discord={release.discord}
+        twitter={release.twitter}
+        price={release.price}
       />
       </Box>
     );

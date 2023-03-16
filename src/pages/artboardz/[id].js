@@ -3,6 +3,7 @@ import ArtBoardzDetails from "@/components/ArtBoardz/ArtBoardzDetails";
 import releaseImg from "@/assets/images/new_release.png";
 import { useRouter } from 'next/router'
 import SergeImage from "@/assets/images/SergeImage.png"
+import { useSelector } from "react-redux";
 
 const DUMMY_DETAILS = {
   Art: "Origins",
@@ -101,9 +102,17 @@ const DUMMY_DETAILS = {
 const ArtBoardzDetailsPage = () => {
   const router = useRouter()
   const { id } = router.query
+  const collectors = useSelector((item) => item.collector.collectors);
+  const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))[0];
   useEffect(() => {
     document.querySelector("#main-layout").scrollTop = 0;
   }, []);
+
+  const policyIdList = collection.patronId.map((item) => {
+    return item
+  })
+
+  const patrons = collectors.filter((item) => policyIdList.includes(item._id))
 
   return (
     <>
@@ -111,19 +120,16 @@ const ArtBoardzDetailsPage = () => {
         Artboardz {id}
       </h1> */}
       <ArtBoardzDetails
-        image={DUMMY_DETAILS.image}
-        art={DUMMY_DETAILS.Art}
-        artist={DUMMY_DETAILS.Artist}
-        location={DUMMY_DETAILS.location}
-        links={DUMMY_DETAILS.links}
-        artDesc={DUMMY_DETAILS.artDesc}
-        patrons={DUMMY_DETAILS.patrons}
-        moreInfo={DUMMY_DETAILS.moreDetails}
-        evolution={DUMMY_DETAILS.evolution}
-        mintDate={DUMMY_DETAILS.mintDate}
-        price={DUMMY_DETAILS.price}
-        items={DUMMY_DETAILS.items}
-        royalty={DUMMY_DETAILS.royalty}
+        image={collection?.bannerUrl}
+        artist={collection?.name}
+        artDesc={collection?.desc}
+        patrons={patrons}
+        // evolution={collection.evolution}
+        mintDate={collection?.mintDate}
+        price={collection?.price}
+        items={collection?.supply}
+        royalty={collection?.royalty}
+        id={collection?._id}
       />
     </>
   );

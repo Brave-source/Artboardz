@@ -1,5 +1,7 @@
 import releaseImg from "@/assets/images/new_release.png";
 import ArtBoardzItem from "./ArtBoardzItem";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const DUMMY_ARTS = [
   {
@@ -33,17 +35,27 @@ const DUMMY_ARTS = [
 ];
 
 const ArtBoardzList = () => {
+  const [collections, setCollections] = useState([])
+  const store = useSelector(state => state);
+
+  useEffect(() => {
+    if (store) {
+      setCollections(store.collection.collections.filter((item) => item.newRelease == "0"));
+    }
+  }, [store]);
+
   return (
     <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-2  ">
-      {DUMMY_ARTS.map((release) => {
+      {collections.map((release) => {
         return (
           <ArtBoardzItem
-            key={release.id}
-            id={release.id}
-            image={release.image}
+            key={release._id}
+            id={release._id}
+            image={release.bannerUrl}
             art={release.source}
-            location={release.location}
-            artist={release.author}
+            artist={release.name}
+            city={release.city}
+            country={release.country}
           />
         );
       })}

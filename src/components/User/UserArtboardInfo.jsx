@@ -17,7 +17,6 @@ const UserArtboardzInfo = ({ art,  price,  }) => {
         
         {/* <p className="text-sm">Listings: 3/30</p> */}
       </div>
-
       <div className="flex gap-1 items-center justify-between">
       <button className={ "mt-[5px] bg-active-link rounded-xl font-semibold w-full h-[30px]  mx-auto block tracking-wide text-base"}>
             Jpgstore

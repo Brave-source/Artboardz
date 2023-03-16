@@ -1,9 +1,9 @@
 import FirstIcon from "@/assets/icons/FirstIcon";
 import SecondIcon from "@/assets/icons/SecondIcon";
 import ThirdIcon from "@/assets/icons/ThirdIcon";
-import Avatar from "../User/Avatar";
+import Avatar from "./Avatar";
 
-const LeaderboardItem = ({ position, image, name, amount }) => {
+const LeaderboardItem = ({ position, image, name, amount, policyId }) => {
   let pos;
   switch (position) {
     case 1:
@@ -29,7 +29,7 @@ const LeaderboardItem = ({ position, image, name, amount }) => {
         </div>
         <p className=" ">{name}</p>
       </div>
-      <p>{amount}</p>
+      <p>{policyId.length}({amount.length})</p>
     </li>
   );
 };
