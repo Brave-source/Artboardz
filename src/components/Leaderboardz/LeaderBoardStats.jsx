@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 const LeaderBoardStats = () => {
   const collections = useSelector((collection) => collection.collection.collections.filter((item) => item.patronId.length > 0));
   const collectors = useSelector((collector) => collector.collector.collectors);
-  const patrons = collectors.filter((collector) => collector.policyIds.length > 0);
-  const nfts = collectors.map((item) => {
+  const patrons = collectors?.filter((collector) => collector.policyIds.length > 0);
+  const nfts = collectors?.map((item) => {
     return item.units.length
   });
   
-  const totalNfts = nfts.reduce((accumulator, value) => {
+  const totalNfts = nfts?.reduce((accumulator, value) => {
     return accumulator + value;
   })
 
