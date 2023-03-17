@@ -2,7 +2,7 @@ import Link from "next/link";
 import NewReleaseImage from "./NewReleaseImage";
 import NewReleaseInfo from "./NewReleaseInfo";
 
-const NewReleaseItem = ({ image, artist, id, city, country, instagram, discord, twitter, price }) => {
+const NewReleaseItem = ({ image, artist, id, city, country, instagram, discord, title, twitter, price }) => {
   return (
     <div className="mb-[16px] xl:mb-[0px] xl:w-full bg-primary-colorborder border border-light-purple  rounded-[10px] xl:rounded-[20px] overflow-hidden ">
       <div>
@@ -14,6 +14,7 @@ const NewReleaseItem = ({ image, artist, id, city, country, instagram, discord, 
         <NewReleaseInfo
           artist={artist}
           discord={discord}
+          title={title}
           instagram={instagram}
           twitter={twitter}
           city={city}

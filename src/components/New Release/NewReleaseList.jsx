@@ -25,6 +25,7 @@ const NewReleaseList = ({ releases }) => {
             location={release.location}
             artist={release.author}
             links={release.links}
+            title={release.title}
           />
           </Box>
         );

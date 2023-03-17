@@ -56,6 +56,7 @@ const ArtBoardzList = () => {
             artist={release.name}
             city={release.city}
             country={release.country}
+            title={release.title}
           />
         );
       })}

@@ -4,11 +4,11 @@ import TwitterIconsOutline from "@/assets/icons/TwitterIconsOutline";
 import CardanoIcon from "@/assets/images/icons8-cardano-50.png"
 import Image from "next/image";
 
-const NewReleaseInfo = ({  artist, city, country, price  }) => {
+const NewReleaseInfo = ({  artist, city, country, title, price  }) => {
   return (
     <div className="tracking-wide overflow-visible grid grid-cols-1 py-2 px-4 h-full content-evenly w-full">
       <div className="flex items-center justify-between align-center">
-        <p className="text-2xl md:text-[20px] font-medium">Origins #652 by {artist}</p>
+        <p className="text-2xl md:text-[20px] font-medium">{title} by {artist}</p>
         
       </div>
 

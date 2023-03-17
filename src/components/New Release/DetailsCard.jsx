@@ -48,7 +48,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, price, items, royalty, country, artDesc, buyLink }) => {
+export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink }) => {
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantityHandler = () => {
@@ -107,7 +107,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, price, item
           </div>
         <div className="justify-center">
           <div className="flex flex-row content-center">
-            <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">Origin #312 by {artist}</p>
+            <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
             <div className="mt-2 ml-4">
             <SocialIcons />
             </div> 

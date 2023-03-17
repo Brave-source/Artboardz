@@ -36,7 +36,6 @@ const Header = () => {
     const setAssets = async() => {
       try {
           const res = await axios.put( assets &&` http://localhost:3001/api/users/${user._id}`, inputs)
-          console.log(res.data);
       }catch(err){
         console.log(err);
       }

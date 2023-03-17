@@ -7,14 +7,17 @@ const UserArtboardzList = ({ artBoardz }) => {
       {artBoardz.map((artBorder) => {
         return (
           <UserArtBoardItem
-            key={artBorder.id}
-            id={artBorder.id}
-            image={artBorder.image}
-            art={artBorder.source}
-            location={artBorder.location}
-            artist={artBorder.author}
-            links={artBorder.links}
+            key={artBorder._id}
+            id={artBorder._id}
+            image={artBorder.bannerUrl}
+            art={artBorder.title}
+            artist={artBorder.name}
             price={artBorder.price}
+            instagram={artBorder.instagram}
+            discord={artBorder.discord}
+            twitter={artBorder.twitter}
+            city={artBorder.city}
+            country={artBorder.country}
           />
         );
       })}
