@@ -2,6 +2,7 @@ import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
 import Asset from "../../../models/Asset";
 import Collection from "@/models/Collection";
+import { getNFTsForAddress } from "@/components/blockfrost/Blockfrost";
 
 
 export default async function handler(req, res) {
@@ -24,26 +25,32 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
+    getNFTsForAddress
     try {
       const user = await User.findById(req.body.id);
      if(user) {
-      // console.log("pass user test")
       const policyId = req.body.policyIds;
-      // const asset = await Asset.find({userId: user._id})
-      // console.log(asset)
-      // if(asset.length > 0) {
-      //   console.log(asset[0].units)
-        // console.log(asset.policyIds.length)
-        // console.log(req.body.units.length)
-        // console.log(req.body.policyIds.length);
-        const unitLength = req.body.units.length;
+        let ass = [];
+        await Promise.all(
+          req.body.units.map(async(item) => {
+            const block = await getNFTsForAddress(item)
+            return ass.push({
+              image:`https://cloudflare-ipfs.com/ipfs/${block.onchain_metadata.image.split("/")[2]}`,
+              name: block.onchain_metadata.name,
+              policyId: block.policy_id,
+              unit: block.asset,
+              quantity: block.quantity
+            })
+          })
+        )
+        const assetLength = req.body.units.length;
         const policyLength = req.body.policyIds.length
-        if(user.units.length != unitLength || user.policyIds.length != policyLength) {
+        if(user.assets.length != assetLength || user.policyIds.length != policyLength) {
           const result = await User.findByIdAndUpdate(
             user._id, 
             {
               $set: {
-                units: req.body.units,
+                assets: ass,
                 policyIds: req.body.policyIds
               }
             }, 
@@ -63,22 +70,6 @@ export default async function handler(req, res) {
         } else {
           res.status(200).json(user);
         }
-      // }else {
-      //   console.log("Add new assets")
-      //   const newAsset = {userId: user._id, units: req.body.units, policyIds:req.body.policyIds}
-      //   await Asset.create(newAsset)
-      //   await Promise.all(
-      //     policyId.map(async (policyId) => {
-      //       return await Collection.findOneAndUpdate(
-      //         { policy: policyId },
-      //         {
-      //           $addToSet: { patronId: user._id}
-      //         }
-      //         );
-      //     })
-      //   );
-      //   res.status(200).json("successfully created");
-      // }
      }else {
       res.status(500).json([])
      }
