@@ -16,7 +16,7 @@ const NewReleaseInfo = ({  artist, city, country, title, price  }) => {
         <p className="text-sm"> {city}, {country}</p>
         <div className="flex gap-2 items-center">
         <p className="text-lg">{price} </p>
-        <Image src={CardanoIcon} height={20}/>
+        <Image src={CardanoIcon} height={20} unoptimized={true}/>
         </div>
       </div>   
     </div>

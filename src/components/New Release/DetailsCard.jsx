@@ -102,7 +102,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
         <div className="hidden xl:grid grid-cols-2 grid-rows-1 mt-[36px] py-4">
           <div>
           {image && (
-              <Image src={image} alt=""  className="w-full ml-[8px]" width={100} height={100} />
+              <Image src={image} alt=""  className="w-full ml-[8px]" width={100} height={100} unoptimized={true}/>
           )}
           </div>
         <div className="justify-center">
@@ -163,7 +163,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
         </div>
         <div>
           {image && (
-              <Image src={image} alt=""  className="w-full py-4" width={100} height={100} />
+              <Image src={image} alt=""  className="w-full py-4" width={100} height={100} unoptimized={true}/>
           )}
           </div>
           <Card sx={{ background:'transparent', boxShadow: 0}}>

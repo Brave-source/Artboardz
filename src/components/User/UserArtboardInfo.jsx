@@ -11,7 +11,7 @@ const UserArtboardzInfo = ({ name }) => {
       <div className="flex flex-row gap-1 items-center justify-between">
         <p className="text-sm font-semibold ">{name?.slice(0,20)}</p>
         <div className='flex flex-row gap-x-2'>
-        <Image src={CardanoIcon} height={20}></Image>
+        <Image src={CardanoIcon} height={20} unoptimized={true}></Image>
         </div>
         
         {/* <p className="text-sm">Listings: 3/30</p> */}
