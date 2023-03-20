@@ -30,7 +30,9 @@ function ItemPurchaseActions(props) {
           <PlusIcon />
         </button>
       </div>
-      <button className="bg-active-link rounded-[5px] font-semibold">Buy</button>
+        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold">
+        Buy
+        </a>
     </div>
   );
 }
@@ -46,7 +48,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const DetailsCard = ({ image, title, desc, art, artist, desc2, desc3, mintDate, price, items, royalty, location }) => {
+export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink }) => {
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantityHandler = () => {
@@ -83,7 +85,7 @@ export const DetailsCard = ({ image, title, desc, art, artist, desc2, desc3, min
             </div>
             <div className="p-2  border rounded-lg border-light-purple text-center h-[65px]">
               <p>Location</p>
-              <p className="font-semibold">{location.country}</p>
+              <p className="font-semibold">{country}</p>
             </div>
           </div>
           <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
@@ -93,24 +95,25 @@ export const DetailsCard = ({ image, title, desc, art, artist, desc2, desc3, min
             quantity={quantity}
             incrementQuantityHandler={incrementQuantityHandler}
             decrementQuantityHandler={decrementQuantityHandler}
+            buyLink={buyLink}
           />
         </div>
 
         <div className="hidden xl:grid grid-cols-2 grid-rows-1 mt-[36px] py-4">
           <div>
           {image && (
-              <Image src={image} alt=""  className="w-full ml-[8px]" />
+              <Image src={image} alt=""  className="w-full ml-[8px]" width={100} height={100} unoptimized={true}/>
           )}
           </div>
         <div className="justify-center">
           <div className="flex flex-row content-center">
-            <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{`${art} by ${artist}`}</p>
+            <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
             <div className="mt-2 ml-4">
             <SocialIcons />
             </div> 
           </div>
           
-          {desc && <p className="text-base xl:text-xl  m-6">{desc}</p>}
+          {artDesc && <p className="text-base xl:text-xl  m-6">{artDesc}</p>}
           {desc2 && <p className="text-base xl:text-xl  m-6">{desc2}</p>}
           {desc3 && <p className="text-base xl:text-xl  m-6">{desc3}</p>}
         </div>
@@ -119,7 +122,7 @@ export const DetailsCard = ({ image, title, desc, art, artist, desc2, desc3, min
       {/* Responsive Details and quantity section */}
       <div className="px-[8px] xl:hidden">
       <div className="flex flex-row content-center mt-[16px] justify-between md:justify-center">
-          <p className="text-2xl xl:text-[36px] font-medium ">{`${art} by ${artist}`}</p>
+          <p className="text-2xl xl:text-[36px] font-medium ">Origins #422 by {artist}</p>
           <div className="mt-2 ml-4 ">
           <SocialIcons />
         </div> 
@@ -160,13 +163,13 @@ export const DetailsCard = ({ image, title, desc, art, artist, desc2, desc3, min
         </div>
         <div>
           {image && (
-              <Image src={image} alt=""  className="w-full py-4" />
+              <Image src={image} alt=""  className="w-full py-4" width={100} height={100} unoptimized={true}/>
           )}
           </div>
           <Card sx={{ background:'transparent', boxShadow: 0}}>
       <CardContent>
     
-        {desc && <p className="text-base text-white ">{desc}</p>}
+        {artDesc && <p className="text-base text-white ">{artDesc}</p>}
       </CardContent>
       <CardActions disableSpacing  sx={{m:'auto', width:'135px'}}>
         <ExpandMore

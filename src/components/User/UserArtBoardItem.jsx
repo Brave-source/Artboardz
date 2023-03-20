@@ -2,18 +2,14 @@ import Link from "next/link";
 import ArtBoardInfo from "../ArtBoardz/ArtBoardInfo";
 import Image from 'next/image'
 import UserArtboardInfo from "./UserArtboardInfo";
-const UserArtBoardItem = ({ image, art, location, price, links, id }) => {
+const UserArtBoardItem = ({ image, name }) => {
+  console.log(name)
   return (
     <li className="w-[302px]   bg-primary-color border-2 border-light-purple rounded-lg overflow-hidden">
-      <Link href={`/artboardz/${id}`} className="w-[302px] h-[302px] md:h-[302px] block">
-        <Image src={image} alt="/" className="w-full h-full  object-cover object-top" />
-      </Link>
+        <Image src={image} alt="/" className="w-full h-[200px] object-cover object-top" width={100} height={100} unoptimized={true} />
       <div className="p-3">
         <UserArtboardInfo
-          art={art}
-          location={location}
-          price={price}
-          links={links}
+          name={name}
         />
       </div>
     </li>

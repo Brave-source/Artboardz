@@ -5,7 +5,7 @@ export const PatronsCard = ({ image, name, twitter, country, assets }) => {
   return (
     <div className="flex space-x-3 px-2 py-4">
       <div>
-        <Image width={100} height={100} className="object-cover w-24 h-24 rounded-full border border-2 border-light" src={image} alt="Rounded avatar" />
+        <Image width={100} height={100} className="object-cover w-24 h-24 rounded-full border border-2 border-light" src={image} alt="Rounded avatar" unoptimized={true}/>
       </div>
       <div className="flex flex-col justify-between">
         <div className="flex">
@@ -15,8 +15,8 @@ export const PatronsCard = ({ image, name, twitter, country, assets }) => {
           }
         </div>
         <div>
-        <p className="lead text-[#A0ABBB]">{country}</p>
-          <p>{assets} Artboardz</p>
+          <p className="lead text-[#A0ABBB]">{country}</p>
+          <p>{assets.length} Artboardz</p>
         </div>
       </div>
     </div>

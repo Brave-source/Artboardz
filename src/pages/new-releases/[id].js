@@ -4,6 +4,8 @@ import NewReleaseDetails from "@/components/New Release/NewReleaseDetails";
 import { useRouter } from 'next/router'
 import SergeImage from "@/assets/images/SergeImage.png"
 import ArtBoardzDetails from "@/components/ArtBoardz/ArtBoardzDetails";
+import { useSelector } from "react-redux";
+import { Collection } from "mongoose";
 
 const DUMMY_DETAILS = {
   Art: "Origins",
@@ -36,20 +38,24 @@ const NewReleaseDetailsPage = () => {
     document.querySelector("#main-layout").scrollTop = 0;
   }, []);
 
+  const collection = useSelector((state) => state.collection.collections.filter((item) => item._id == id))[0];
+
   return (
     <>
       <NewReleaseDetails
-        image={DUMMY_DETAILS.image}
-        art={DUMMY_DETAILS.Art}
-        artist={DUMMY_DETAILS.Artist}
-        location={DUMMY_DETAILS.location}
-        links={DUMMY_DETAILS.links}
-        artDesc={DUMMY_DETAILS.artDesc}
-        moreInfo={DUMMY_DETAILS.moreDetails}
-        mintDate={DUMMY_DETAILS.mintDate}
-        price={DUMMY_DETAILS.price}
-        items={DUMMY_DETAILS.items}
-        royalty={DUMMY_DETAILS.royalty}
+        image={collection?.bannerUrl}
+        artist={collection?.name}
+        country={collection?.country}
+        city={collection?.city}
+        instagram={collection?.instagram}
+        twitter={collection?.twitter}
+        discord={collection?.discord}
+        artDesc={collection?.desc}
+        mintDate={collection?.mintDate}
+        price={collection?.price}
+        items={collection?.supply}
+        royalty={collection?.royalty}
+        id={collection?._id}
         />
     </>
   );

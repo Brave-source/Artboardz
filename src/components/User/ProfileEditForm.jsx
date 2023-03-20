@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CameraIcon from "@/assets/icons/CameraIcon";
 import CloseIcon from "@/assets/icons/CloseIcon";
 import Box from '@mui/material/Box';
@@ -7,10 +7,23 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase'
-
+import { toast } from "react-toastify";
+import InputBase from '@mui/material/InputBase';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../../firebase";
+import axios from "axios";
+import Image from "next/image"
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import validation from "./Validation"
+import { updateUserFailure, updateUserStart, updateUserSuccess } from "@/store/redux-slices/userSlice";
   
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   
@@ -42,25 +55,98 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
   
 const ProfileEditForm = ({ onCloseForm }) => {
-  const handleChange = (event) => {
-    setNationality(event.target.value);
-  }
-  const [nationality, setNationality] = React.useState('');
-  const nameRef = useRef();
-  const nationalityRef = useRef();
-  const twitterRef = useRef();
 
-  const formSubmitHandler = (evt) => {
+  const handleChange = (event) => {
+    setUserUpdate({
+      ...user,
+      [event.target.name]: event.target.value
+    })
+  }
+  const [file, setFile] = useState(null)
+  const [user, setUser] = useState({})
+  const[nationality, setNationality] = useState(user.nationality);
+  const [name, setName] = useState(user.name);
+  const [twitter, setTwitter] = useState(user.twitter);
+  const [fileUrl, setFileUrl] = useState("");
+  const [errors, setErrors] = useState({})
+  const [userUpdate, setUserUpdate] = useState({
+    name: name,
+    nationality:nationality,
+    twitter: twitter
+  });
+  const [isFetching, setIsFetching] = useState(false)
+  const dispatch = useDispatch()
+  const id = user._id;
+
+  const store = useSelector(state => state);
+
+  useEffect(() => {
+    if (store) {
+      setUser(store.user.user);
+      setIsFetching(store.user.isFetching);
+    }
+  }, [store]);
+
+  const uploadFile = (file, imageUrl) => {
+
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file)
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+         
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running" + progress);
+            break;
+          default:
+            break;
+        }
+      },
+      (error) => {
+      toast.error("Upload failed! Try again")
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFileUrl(downloadURL)
+          toast.success("Successsfully uploaded")
+        });
+      }
+    );
+  }
+
+  useEffect(() => {
+    file && uploadFile(file, "image")
+  }, [file])
+
+  const updateUser = {image: fileUrl ? fileUrl : user.image, name: name? name : user.name, nationality: nationality? nationality: user.nationality, twitter: twitter ? twitter: user.twitter,}
+
+  const formSubmitHandler = async(evt) => {
     evt.preventDefault();
-    const formData = {
-      name: nameRef.current.value,
-      nationality: nationalityRef.current.value,
-      twitter: twitterRef.current.value,
-    };
-    console.log(formData);
+    setErrors(validation(updateUser))
+    dispatch(updateUserStart())
+    try {
+      const res = await axios.post(`http://localhost:3001/api/users/${id}`, updateUser)
+      dispatch(updateUserSuccess(updateUser))
+      toast.success("Successfully updated!")
+      onCloseForm()
+    }catch(err) {
+      dispatch(updateUserFailure())
+      console.log(err)
+    }
   };
+
   return (
     <form
       onSubmit={formSubmitHandler}
@@ -74,252 +160,254 @@ const ProfileEditForm = ({ onCloseForm }) => {
           htmlFor="image"
           className="rounded-full border border-white w-[190px] h-[190px] flex items-center justify-center"
         >
-          <CameraIcon />
+          { file ? (
+            <img src={URL.createObjectURL(file)} className="rounded-full w-[100%] h-[100%] object-cover" />
+          ) : <Image src={user.image} width={100} height={100} alt="" className="rounded-full w-[100%] h-[100%] object-cover" />}
         </label>
-        <input type="file" name="image" id="image" hidden />
+        <input type="file" name="image" id="image" hidden onChange={(e) => setFile(e.target.files[0])}/>
+        {errors.image && <p className="text-red-400">{errors.image}</p>}
       </div>
       <div className="flex gap-2 flex-col w-full">
         <label htmlFor="name">Name</label>
         <input
           type="text"
-          name="Name"
+          name="name"
           id="Name"
-          ref={nameRef}
-          className="bg-[#011740] border  px-3 border-white rounded h-10 focus:outline-blue-500 "
+          value={name}
+          placeholder={user.name}
+          onChange={(e) => setName(e.target.value)}
+          className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500 "
           maxlength="12"
         />
+         {errors.name && <p className="text-red-400">{errors.name}</p>}
       </div>
       <div className="flex gap-2 flex-col w-full">
-        {/* <label htmlFor="Nationality">Nationality</label>
-        <input
-          type="text"
-          name="Nationality"
-          id="Nationality"
-          ref={nationalityRef}
-          className="bg-[#011335] border px-3  border-white rounded h-10 focus:outline-blue-500 "
-        /> */}
         <label htmlFor="Nationality">Nationality</label>
          <Box sx={{ minWidth: 120 }}>
          <FormControl  variant="standard" fullWidth>
         <Select
           labelId="demo-customized-select-label"
           id="demo-customized-select"
+          name="nationality"
           value={nationality}
-          onChange={handleChange}
+          placeholder={user.nationality}
+          onChange={(e) => setNationality(e.target.value)}
           input={<BootstrapInput />}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value="afghan">Afghan</MenuItem>
-          <MenuItem value="albanian">Albanian</MenuItem>
-          <MenuItem value="algerian">Algerian</MenuItem>
-          <MenuItem value="american">American</MenuItem>
-          <MenuItem value="andorran">Andorran</MenuItem>
-          <MenuItem value="angolan">Angolan</MenuItem>
-          <MenuItem value="antiguans">Antiguans</MenuItem>
-          <MenuItem value="argentinean">Argentinean</MenuItem>
-          <MenuItem value="armenian">Armenian</MenuItem>
-          <MenuItem value="australian">Australian</MenuItem>
-          <MenuItem value="austrian">Austrian</MenuItem>
-          <MenuItem value="azerbaijani">Azerbaijani</MenuItem>
-          <MenuItem value="bahamian">Bahamian</MenuItem>
-          <MenuItem value="bahraini">Bahraini</MenuItem>
-          <MenuItem value="bangladeshi">Bangladeshi</MenuItem>
-          <MenuItem value="barbadian">Barbadian</MenuItem>
-          <MenuItem value="barbudans">Barbudans</MenuItem>
-          <MenuItem value="batswana">Batswana</MenuItem>
-          <MenuItem value="belarusian">Belarusian</MenuItem>
-          <MenuItem value="belgian">Belgian</MenuItem>
-          <MenuItem value="belizean">Belizean</MenuItem>
-          <MenuItem value="beninese">Beninese</MenuItem>
-          <MenuItem value="bhutanese">Bhutanese</MenuItem>
-          <MenuItem value="bolivian">Bolivian</MenuItem>
-          <MenuItem value="bosnian">Bosnian</MenuItem>
-          <MenuItem value="brazilian">Brazilian</MenuItem>
-          <MenuItem value="british">British</MenuItem>
-          <MenuItem value="bruneian">Bruneian</MenuItem>
-          <MenuItem value="bulgarian">Bulgarian</MenuItem>
-          <MenuItem value="burkinabe">Burkinabe</MenuItem>
-          <MenuItem value="burmese">Burmese</MenuItem>
-          <MenuItem value="burundian">Burundian</MenuItem>
-          <MenuItem value="cambodian">Cambodian</MenuItem>
-          <MenuItem value="cameroonian">Cameroonian</MenuItem>
-          <MenuItem value="canadian">Canadian</MenuItem>
-          <MenuItem value="cape verdean">Cape Verdean</MenuItem>
-          <MenuItem value="central african">Central African</MenuItem>
-          <MenuItem value="chadian">Chadian</MenuItem>
-          <MenuItem value="chilean">Chilean</MenuItem>
-          <MenuItem value="chinese">Chinese</MenuItem>
-          <MenuItem value="colombian">Colombian</MenuItem>
-          <MenuItem value="comoran">Comoran</MenuItem>
-          <MenuItem value="congolese">Congolese</MenuItem>
-          <MenuItem value="costa rican">Costa Rican</MenuItem>
-          <MenuItem value="croatian">Croatian</MenuItem>
-          <MenuItem value="cuban">Cuban</MenuItem>
-          <MenuItem value="cypriot">Cypriot</MenuItem>
-          <MenuItem value="czech">Czech</MenuItem>
-          <MenuItem value="danish">Danish</MenuItem>
-          <MenuItem value="djibouti">Djibouti</MenuItem>
-          <MenuItem value="dominican">Dominican</MenuItem>
-          <MenuItem value="dutch">Dutch</MenuItem>
-          <MenuItem value="east timorese">East Timorese</MenuItem>
-          <MenuItem value="ecuadorean">Ecuadorean</MenuItem>
-          <MenuItem value="egyptian">Egyptian</MenuItem>
-          <MenuItem value="emirian">Emirian</MenuItem>
-          <MenuItem value="equatorial guinean">Equatorial Guinean</MenuItem>
-          <MenuItem value="eritrean">Eritrean</MenuItem>
-          <MenuItem value="estonian">Estonian</MenuItem>
-          <MenuItem value="ethiopian">Ethiopian</MenuItem>
-          <MenuItem value="fijian">Fijian</MenuItem>
-          <MenuItem value="filipino">Filipino</MenuItem>
-          <MenuItem value="finnish">Finnish</MenuItem>
-          <MenuItem value="french">French</MenuItem>
-          <MenuItem value="gabonese">Gabonese</MenuItem>
-          <MenuItem value="gambian">Gambian</MenuItem>
-          <MenuItem value="georgian">Georgian</MenuItem>
-          <MenuItem value="german">German</MenuItem>
-          <MenuItem value="ghanaian">Ghanaian</MenuItem>
-          <MenuItem value="greek">Greek</MenuItem>
-          <MenuItem value="grenadian">Grenadian</MenuItem>
-          <MenuItem value="guatemalan">Guatemalan</MenuItem>
-          <MenuItem value="guinea-bissauan">Guinea-Bissauan</MenuItem>
-          <MenuItem value="guinean">Guinean</MenuItem>
-          <MenuItem value="guyanese">Guyanese</MenuItem>
-          <MenuItem value="haitian">Haitian</MenuItem>
-          <MenuItem value="herzegovinian">Herzegovinian</MenuItem>
-          <MenuItem value="honduran">Honduran</MenuItem>
-          <MenuItem value="hungarian">Hungarian</MenuItem>
-          <MenuItem value="icelander">Icelander</MenuItem>
-          <MenuItem value="indian">Indian</MenuItem>
-          <MenuItem value="indonesian">Indonesian</MenuItem>
-          <MenuItem value="iranian">Iranian</MenuItem>
-          <MenuItem value="iraqi">Iraqi</MenuItem>
-          <MenuItem value="irish">Irish</MenuItem>
-          <MenuItem value="israeli">Israeli</MenuItem>
-          <MenuItem value="italian">Italian</MenuItem>
-          <MenuItem value="ivorian">Ivorian</MenuItem>
-          <MenuItem value="jamaican">Jamaican</MenuItem>
-          <MenuItem value="japanese">Japanese</MenuItem>
-          <MenuItem value="jordanian">Jordanian</MenuItem>
-          <MenuItem value="kazakhstani">Kazakhstani</MenuItem>
-          <MenuItem value="kenyan">Kenyan</MenuItem>
-          <MenuItem value="kittian and nevisian">Kittian and Nevisian</MenuItem>
-          <MenuItem value="kuwaiti">Kuwaiti</MenuItem>
-          <MenuItem value="kyrgyz">Kyrgyz</MenuItem>
-          <MenuItem value="laotian">Laotian</MenuItem>
-          <MenuItem value="latvian">Latvian</MenuItem>
-          <MenuItem value="lebanese">Lebanese</MenuItem>
-          <MenuItem value="liberian">Liberian</MenuItem>
-          <MenuItem value="libyan">Libyan</MenuItem>
-          <MenuItem value="liechtensteiner">Liechtensteiner</MenuItem>
-          <MenuItem value="lithuanian">Lithuanian</MenuItem>
-          <MenuItem value="luxembourger">Luxembourger</MenuItem>
-          <MenuItem value="macedonian">Macedonian</MenuItem>
-          <MenuItem value="malagasy">Malagasy</MenuItem>
-          <MenuItem value="malawian">Malawian</MenuItem>
-          <MenuItem value="malaysian">Malaysian</MenuItem>
-          <MenuItem value="maldivan">Maldivan</MenuItem>
-          <MenuItem value="malian">Malian</MenuItem>
-          <MenuItem value="maltese">Maltese</MenuItem>
-          <MenuItem value="marshallese">Marshallese</MenuItem>
-          <MenuItem value="mauritanian">Mauritanian</MenuItem>
-          <MenuItem value="mauritian">Mauritian</MenuItem>
-          <MenuItem value="mexican">Mexican</MenuItem>
-          <MenuItem value="micronesian">Micronesian</MenuItem>
-          <MenuItem value="moldovan">Moldovan</MenuItem>
-          <MenuItem value="monacan">Monacan</MenuItem>
-          <MenuItem value="mongolian">Mongolian</MenuItem>
-          <MenuItem value="moroccan">Moroccan</MenuItem>
-          <MenuItem value="mosotho">Mosotho</MenuItem>
-          <MenuItem value="motswana">Motswana</MenuItem>
-          <MenuItem value="mozambican">Mozambican</MenuItem>
-          <MenuItem value="namibian">Namibian</MenuItem>
-          <MenuItem value="nauruan">Nauruan</MenuItem>
-          <MenuItem value="nepalese">Nepalese</MenuItem>
-          <MenuItem value="new zealander">New Zealander</MenuItem>
-          <MenuItem value="ni-vanuatu">Ni-Vanuatu</MenuItem>
-          <MenuItem value="nicaraguan">Nicaraguan</MenuItem>
-          <MenuItem value="nigerien">Nigerien</MenuItem>
-          <MenuItem value="north korean">North Korean</MenuItem>
-          <MenuItem value="northern irish">Northern Irish</MenuItem>
-          <MenuItem value="norwegian">Norwegian</MenuItem>
-          <MenuItem value="omani">Omani</MenuItem>
-          <MenuItem value="pakistani">Pakistani</MenuItem>
-          <MenuItem value="palauan">Palauan</MenuItem>
-          <MenuItem value="panamanian">Panamanian</MenuItem>
-          <MenuItem value="papua new guinean">Papua New Guinean</MenuItem>
-          <MenuItem value="paraguayan">Paraguayan</MenuItem>
-          <MenuItem value="peruvian">Peruvian</MenuItem>
-          <MenuItem value="polish">Polish</MenuItem>
-          <MenuItem value="portuguese">Portuguese</MenuItem>
-          <MenuItem value="qatari">Qatari</MenuItem>
-          <MenuItem value="romanian">Romanian</MenuItem>
-          <MenuItem value="russian">Russian</MenuItem>
-          <MenuItem value="rwandan">Rwandan</MenuItem>
-          <MenuItem value="saint lucian">Saint Lucian</MenuItem>
-          <MenuItem value="salvadoran">Salvadoran</MenuItem>
-          <MenuItem value="samoan">Samoan</MenuItem>
-          <MenuItem value="san marinese">San Marinese</MenuItem>
-          <MenuItem value="sao tomean">Sao Tomean</MenuItem>
-          <MenuItem value="saudi">Saudi</MenuItem>
-          <MenuItem value="scottish">Scottish</MenuItem>
-          <MenuItem value="senegalese">Senegalese</MenuItem>
-          <MenuItem value="serbian">Serbian</MenuItem>
-          <MenuItem value="seychellois">Seychellois</MenuItem>
-          <MenuItem value="sierra leonean">Sierra Leonean</MenuItem>
-          <MenuItem value="singaporean">Singaporean</MenuItem>
-          <MenuItem value="slovakian">Slovakian</MenuItem>
-          <MenuItem value="slovenian">Slovenian</MenuItem>
-          <MenuItem value="solomon islander">Solomon Islander</MenuItem>
-          <MenuItem value="somali">Somali</MenuItem>
-          <MenuItem value="south african">South African</MenuItem>
-          <MenuItem value="south korean">South Korean</MenuItem>
-          <MenuItem value="spanish">Spanish</MenuItem>
-          <MenuItem value="sri lankan">Sri Lankan</MenuItem>
-          <MenuItem value="sudanese">Sudanese</MenuItem>
-          <MenuItem value="surinamer">Surinamer</MenuItem>
-          <MenuItem value="swazi">Swazi</MenuItem>
-          <MenuItem value="swedish">Swedish</MenuItem>
-          <MenuItem value="swiss">Swiss</MenuItem>
-          <MenuItem value="syrian">Syrian</MenuItem>
-          <MenuItem value="taiwanese">Taiwanese</MenuItem>
-          <MenuItem value="tajik">Tajik</MenuItem>
-          <MenuItem value="tanzanian">Tanzanian</MenuItem>
-          <MenuItem value="thai">Thai</MenuItem>
-          <MenuItem value="togolese">Togolese</MenuItem>
-          <MenuItem value="tongan">Tongan</MenuItem>
-          <MenuItem value="trinidadian or tobagonian">Trinidadian or Tobagonian</MenuItem>
-          <MenuItem value="tunisian">Tunisian</MenuItem>
-          <MenuItem value="turkish">Turkish</MenuItem>
-          <MenuItem value="tuvaluan">Tuvaluan</MenuItem>
-          <MenuItem value="ugandan">Ugandan</MenuItem>
-          <MenuItem value="ukrainian">Ukrainian</MenuItem>
-          <MenuItem value="uruguayan">Uruguayan</MenuItem>
-          <MenuItem value="uzbekistani">Uzbekistani</MenuItem>
-          <MenuItem value="venezuelan">Venezuelan</MenuItem>
-          <MenuItem value="vietnamese">Vietnamese</MenuItem>
-          <MenuItem value="welsh">Welsh</MenuItem>
-          <MenuItem value="yemenite">Yemenite</MenuItem>
-          <MenuItem value="zambian">Zambian</MenuItem>
-          <MenuItem value="zimbabwean">Zimbabwean</MenuItem>
+          <MenuItem value="Afghan">Afghan</MenuItem>
+          <MenuItem value="Albanian">Albanian</MenuItem>
+          <MenuItem value="Algerian">Algerian</MenuItem>
+          <MenuItem value="American">American</MenuItem>
+          <MenuItem value="Andorran">Andorran</MenuItem>
+          <MenuItem value="Angolan">Angolan</MenuItem>
+          <MenuItem value="Antiguans">Antiguans</MenuItem>
+          <MenuItem value="Argentinean">Argentinean</MenuItem>
+          <MenuItem value="Armenian">Armenian</MenuItem>
+          <MenuItem value="Australian">Australian</MenuItem>
+          <MenuItem value="Austrian">Austrian</MenuItem>
+          <MenuItem value="Azerbaijani">Azerbaijani</MenuItem>
+          <MenuItem value="Bahamian">Bahamian</MenuItem>
+          <MenuItem value="Bahraini">Bahraini</MenuItem>
+          <MenuItem value="Bangladeshi">Bangladeshi</MenuItem>
+          <MenuItem value="Barbadian">Barbadian</MenuItem>
+          <MenuItem value="Barbudans">Barbudans</MenuItem>
+          <MenuItem value="Batswana">Batswana</MenuItem>
+          <MenuItem value="Belarusian">Belarusian</MenuItem>
+          <MenuItem value="Belgian">Belgian</MenuItem>
+          <MenuItem value="Belizean">Belizean</MenuItem>
+          <MenuItem value="Beninese">Beninese</MenuItem>
+          <MenuItem value="Bhutanese">Bhutanese</MenuItem>
+          <MenuItem value="Bolivian">Bolivian</MenuItem>
+          <MenuItem value="Bosnian">Bosnian</MenuItem>
+          <MenuItem value="Brazilian">Brazilian</MenuItem>
+          <MenuItem value="British">British</MenuItem>
+          <MenuItem value="Bruneian">Bruneian</MenuItem>
+          <MenuItem value="Bulgarian">Bulgarian</MenuItem>
+          <MenuItem value="Burkinabe">Burkinabe</MenuItem>
+          <MenuItem value="Burmese">Burmese</MenuItem>
+          <MenuItem value="Burundian">Burundian</MenuItem>
+          <MenuItem value="Cambodian">Cambodian</MenuItem>
+          <MenuItem value="Cameroonian">Cameroonian</MenuItem>
+          <MenuItem value="Canadian">Canadian</MenuItem>
+          <MenuItem value="Cape verdean">Cape Verdean</MenuItem>
+          <MenuItem value="Central african">Central African</MenuItem>
+          <MenuItem value="Chadian">Chadian</MenuItem>
+          <MenuItem value="Chilean">Chilean</MenuItem>
+          <MenuItem value="Chinese">Chinese</MenuItem>
+          <MenuItem value="Colombian">Colombian</MenuItem>
+          <MenuItem value="Comoran">Comoran</MenuItem>
+          <MenuItem value="Congolese">Congolese</MenuItem>
+          <MenuItem value="Costa rican">Costa Rican</MenuItem>
+          <MenuItem value="Croatian">Croatian</MenuItem>
+          <MenuItem value="Cuban">Cuban</MenuItem>
+          <MenuItem value="Cypriot">Cypriot</MenuItem>
+          <MenuItem value="Czech">Czech</MenuItem>
+          <MenuItem value="Danish">Danish</MenuItem>
+          <MenuItem value="Djibouti">Djibouti</MenuItem>
+          <MenuItem value="Dominican">Dominican</MenuItem>
+          <MenuItem value="Dutch">Dutch</MenuItem>
+          <MenuItem value="East timorese">East Timorese</MenuItem>
+          <MenuItem value="Ecuadorean">Ecuadorean</MenuItem>
+          <MenuItem value="Egyptian">Egyptian</MenuItem>
+          <MenuItem value="Emirian">Emirian</MenuItem>
+          <MenuItem value="Equatorial guinean">Equatorial Guinean</MenuItem>
+          <MenuItem value="Eritrean">Eritrean</MenuItem>
+          <MenuItem value="Estonian">Estonian</MenuItem>
+          <MenuItem value="Ethiopian">Ethiopian</MenuItem>
+          <MenuItem value="Fijian">Fijian</MenuItem>
+          <MenuItem value="Filipino">Filipino</MenuItem>
+          <MenuItem value="Finnish">Finnish</MenuItem>
+          <MenuItem value="French">French</MenuItem>
+          <MenuItem value="Gabonese">Gabonese</MenuItem>
+          <MenuItem value="Gambian">Gambian</MenuItem>
+          <MenuItem value="Georgian">Georgian</MenuItem>
+          <MenuItem value="German">German</MenuItem>
+          <MenuItem value="Ghanaian">Ghanaian</MenuItem>
+          <MenuItem value="Greek">Greek</MenuItem>
+          <MenuItem value="Grenadian">Grenadian</MenuItem>
+          <MenuItem value="Guatemalan">Guatemalan</MenuItem>
+          <MenuItem value="Guinea-bissauan">Guinea-Bissauan</MenuItem>
+          <MenuItem value="Guinean">Guinean</MenuItem>
+          <MenuItem value="Guyanese">Guyanese</MenuItem>
+          <MenuItem value="Haitian">Haitian</MenuItem>
+          <MenuItem value="Herzegovinian">Herzegovinian</MenuItem>
+          <MenuItem value="Honduran">Honduran</MenuItem>
+          <MenuItem value="Hungarian">Hungarian</MenuItem>
+          <MenuItem value="Icelander">Icelander</MenuItem>
+          <MenuItem value="Indian">Indian</MenuItem>
+          <MenuItem value="Indonesian">Indonesian</MenuItem>
+          <MenuItem value="Iranian">Iranian</MenuItem>
+          <MenuItem value="Iraqi">Iraqi</MenuItem>
+          <MenuItem value="Irish">Irish</MenuItem>
+          <MenuItem value="Israeli">Israeli</MenuItem>
+          <MenuItem value="Italian">Italian</MenuItem>
+          <MenuItem value="Ivorian">Ivorian</MenuItem>
+          <MenuItem value="Jamaican">Jamaican</MenuItem>
+          <MenuItem value="Japanese">Japanese</MenuItem>
+          <MenuItem value="Jordanian">Jordanian</MenuItem>
+          <MenuItem value="Kazakhstani">Kazakhstani</MenuItem>
+          <MenuItem value="Kenyan">Kenyan</MenuItem>
+          <MenuItem value="Kittian and nevisian">Kittian and Nevisian</MenuItem>
+          <MenuItem value="Kuwaiti">Kuwaiti</MenuItem>
+          <MenuItem value="Kyrgyz">Kyrgyz</MenuItem>
+          <MenuItem value="Laotian">Laotian</MenuItem>
+          <MenuItem value="Latvian">Latvian</MenuItem>
+          <MenuItem value="Lebanese">Lebanese</MenuItem>
+          <MenuItem value="Liberian">Liberian</MenuItem>
+          <MenuItem value="Libyan">Libyan</MenuItem>
+          <MenuItem value="Liechtensteiner">Liechtensteiner</MenuItem>
+          <MenuItem value="Lithuanian">Lithuanian</MenuItem>
+          <MenuItem value="Luxembourger">Luxembourger</MenuItem>
+          <MenuItem value="Macedonian">Macedonian</MenuItem>
+          <MenuItem value="Malagasy">Malagasy</MenuItem>
+          <MenuItem value="Malawian">Malawian</MenuItem>
+          <MenuItem value="Malaysian">Malaysian</MenuItem>
+          <MenuItem value="Maldivan">Maldivan</MenuItem>
+          <MenuItem value="Malian">Malian</MenuItem>
+          <MenuItem value="Maltese">Maltese</MenuItem>
+          <MenuItem value="Marshallese">Marshallese</MenuItem>
+          <MenuItem value="Mauritanian">Mauritanian</MenuItem>
+          <MenuItem value="Mauritian">Mauritian</MenuItem>
+          <MenuItem value="Mexican">Mexican</MenuItem>
+          <MenuItem value="Micronesian">Micronesian</MenuItem>
+          <MenuItem value="Moldovan">Moldovan</MenuItem>
+          <MenuItem value="Monacan">Monacan</MenuItem>
+          <MenuItem value="Mongolian">Mongolian</MenuItem>
+          <MenuItem value="Moroccan">Moroccan</MenuItem>
+          <MenuItem value="Mosotho">Mosotho</MenuItem>
+          <MenuItem value="Motswana">Motswana</MenuItem>
+          <MenuItem value="Mozambican">Mozambican</MenuItem>
+          <MenuItem value="Namibian">Namibian</MenuItem>
+          <MenuItem value="Nauruan">Nauruan</MenuItem>
+          <MenuItem value="Nepalese">Nepalese</MenuItem>
+          <MenuItem value="New zealander">New Zealander</MenuItem>
+          <MenuItem value="Ni-vanuatu">Ni-Vanuatu</MenuItem>
+          <MenuItem value="Nicaraguan">Nicaraguan</MenuItem>
+          <MenuItem value="Nigerian">Nigerian</MenuItem>
+          <MenuItem value="North korean">North Korean</MenuItem>
+          <MenuItem value="Northern irish">Northern Irish</MenuItem>
+          <MenuItem value="Norwegian">Norwegian</MenuItem>
+          <MenuItem value="Omani">Omani</MenuItem>
+          <MenuItem value="Pakistani">Pakistani</MenuItem>
+          <MenuItem value="Palauan">Palauan</MenuItem>
+          <MenuItem value="Panamanian">Panamanian</MenuItem>
+          <MenuItem value="Papua new guinean">Papua New Guinean</MenuItem>
+          <MenuItem value="Paraguayan">Paraguayan</MenuItem>
+          <MenuItem value="Peruvian">Peruvian</MenuItem>
+          <MenuItem value="Polish">Polish</MenuItem>
+          <MenuItem value="Portuguese">Portuguese</MenuItem>
+          <MenuItem value="Qatari">Qatari</MenuItem>
+          <MenuItem value="Romanian">Romanian</MenuItem>
+          <MenuItem value="Russian">Russian</MenuItem>
+          <MenuItem value="Rwandan">Rwandan</MenuItem>
+          <MenuItem value="Saint lucian">Saint Lucian</MenuItem>
+          <MenuItem value="Salvadoran">Salvadoran</MenuItem>
+          <MenuItem value="Samoan">Samoan</MenuItem>
+          <MenuItem value="San marinese">San Marinese</MenuItem>
+          <MenuItem value="Sao tomean">Sao Tomean</MenuItem>
+          <MenuItem value="Saudi">Saudi</MenuItem>
+          <MenuItem value="Scottish">Scottish</MenuItem>
+          <MenuItem value="Senegalese">Senegalese</MenuItem>
+          <MenuItem value="Serbian">Serbian</MenuItem>
+          <MenuItem value="Seychellois">Seychellois</MenuItem>
+          <MenuItem value="Sierra leonean">Sierra Leonean</MenuItem>
+          <MenuItem value="Singaporean">Singaporean</MenuItem>
+          <MenuItem value="Slovakian">Slovakian</MenuItem>
+          <MenuItem value="Slovenian">Slovenian</MenuItem>
+          <MenuItem value="Solomon islander">Solomon Islander</MenuItem>
+          <MenuItem value="Somali">Somali</MenuItem>
+          <MenuItem value="South african">South African</MenuItem>
+          <MenuItem value="South korean">South Korean</MenuItem>
+          <MenuItem value="Spanish">Spanish</MenuItem>
+          <MenuItem value="Sri lankan">Sri Lankan</MenuItem>
+          <MenuItem value="Sudanese">Sudanese</MenuItem>
+          <MenuItem value="Surinamer">Surinamer</MenuItem>
+          <MenuItem value="Swazi">Swazi</MenuItem>
+          <MenuItem value="Swedish">Swedish</MenuItem>
+          <MenuItem value="Swiss">Swiss</MenuItem>
+          <MenuItem value="Syrian">Syrian</MenuItem>
+          <MenuItem value="Taiwanese">Taiwanese</MenuItem>
+          <MenuItem value="Tajik">Tajik</MenuItem>
+          <MenuItem value="Tanzanian">Tanzanian</MenuItem>
+          <MenuItem value="Thai">Thai</MenuItem>
+          <MenuItem value="Togolese">Togolese</MenuItem>
+          <MenuItem value="Tongan">Tongan</MenuItem>
+          <MenuItem value="Trinidadian or tobagonian">Trinidadian or Tobagonian</MenuItem>
+          <MenuItem value="Tunisian">Tunisian</MenuItem>
+          <MenuItem value="Turkish">Turkish</MenuItem>
+          <MenuItem value="Tuvaluan">Tuvaluan</MenuItem>
+          <MenuItem value="Ugandan">Ugandan</MenuItem>
+          <MenuItem value="Ukrainian">Ukrainian</MenuItem>
+          <MenuItem value="Uruguayan">Uruguayan</MenuItem>
+          <MenuItem value="Uzbekistani">Uzbekistani</MenuItem>
+          <MenuItem value="Venezuelan">Venezuelan</MenuItem>
+          <MenuItem value="Vietnamese">Vietnamese</MenuItem>
+          <MenuItem value="Welsh">Welsh</MenuItem>
+          <MenuItem value="Yemenite">Yemenite</MenuItem>
+          <MenuItem value="Zambian">Zambian</MenuItem>
+          <MenuItem value="Zimbabwean">Zimbabwean</MenuItem>
         </Select>
       </FormControl>
     </Box>
+    {errors.nationality && <p className="text-red-400">{errors.nationality}</p>}
       </div>
       <div className="flex gap-2 flex-col w-full">
         <label htmlFor="Twitter">Twitter</label>
         <input
           type="url"
-          name="Twitter"
+          name="twitter"
           id="Twitter"
-          ref={twitterRef}
-          className="bg-[#011740] border  px-3  border-white rounded h-10 focus:outline-blue-500 "
+          value={twitter}
+          placeholder={user.twitter}
+          onChange={ (e) => setTwitter(e.target.value)}
+          className="bg-[#011335] border  px-3  border-white rounded h-10 focus:outline-blue-500 "
         />
+        {errors.twitter && <p className="text-red-400">{errors.twitter}</p>}
       </div>
-      <div className="gap-2 justify-left w-full">
-      <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards"/>
-      </div>
+      <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards" sx={{position: 'relative',right: '30%',}}/>
       <div className="flex gap-4 justify-center">
         <button
           type="button"
@@ -328,12 +416,17 @@ const ProfileEditForm = ({ onCloseForm }) => {
         >
           Cancel
         </button>
-        <button
-          type="submit"
-          className="font-Roboto bg-[#6E028F] rounded py-[8px] px-[24px]"
-        >
-          Save
-        </button>
+        {isFetching ? (
+          <button
+            type="submit"
+            className="font-Roboto bg-purple-400 cursor-not-allowed rounded py-[8px] px-[24px]"
+          >
+            Updating...
+          </button>) : (
+          <button className="font-Roboto bg-[#6E028F] rounded py-[8px] px-[24px]">
+           Save
+          </button>
+        )}
       </div>
     </form>
   );

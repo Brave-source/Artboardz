@@ -1,6 +1,7 @@
 import MainProfile from "../../User/MainProfile";
 import { DUMMY_RELEASES } from "../NewReleaseSections/NewReleaseSection";
 import UserArtboardzList from "../../User/UserArtboardzList";
+import { useSelector } from "react-redux";
 
 const DUMMY_USER = {
   image:
@@ -10,6 +11,11 @@ const DUMMY_USER = {
 };
 
 const MyProfileSection = () => {
+  const user = useSelector((user) => user.user.user);
+  const filterAssets = useSelector((item) => item.user.user.assets);
+  console.log(user)
+  console.log(filterAssets)
+
   return (
     <section className=" text-white font-Montserrat relative">
       <MainProfile
@@ -19,11 +25,11 @@ const MyProfileSection = () => {
       />
       <div className="p-4">
         <p className="font-Montserrat text-lg font-semibold tracking-wide sm:ml-5 mt-4">
-          My Artboardz ({DUMMY_RELEASES.length}){" "}
+          My Artboardz ({filterAssets?.length}){" "}
         </p>
       </div>
       <div className="p-4">
-        <UserArtboardzList artBoardz={DUMMY_RELEASES} />
+        <UserArtboardzList assets={filterAssets} />
       </div>
     </section>
   );
