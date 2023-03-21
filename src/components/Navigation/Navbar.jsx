@@ -74,7 +74,7 @@ const Navbar = () => {
         <Link href="https://theartbank.io">
         <Image src={partner2} width={40} />
         </Link>
-        <Link href="https://cur8.io">
+        <Link href="https://cur8labs.io">
         <Image src={partner3} width={40} />
         </Link>
         <Link href="https://splash.club">

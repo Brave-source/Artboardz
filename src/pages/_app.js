@@ -95,7 +95,7 @@ function MyApp({ Component, pageProps }) {
             <Link href="https://theartbank.io">
             <Image src={partner2} width={54} />
             </Link>
-            <Link  href="https://cur8.io">
+            <Link  href="https://cur8labs.io">
             <Image src={partner3} width={54} />
             </Link>
             <Link href="https://splash.club">
