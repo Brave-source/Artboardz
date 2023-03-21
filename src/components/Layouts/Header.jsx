@@ -45,8 +45,6 @@ const Header = () => {
     const setAssets = async() => {
       const block = await getNFTsForAddress("521281957f949d3c0428fe2cb9bbb52e0f06412effbf289cd3c84df9476c6f7269614c6f6467654762616279");
     const units = assets?.map((item) => item.unit)
-    console.log(block)
-    console.log(assets)
       // console.log(block.onchain_metadata.image.split("/")[2])
     //   setImage(block.onchain_metadata.image);
     const setPolicyIds = new Set(assets?.map((item) => item.policyId))

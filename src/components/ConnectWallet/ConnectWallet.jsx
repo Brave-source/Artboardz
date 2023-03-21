@@ -4,9 +4,10 @@ import { useWallet, useWalletList } from '@meshsdk/react'
 import Image from 'next/image'
 import { Button, Menu, MenuItem } from '@mui/material'
 import Dropdown from './Dropdown'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const ConnectWallet = () => {
-    const { wallet, connect, disconnect, connecting } = useWallet()
+    const { wallet, connected, connect, disconnect, connecting } = useWallet()
     const wallets = useWalletList()
 
     const [isOpen, setIsOpen] = useState(false)
@@ -20,10 +21,6 @@ const ConnectWallet = () => {
         }
     }, [])
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen)
-    }
-
     const handleWalletSelection = (wallet) => {
         localStorage.setItem('selectedWallet', JSON.stringify(wallet))
         setSelectedWallet(wallet)
@@ -36,9 +33,8 @@ const ConnectWallet = () => {
         disconnect()
         setSelectedWallet(null)
     }
-
     
-
+    // Dropdown handle
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -48,126 +44,83 @@ const ConnectWallet = () => {
       setAnchorEl(null);
     };
   
-
-
     return (
-        <>
         <div>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
+                onClick={handleClick} // Dropdown
             >
-                {selectedWallet && !connecting ?   (
-                    <div className='connect-wallet__disconnect'>
-                    <Button variant='outline' onClick={handleDisconnect} noShadow>
-                    <div className='flex'>
-                    <div className='bg-[#FFFFFF] w-[46px] h-[40px]'>logo</div>
-                    <div className='bg-[#123D91] w-[147px] h-[40px]'>Disconnect</div>
-                </div>
-                    </Button>
-                </div>
-                ) 
-                // : connecting ? (
-                //     <div>Connecting</div>
-                // ) 
-                
-                : (
-                    <div className='flex'>
-                    <div className='bg-[#FFFFFF] w-[46px] h-[40px]'>"[]"</div>
-                    <div className='bg-[#123D91] w-[147px] h-[40px] content-center'><p>Connect</p></div>
-                </div>
-                )}
-            </Button>
-                {connecting ? (
-                    <div>Connecting</div>
-                ) : !selectedWallet && !connecting && (
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        {wallets.map((wallet, index) => (
-                            <MenuItem key={index} onClick={() => handleWalletSelection(wallet)}>
-                                {wallet.name}
-                                <Image
-                                    src={wallet.icon}
-                                    alt={wallet.name}
-                                    width='30'
-                                    height='30'
-                                />
-                            </MenuItem>
-                    ))}
-                    </Menu>
-                )}
-        </div>
-
-{/* 
-        <Dropdown
-            title={
-                <Button >
-                    {selectedWallet ? (
-                        <div className='flex-gap'>
-                            <span>{selectedWallet.name}</span>
+                {connected && !connecting ?   (  // Connected
+                    <div className='flex items-center h-[40px]'>
+                        <div className='bg-[#FFFFFF] w-[46px] h-[40px] flex items-center'>
                             <Image
                                 src={selectedWallet.icon}
                                 alt={selectedWallet.name}
                                 width='30'
                                 height='30'
+                                style={{ margin: 'auto' }}
                             />
                         </div>
-                    ) : connecting ? (
-                        'Connecting'
-                    ) : (
-                        <div>
-                            <div>Connect</div>
-
-                            <BsChevronDown size={25} /> 
-                        </div>
-                    )}
-                </Button>
-            }
-        >
-            <div className='connect-wallet'>
-                {!selectedWallet && !connecting && (
-                    <ul>
-                        {wallets.map((wallet) => (
-                            <li
-                                key={wallet.name}
-                                onClick={() => handleWalletSelection(wallet)}
-                            >
-                                <span className='dropdown-button__wallet-name'>
-                                    {wallet.name}   
-                                </span>
-                                <Image
-                                    src={wallet.icon}
-                                    alt={wallet.name}
-                                    width='30'
-                                    height='30'
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-                {selectedWallet && (
-<div className='connect-wallet__disconnect'>
-                        <Button variant='outline' onClick={handleDisconnect} noShadow>
-                            Disconnect
-                        </Button>
+                        <div className='bg-[#123D91] w-[147px] py-2'>Disconnect</div>
+                    </div>
+                ) 
+                : connecting ? ( // Connecting
+                    <div className='flex items-center h-[40px]'>
+                        <div className='bg-[#123D91] w-[193px] py-2'>Connecting</div>
+                    </div>
+                ) 
+                
+                : ( // Not Connected
+                    <div className='flex items-center h-[40px]'>
+                        <div className='bg-[#FFFFFF] w-[46px] py-2'><ExpandMoreIcon /></div>
+                        <div className='bg-[#123D91] w-[147px] py-2'>Connect</div>
                     </div>
                 )}
-            </div>
-        </Dropdown> */}
-
-
-
-        </>
+            </Button>
+            {connected && !connecting ?   ( // Connected
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleDisconnect}>Disconnect</MenuItem>
+                </Menu>
+            ) 
+            : connecting ? ( // Connecting
+                <></>
+            ) 
+            
+            : ( // Not Connected
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    {wallets.map((wallet, index) => (
+                        <MenuItem key={index} onClick={() => handleWalletSelection(wallet)}>
+                            {wallet.name}
+                            <Image
+                                src={wallet.icon}
+                                alt={wallet.name}
+                                width='30'
+                                height='30'
+                            />
+                        </MenuItem>
+                    ))}
+                </Menu>
+            )}
+    </div>
     )
 }
 

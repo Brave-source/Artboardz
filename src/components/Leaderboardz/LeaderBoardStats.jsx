@@ -7,7 +7,6 @@ const LeaderBoardStats = () => {
   const collections = useSelector((collection) => collection.collection.collections.filter((item) => item.patronId.length > 0));
   const collectors = useSelector((collector) => collector.collector.collectors);
   const patrons = collectors?.filter((collector) => collector.policyIds.length > 0);
-  console.log(patrons)
   // const nfts = collectors?.map((item) => {
   //   return item.units.length
   // });
