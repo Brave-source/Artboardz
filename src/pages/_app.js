@@ -99,7 +99,7 @@ function MyApp({ Component, pageProps }) {
             <Image src={partner3} width={54} />
             </Link>
             <Link href="https://splash.club">
-            <Image src={partner4} width={40} />
+            <Image src={partner4} width={54} />
            </Link>
             </div>
                 {/* <div>

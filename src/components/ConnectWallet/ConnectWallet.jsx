@@ -60,25 +60,30 @@ const ConnectWallet = () => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                {selectedWallet ? (
+                {selectedWallet && !connecting ?   (
+                    <div className='connect-wallet__disconnect'>
+                    <Button variant='outline' onClick={handleDisconnect} noShadow>
                     <div className='flex'>
-                        <div className='bg-orange-500'>logo</div>
-                        <div className='bg-emerald-400'>balance</div>
-                    </div>
-                ) : connecting ? (
-                    <div>Connecting</div>
-                ) : (
-                    <div>Connect</div>
+                    <div className='bg-[#FFFFFF] w-[46px] h-[40px]'>logo</div>
+                    <div className='bg-[#123D91] w-[147px] h-[40px]'>Disconnect</div>
+                </div>
+                    </Button>
+                </div>
+                ) 
+                // : connecting ? (
+                //     <div>Connecting</div>
+                // ) 
+                
+                : (
+                    <div className='flex'>
+                    <div className='bg-[#FFFFFF] w-[46px] h-[40px]'>"[]"</div>
+                    <div className='bg-[#123D91] w-[147px] h-[40px] content-center'><p>Connect</p></div>
+                </div>
                 )}
             </Button>
-                {selectedWallet ? (
-                    <div className='flex'>
-                        <div className='bg-orange-500'>logo</div>
-                        <div className='bg-emerald-400'>balance</div>
-                    </div>
-                ) : connecting ? (
+                {connecting ? (
                     <div>Connecting</div>
-                ) : (
+                ) : !selectedWallet && !connecting && (
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -88,9 +93,8 @@ const ConnectWallet = () => {
                         'aria-labelledby': 'basic-button',
                         }}
                     >
-                        {wallets.map((wallet, index) => {
+                        {wallets.map((wallet, index) => (
                             <MenuItem key={index} onClick={() => handleWalletSelection(wallet)}>
-                                dandjna
                                 {wallet.name}
                                 <Image
                                     src={wallet.icon}
@@ -99,15 +103,12 @@ const ConnectWallet = () => {
                                     height='30'
                                 />
                             </MenuItem>
-                        })}
+                    ))}
                     </Menu>
                 )}
         </div>
 
-
-
-
-
+{/* 
         <Dropdown
             title={
                 <Button >
@@ -127,7 +128,7 @@ const ConnectWallet = () => {
                         <div>
                             <div>Connect</div>
 
-                            {/* <BsChevronDown size={25} /> */}
+                            <BsChevronDown size={25} /> 
                         </div>
                     )}
                 </Button>
@@ -162,7 +163,10 @@ const ConnectWallet = () => {
                     </div>
                 )}
             </div>
-        </Dropdown>
+        </Dropdown> */}
+
+
+
         </>
     )
 }
