@@ -55,7 +55,7 @@ const Header = () => {
     const inputs = {units, policyIds, id: user._id}
     // console.log(inputs)
       try {
-          const res = await axios.put( assets &&` http://172.31.6.96:3001/api/users/${user._id}`, inputs)
+          const res = await axios.put( assets &&` http://3.230.126.26/api/users/${user._id}`, inputs)
       }catch(err){
         console.log(err);
       }
@@ -72,7 +72,7 @@ const Header = () => {
     const getAddressInfo = async() => {
       dispatch(getUserStart)
       try {
-        const res = await axios.post(connected && "http://172.31.6.96:3001/api/users", profile);
+        const res = await axios.post(connected && "http://3.230.126.26/api/users", profile);
         dispatch(getUserSuccess((res.data)))
       }catch(err) {
         dispatch(getUserFailure())
