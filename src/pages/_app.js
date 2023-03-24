@@ -21,6 +21,7 @@ import Link from "next/link";
 import { getCollectionFailure, getCollectionStart, getCollectionSuccess } from "@/store/redux-slices/ArtBoardSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { baseURL } from "@/lib/index";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectorFailure, getCollectorStart, getCollectorSuccess } from "@/store/redux-slices/CollectorSlice";
 
@@ -43,7 +44,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections =async() => {
       dispatch(getCollectionStart())
       try {
-        const res = await axios.get('http://172.31.6.96:3001/api/collections');
+        const res = await axios.get(`http://${baseURL}/api/collections`);
         dispatch(getCollectionSuccess(res.data))
       }catch(err) {
         dispatch(getCollectionFailure())
@@ -56,7 +57,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections =async() => {
       dispatch(getCollectorStart())
       try {
-        const res = await axios.get('http://172.31.6.96:3001/api/users');
+        const res = await axios.get(`http://${baseURL}/api/users`);
         dispatch(getCollectorSuccess(res.data))
       }catch(err) {
         dispatch(getCollectorFailure())

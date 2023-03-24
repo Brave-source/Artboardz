@@ -22,6 +22,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import { baseURL } from "@/lib/index";
 import validation from "./Validation"
 import { updateUserFailure, updateUserStart, updateUserSuccess } from "@/store/redux-slices/userSlice";
   
@@ -137,7 +138,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
     setErrors(validation(updateUser))
     dispatch(updateUserStart())
     try {
-      const res = await axios.post(`http://172.31.6.96:3001/api/users/${id}`, updateUser)
+      const res = await axios.post(`http://${baseURL}/api/users/${id}`, updateUser)
       dispatch(updateUserSuccess(updateUser))
       toast.success("Successfully updated!")
       onCloseForm()

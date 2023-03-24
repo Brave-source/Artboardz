@@ -9,6 +9,7 @@ import HeaderProfile from "../User/HeaderProfile";
 import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import { getNFTsForAddress } from "../blockfrost/Blockfrost";
+import { baseURL } from "@/lib/index";
 
 const Header = () => {
   
@@ -55,7 +56,7 @@ const Header = () => {
     const inputs = {units, policyIds, id: user._id}
     // console.log(inputs)
       try {
-          const res = await axios.put( assets &&` http://172.31.6.96:3001/api/users/${user._id}`, inputs)
+          const res = await axios.put( assets && `http://${baseURL}/api/users/${user._id}`, inputs)
       }catch(err){
         console.log(err);
       }
@@ -72,7 +73,7 @@ const Header = () => {
     const getAddressInfo = async() => {
       dispatch(getUserStart)
       try {
-        const res = await axios.post(connected && "http://172.31.6.96:3001/api/users", profile);
+        const res = await axios.post(connected && `http://${baseURL}/api/users`, profile);
         dispatch(getUserSuccess((res.data)))
       }catch(err) {
         dispatch(getUserFailure())
@@ -80,6 +81,9 @@ const Header = () => {
     }
     getAddressInfo()
   },[address, connected])
+
+  console.log(window.location.hostname.split(":")[0]);
+  console.log(window.location.hostname);
 
   const navbarToggleHandler = () => {
     dispatch(UIAction.toggleNavbar());
