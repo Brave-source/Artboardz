@@ -44,7 +44,9 @@ function MyApp({ Component, pageProps }) {
     const getCollections =async() => {
       dispatch(getCollectionStart())
       try {
-        const res = await axios.get('http://54.159.18.143:3000/api/collections');
+        // http://54.159.18.143
+// http://54.159.18.143
+        const res = await axios.get('http://localhost:3000/api/collections');
         dispatch(getCollectionSuccess(res.data))
       }catch(err) {
         dispatch(getCollectionFailure())
@@ -57,7 +59,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections =async() => {
       dispatch(getCollectorStart())
       try {
-        const res = await axios.get('http://54.159.18.143:3000/api/users');
+        const res = await axios.get('http://localhost:3000/api/users');
         dispatch(getCollectorSuccess(res.data))
       }catch(err) {
         dispatch(getCollectorFailure())

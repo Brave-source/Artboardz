@@ -73,7 +73,8 @@ const Header = () => {
     const getAddressInfo = async() => {
       dispatch(getUserStart)
       try {
-        const res = await axios.post(connected && "http://3.230.126.26/api/users", profile);
+        // http://3.230.126.26
+        const res = await axios.post(connected && "http://localhost:3000/api/users", profile);
         dispatch(getUserSuccess((res.data)))
       }catch(err) {
         dispatch(getUserFailure())
