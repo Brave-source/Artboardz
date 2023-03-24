@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import partner1 from '@/assets/images/partner1.png'
 import partner2 from '@/assets/images/partner2.png'
 import partner3 from '@/assets/images/partner3.png'
+import partner4 from '@/assets/images/splash2.png'
 import Image from "next/image";
 
 
@@ -68,13 +69,16 @@ const Navbar = () => {
         <h1 className="p-2">Partners</h1>
         <div className="flex gap-2">
         <Link href="https://monetsociety.io">
-          <Image src={partner1} width={54} />
+          <Image src={partner1} width={40} />
         </Link>
         <Link href="https://theartbank.io">
-        <Image src={partner2} width={54} />
+        <Image src={partner2} width={40} />
         </Link>
-        <Link href="https://cur8.io">
-        <Image src={partner3} width={54} />
+        <Link href="https://cur8labs.io">
+        <Image src={partner3} width={40} />
+        </Link>
+        <Link href="https://splash.club">
+        <Image src={partner4} width={40} />
         </Link>
         </div>
       </div>

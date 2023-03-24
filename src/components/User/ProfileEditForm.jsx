@@ -195,6 +195,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
           placeholder={user.nationality}
           onChange={(e) => setNationality(e.target.value)}
           input={<BootstrapInput />}
+          className="bg-[#011335]"
         >
           <MenuItem value="">
             <em>None</em>

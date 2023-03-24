@@ -101,8 +101,7 @@ const ArtBoardzDetails = ({
           {patrons.slice(0, 4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
-                <div className={`xs:w-full md:w-1/4 my-2 ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>
-                  <PatronsCard 
+<div className={`xs:w-full md:w-1/4 my-2 md:px-5 lg:px-10  ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>                  <PatronsCard 
                     image={info.image}
                     name={info.name}
                     twitter={info.twitter}
@@ -112,9 +111,10 @@ const ArtBoardzDetails = ({
                 </div>
             );
           })}
+          
         </div>
         <div className="md:flex justify-between" {...getCollapseProps()}>
-          {patrons.slice(4).map((info, index) => {
+          {patrons.patron?.slice(4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
                 <div className={`xs:w-full md:w-1/4 my-2 ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>
@@ -133,19 +133,19 @@ const ArtBoardzDetails = ({
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
       </div>
-      {data.evolution.title && (
-        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">{data.evolution.title}</h2>
+      {evolution?.title && (
+        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">{evolution?.title}</h2>
       )}
       {/* <Colapse/> */}
       <div className="flex mx-2 my-4">
         <div className={"flex transition-all " + (checked ? "w-1/5" : "w-4/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={data.evolution.image} className={'object-cover h-[800px]'}  width={100} height={100} unoptimized={true}/>
+            <Image src={evolution?.image} className={'object-cover h-[800px]'}  unoptimized={true}/>
           </button>
         </div>
         <div className={"flex transition-all " + (checked ? "w-4/5" : "w-1/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={data.evolution.image2} className={'object-cover h-[800px]'} width={100} height={100} unoptimized={true}/>
+            <Image src={evolution?.image2} className={'object-cover h-[800px]'}  unoptimized={true}/>
           </button>
         </div>
       </div>

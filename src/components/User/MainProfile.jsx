@@ -16,14 +16,14 @@ const MainProfile = ({ image, username, location }) => {
 
   return (
     <div className="bg-primary-color p-4 text-white font-Montserrat flex gap-5 items-center tracking-wide relative">
-      <div className="w-[120px] h-[120px] rounded-full relative">
+      <div className="w-[200px] h-[200px] rounded-full relative">
         <Avatar image={user.image} username={user.name} />
-        <button
+        {/* <button
           onClick={toggleProfileEditFormHandler}
           className="w-[32px] aspect-square bg-[#0E1528] rounded-full absolute top-2/3 right-0 flex items-center justify-center"
         >
           <EditIcon />
-        </button>
+        </button> */}
       </div>
       <div>
       <div className="flex gap-x-4">
@@ -33,7 +33,11 @@ const MainProfile = ({ image, username, location }) => {
         </Link>
         </div>
         <p className="text-base font-medium">{user.nationality}</p>
+        <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-5/6    block tracking-wide text-base my-2">
+            Edit
+          </button>
       </div>
+      
       
       {editProfileIsShown && (
         <ProfileEditForm onCloseForm={toggleProfileEditFormHandler} />

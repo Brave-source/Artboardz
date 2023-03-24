@@ -38,7 +38,6 @@ export async function getNFTById(address: string, nftId: string) {
         headers: { 'project_id': API_KEY }
       });
       const data = response.data;
-      console.log(data)
   
       // Check if the address has any UTXOs (unspent transaction outputs)
       if (!data.utxo.length) {

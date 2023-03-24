@@ -111,7 +111,7 @@ expanded: expanded3},
         
         <Box key={index} onClick={question.handleClick} sx={{ width:{xl: '1242px',lg: '950px', md: '850px', sm:'590px',xs:'320px'}, display: 'flex',
         flexDirection: 'row', justifyContent:'center'}}>
-      <Card sx={{ border:1, borderColor:"#6E028F" , background:'transparent',  boxShadow: 0, marginY:'10px',}}>
+      <Card sx={{ border:1, borderColor:"#6E028F" , background:question.expanded ? 'rgba(255,255,255,.08)' : 'transparent',  boxShadow: 0, marginY:'10px',}}>
       <ExpandMore
         expand={question.expanded}
         onClick={question.handleClick}
@@ -140,7 +140,7 @@ expanded: expanded3},
     </ExpandMore> 
     <Collapse in={question.expanded} timeout="auto" unmountOnExit>
    
-      <CardContent className='relative bottom-2.5'>
+      <CardContent sx={{width:{xl: '1168px', lg: '900px', md: '800px',sm:'540px', xs:'310px'}}} className='relative bottom-2.5'>
    
       <p className="text-base text-white  mx-2 align-text-top"> {question.description}<Link className=" underline " href={question.href}>{question.link}</Link></p>
       <p className="text-base text-white  mx-4 align-text-top"> {question.step1}</p>
