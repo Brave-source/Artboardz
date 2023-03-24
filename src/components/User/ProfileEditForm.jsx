@@ -138,7 +138,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
     setErrors(validation(updateUser))
     dispatch(updateUserStart())
     try {
-      const res = await axios.post(`http://${baseURL}/api/users/${id}`, updateUser)
+      const res = await axios.post(`${baseURL}/api/users/${id}`, updateUser)
       dispatch(updateUserSuccess(updateUser))
       toast.success("Successfully updated!")
       onCloseForm()
