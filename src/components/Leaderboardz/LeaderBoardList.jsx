@@ -51,7 +51,7 @@ const LeaderBoardList = () => {
               position={index + 1}
               image={leader.image}
               name={leader.name}
-              amount={leader.assets}
+              assets={leader.assets}
               policyId ={leader.policyIds}
             />
           </div>

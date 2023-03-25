@@ -11,8 +11,8 @@ const DUMMY_USER = {
 };
 
 const MyProfileSection = () => {
-  const user = useSelector((user) => user.user.user);
-  const filterAssets = useSelector((item) => item.user.user.assets);
+  const policyIds = useSelector((user) => user.user.user.policyIds);
+  const filterAssets = useSelector((item) => item.user.user.assets?.filter((item) => policyIds.includes(item.policyId)));
 
   return (
     <section className=" text-white font-Montserrat relative">

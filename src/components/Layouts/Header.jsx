@@ -25,29 +25,13 @@ const Header = () => {
   const collectionPolicyIds = collection.map((item) => {
     return item.policy
   });
-
-//   useEffect(() => {
-//     console.log(assets)
-//     const getAssetMetadata = async() => {
-//         await Promise.all(
-//           assets?.map(async(item) => {
-//             const block = await getNFTsForAddress(item.unit)
-//             return item.unit
-//           })
-//         )
-//         console.log(res);
-//     }
-//     getAssetMetadata()
-//   },[assets])
  
   const profile = {stakeAddress: address, name: "", image: "", twitter: "", nationality:""}
   useEffect(() => {
     
     const setAssets = async() => {
-      const block = await getNFTsForAddress("521281957f949d3c0428fe2cb9bbb52e0f06412effbf289cd3c84df9476c6f7269614c6f6467654762616279");
     const units = assets?.map((item) => item.unit)
-      // console.log(block.onchain_metadata.image.split("/")[2])
-    //   setImage(block.onchain_metadata.image);
+    // setImage(block.onchain_metadata.image);
     const setPolicyIds = new Set(assets?.map((item) => item.policyId))
     const policyId = [...setPolicyIds];
     const policyIds = collectionPolicyIds.filter((item) => policyId.includes(item))
@@ -55,14 +39,13 @@ const Header = () => {
     const inputs = {units, policyIds, id: user._id}
     // console.log(inputs)
       try {
-          const res = await axios.put( assets &&` http://54.159.18.143/api/users/${user._id}`, inputs)
+          const res = await axios.put( assets &&`http://54.159.18.143:3000/api/users/${user._id}`, inputs)
       }catch(err){
         console.log(err);
       }
     }
     setAssets();
   },[assets, user])
-
 
   useEffect(() => {
    !connected && dispatch(logUserSuccess())
@@ -72,7 +55,6 @@ const Header = () => {
     const getAddressInfo = async() => {
       dispatch(getUserStart)
       try {
-        // http://3.230.126.26
         const res = await axios.post(connected && "http://54.159.18.143:3000/api/users", profile);
         dispatch(getUserSuccess((res.data)))
       }catch(err) {
@@ -82,8 +64,6 @@ const Header = () => {
     getAddressInfo()
   },[address, connected])
 
-  console.log(window.location.hostname.split(":")[0]);
-  console.log(window.location.hostname);
 
   const navbarToggleHandler = () => {
     dispatch(UIAction.toggleNavbar());
