@@ -25,29 +25,13 @@ const Header = () => {
   const collectionPolicyIds = collection.map((item) => {
     return item.policy
   });
-
-//   useEffect(() => {
-//     console.log(assets)
-//     const getAssetMetadata = async() => {
-//         await Promise.all(
-//           assets?.map(async(item) => {
-//             const block = await getNFTsForAddress(item.unit)
-//             return item.unit
-//           })
-//         )
-//         console.log(res);
-//     }
-//     getAssetMetadata()
-//   },[assets])
  
   const profile = {stakeAddress: address, name: "", image: "", twitter: "", nationality:""}
   useEffect(() => {
     
     const setAssets = async() => {
-      // const block = await getNFTsForAddress("521281957f949d3c0428fe2cb9bbb52e0f06412effbf289cd3c84df9476c6f7269614c6f6467654762616279");
     const units = assets?.map((item) => item.unit)
-      // console.log(block.onchain_metadata.image.split("/")[2])
-    //   setImage(block.onchain_metadata.image);
+    // setImage(block.onchain_metadata.image);
     const setPolicyIds = new Set(assets?.map((item) => item.policyId))
     const policyId = [...setPolicyIds];
     const policyIds = collectionPolicyIds.filter((item) => policyId.includes(item))

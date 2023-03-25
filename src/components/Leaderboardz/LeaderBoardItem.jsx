@@ -19,7 +19,7 @@ const LeaderboardItem = ({ position, image, name, assets, policyId }) => {
       pos = <p>{position}.</p>;
       break;
   }
-  const amount = assets?.filter((item) => policyId?.includes(item.policyIds))
+  const amount = assets?.filter((item) => policyId?.includes(item.policyId))
 
   return (
     <li className="flex gap-3 justify-between text-white items-center font-Montserrat tracking-wide text-base font-semibold">
