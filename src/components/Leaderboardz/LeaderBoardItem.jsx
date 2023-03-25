@@ -3,7 +3,7 @@ import SecondIcon from "@/assets/icons/SecondIcon";
 import ThirdIcon from "@/assets/icons/ThirdIcon";
 import Avatar from "./Avatar";
 
-const LeaderboardItem = ({ position, image, name, amount, policyId }) => {
+const LeaderboardItem = ({ position, image, name, assets, policyId }) => {
   let pos;
   switch (position) {
     case 1:
@@ -19,6 +19,7 @@ const LeaderboardItem = ({ position, image, name, amount, policyId }) => {
       pos = <p>{position}.</p>;
       break;
   }
+  const amount = assets?.filter((item) => policyId?.includes(item.policyIds))
 
   return (
     <li className="flex gap-3 justify-between text-white items-center font-Montserrat tracking-wide text-base font-semibold">
