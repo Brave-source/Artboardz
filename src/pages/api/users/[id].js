@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-    getNFTsForAddress
+
     try {
       const user = await User.findById(req.body.id);
      if(user) {

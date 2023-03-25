@@ -28,9 +28,7 @@ export default async function handler (req, res) {
        
     }
     if (method === "PUT") {
-      console.log("reached route")
         try {
-          console.log(req.body)
           const user = await User.findByIdAndUpdate(req.body._id, req.body, {
             new: true,
           });

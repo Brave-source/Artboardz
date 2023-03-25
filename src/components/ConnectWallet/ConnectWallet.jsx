@@ -66,7 +66,7 @@ const ConnectWallet = () => {
                             />
                             <ExpandMoreIcon sx={{color:'black'}} className='relative right-1'/>
                         </div>
-                        <div className='bg-[#123D91] w-[101px] py-2 rounded-r-lg text-[#FFFFFF]'><p>{lovelaceAssets.toFixed(2)} ₳</p></div>
+                        <div className='bg-[#123D91] w-[101px] py-2 rounded-r-lg text-[#FFFFFF]'><p>{lovelaceAssets.toFixed(0)} ₳</p></div>
                     </div>
                 ) 
                 : connecting ? ( // Connecting
