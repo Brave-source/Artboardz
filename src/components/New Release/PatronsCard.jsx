@@ -16,7 +16,7 @@ export const PatronsCard = ({ image, name, twitter, country, assets }) => {
         </div>
         <div>
           <p className="lead text-[#A0ABBB]">{country}</p>
-          <p>{assets.length} Artboardz</p>
+          {/* <p>{assets.length} Artboardz</p> */}
         </div>
       </div>
     </div>
