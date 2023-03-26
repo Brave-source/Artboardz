@@ -15,6 +15,8 @@ const ArtBoardzDetails = ({
   mintDate,
   physicalUrl,
   digitalUrl,
+  discord,
+  twitter,
   price,
   items,
   royalty,
@@ -88,7 +90,8 @@ const ArtBoardzDetails = ({
               items={items}
               royalty={royalty}
               country={info.country}
-              
+              discord={info.discord}
+              twitter={info.twitter}
             />
           </div>
         );

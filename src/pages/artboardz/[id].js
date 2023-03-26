@@ -131,6 +131,8 @@ const ArtBoardzDetailsPage = () => {
         items={collection?.supply}
         royalty={collection?.royalty}
         id={collection?._id}
+        discord={discord}
+        twitter={twitter}
       />
     </>
   );
