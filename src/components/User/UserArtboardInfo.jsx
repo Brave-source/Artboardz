@@ -4,7 +4,7 @@ import Image from 'next/image';
 import CardanoIcon from "@/assets/images/icons8-cardano-50.png"
 
 
-const UserArtboardzInfo = ({ name }) => {
+const UserArtboardzInfo = ({ name, jpgLink }) => {
     const router = useRouter();
   return (
     <div className="w grid grid-cols-1 space-y-1 tracking-wide text-white font-Montserrat content-evenly">
@@ -17,9 +17,11 @@ const UserArtboardzInfo = ({ name }) => {
         {/* <p className="text-sm">Listings: 3/30</p> */}
       </div>
       <div className="flex gap-1 items-center justify-between">
-      <button className={ "mt-[5px] bg-active-link rounded-xl font-semibold w-full h-[30px]  mx-auto block tracking-wide text-base"}>
+        <a href={jpgLink} target="_blank" rel="noreferrer">
+         <button className={ "mt-[5px] bg-active-link rounded-xl font-semibold w-full h-[30px]  mx-auto block tracking-wide text-base"}>
             Jpgstore
           </button>
+        </a>
       </div>
     </div>
   )

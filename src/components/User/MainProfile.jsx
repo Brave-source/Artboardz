@@ -17,7 +17,7 @@ const MainProfile = ({ image, username, location }) => {
   return (
     <div className="bg-primary-color p-4 text-white font-Montserrat flex gap-5 items-center tracking-wide relative">
       <div className="w-[200px] h-[200px] rounded-full relative">
-        <Avatar image={user.image} username={user.name} />
+        <Avatar image={user.image? user.image : "https://firebasestorage.googleapis.com/v0/b/cardano-d265c.appspot.com/o/defaultProfile.png?alt=media&token=63108be1-14c5-4f0c-87d5-95453461d972"} username={user.name} className={AvatarClass} width={200} height={200}/>
         {/* <button
           onClick={toggleProfileEditFormHandler}
           className="w-[32px] aspect-square bg-[#0E1528] rounded-full absolute top-2/3 right-0 flex items-center justify-center"

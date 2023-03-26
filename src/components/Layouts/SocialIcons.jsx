@@ -6,10 +6,10 @@ import WebIcon from "@/assets/icons/WebIcon";
 export const SocialIcons = (props) => {
   return (
     <div className="flex gap-2">
-      <a to={props.twitter}>
+      <a href={props.twitter} target="_blank" rel="noreferrer">
         <TwitterIcon />
       </a>
-      <a to={props.discord}>
+      <a href={props.discord} target="_blank" rel="noreferrer">
         <DiscordIcon />
       </a>
     </div>
