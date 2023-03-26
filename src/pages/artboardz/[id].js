@@ -124,15 +124,15 @@ const ArtBoardzDetailsPage = () => {
         artist={collection?.name}
         artDesc={collection?.desc}
         patrons={patrons}
-        physicalUrl={collection.physicalArtUrl}
-        digitalUrl={collection.digitalArtUrl}
+        physicalUrl={collection?.physicalArtUrl}
+        digitalUrl={collection?.digitalArtUrl}
         mintDate={collection?.mintDate}
         price={collection?.price}
         items={collection?.supply}
         royalty={collection?.royalty}
         id={collection?._id}
-        discord={collection.discord}
-        twitter={collection.twitter}
+        discord={collection?.discord}
+        twitter={collection?.twitter}
       />
     </>
   );

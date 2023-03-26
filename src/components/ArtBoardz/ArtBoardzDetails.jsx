@@ -79,19 +79,19 @@ const ArtBoardzDetails = ({
         return (
           <div key={index} className="py-12 ">
             <DetailsCard
-              image={info.artistUrl}
-              title={info.title}
-              desc2={info.mintingDetails}
-              desc3={info.aboutMe}
+              image={info?.artistUrl}
+              title={info?.title}
+              desc2={info?.mintingDetails}
+              desc3={info?.aboutMe}
               artist={artist}
-              artDesc={info.artDesc}
+              artDesc={info?.artDesc}
               mintDate={mintDate}
               price={price}
               items={items}
               royalty={royalty}
-              country={info.country}
-              discord={info.discord}
-              twitter={info.twitter}
+              country={info?.country}
+              discord={info?.discord}
+              twitter={info?.twitter}
             />
           </div>
         );

@@ -49,14 +49,14 @@ const ArtBoardzList = () => {
       {collections.map((release) => {
         return (
           <ArtBoardzItem
-            key={release._id}
-            id={release._id}
-            image={release.bannerUrl}
-            art={release.source}
-            artist={release.name}
-            city={release.city}
-            country={release.country}
-            title={release.title}
+            key={release?._id}
+            id={release?._id}
+            image={release?.bannerUrl}
+            art={release?.source}
+            artist={release?.name}
+            city={release?.city}
+            country={release?.country}
+            title={release?.title}
           />
         );
       })}
