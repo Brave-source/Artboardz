@@ -47,6 +47,7 @@ const NewReleaseDetails = ({
               country={info.country}
               artist={artist}
               buyLink={info.nmkrLink}
+              jpgLink={info.jpgLink}
               artDesc={artDesc}
               mintDate={mintDate}
               price={price}

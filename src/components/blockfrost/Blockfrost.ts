@@ -1,5 +1,5 @@
-const API_KEY = 'preprodbR58eCHwRZZyP7egeIGdD0v4YeZXdGP1';
-const API_URL = 'https://cardano-preprod.blockfrost.io/api/v0';
+const API_KEY = 'mainneta8IxXp7xlLz8d7XXBahqSXe6Ph9zdROe';
+const API_URL = 'https://cardano-mainnet.blockfrost.io/api/v0';
 import axios from 'axios';
 
 export async function getNFTsForAddress(address: string) {

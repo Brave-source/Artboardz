@@ -12,8 +12,9 @@ const ArtBoardzDetails = ({
   artist,
   artDesc,
   patrons,
-  evolution,
   mintDate,
+  physicalUrl,
+  digitalUrl,
   price,
   items,
   royalty,
@@ -133,19 +134,19 @@ const ArtBoardzDetails = ({
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
       </div>
-      {evolution?.title && (
-        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">{evolution?.title}</h2>
-      )}
+      {/* {evolution?.title && ( */}
+        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">Evolution</h2>
+      {/* )} */}
       {/* <Colapse/> */}
       <div className="flex mx-2 my-4">
         <div className={"flex transition-all " + (checked ? "w-1/5" : "w-4/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={evolution?.image} className={'object-cover h-[800px]'}  unoptimized={true}/>
+            <Image src={physicalUrl} className={'object-cover h-[800px]'}  unoptimized={true}/>
           </button>
         </div>
         <div className={"flex transition-all " + (checked ? "w-4/5" : "w-1/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={evolution?.image2} className={'object-cover h-[800px]'}  unoptimized={true}/>
+            <Image src={digitalUrl} className={'object-cover h-[800px]'}  unoptimized={true}/>
           </button>
         </div>
       </div>

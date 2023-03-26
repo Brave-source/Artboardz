@@ -40,7 +40,7 @@ const ArtBoardzList = () => {
 
   useEffect(() => {
     if (store) {
-      setCollections(store.collection.collections.filter((item) => item.newRelease == "0"));
+      setCollections(store.collection.collections);
     }
   }, [store]);
 

@@ -30,7 +30,7 @@ function ItemPurchaseActions(props) {
           <PlusIcon />
         </button>
       </div>
-        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold">
+        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold" target="_blank" rel="noreferrer">
         Buy
         </a>
     </div>
@@ -48,7 +48,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink }) => {
+export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink, jpgLink }) => {
   const [quantity, setQuantity] = useState(1);
 
   const incrementQuantityHandler = () => {
@@ -88,9 +88,11 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
               <p className="font-semibold">{country}</p>
             </div>
           </div>
-          <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
-            Jpgstore
-          </button>
+          <a href={jpgLink} target="_blank" rel="noreferrer">
+            <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
+              Jpgstore
+            </button>
+          </a>
           <ItemPurchaseActions
             quantity={quantity}
             incrementQuantityHandler={incrementQuantityHandler}
@@ -122,7 +124,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
       {/* Responsive Details and quantity section */}
       <div className="px-[8px] xl:hidden">
       <div className="flex flex-row content-center mt-[16px] justify-between md:justify-center">
-          <p className="text-2xl xl:text-[36px] font-medium ">Origins #422 by {artist}</p>
+          <p className="text-2xl xl:text-[36px] font-medium ">{title} by {artist}</p>
           <div className="mt-2 ml-4 ">
           <SocialIcons />
         </div> 
@@ -152,9 +154,11 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
               <p className="font-semibold">{location.country}</p>
             </div>
             </div>
-            <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
-            Jpgstore
-          </button>
+            <a href={jpgLink} target="_blank" rel="noreferrer">
+              <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
+              Jpgstore
+            </button>
+          </a>
           <ItemPurchaseActions
             quantity={quantity}
             incrementQuantityHandler={incrementQuantityHandler}
