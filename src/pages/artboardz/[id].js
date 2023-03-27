@@ -133,6 +133,7 @@ const ArtBoardzDetailsPage = () => {
         id={collection?._id}
         discord={collection?.discord}
         twitter={collection?.twitter}
+        policyId={collection?.policy}
       />
     </>
   );

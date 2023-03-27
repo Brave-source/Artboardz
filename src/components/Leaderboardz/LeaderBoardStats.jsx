@@ -11,14 +11,14 @@ const LeaderBoardStats = () => {
     return item.policyIds
   })
 
-  const singlePolicyIds = [].concat(...doublePolicyIds);
+  const singlePolicyIds = []?.concat(...doublePolicyIds);
 //  console.log(singlePolicyIds)
   // useEffect(() => {
   //   setNfts(patrons[0].assets?.map((item) => {
   //     return singlePolicyIds.includes(item.policyId)
   //   }))
   // },[collectors])
-  const nfts = patrons[0].assets.filter((item) => singlePolicyIds.includes(item.policyId))
+  const nfts = patrons[0]?.assets?.filter((item) => singlePolicyIds?.includes(item.policyId))
 
   // useEffect(() => {
   //   nfts.length > 0 && setTotalNfts(nfts?.reduce((accumulator, value) => {
@@ -34,15 +34,15 @@ const LeaderBoardStats = () => {
         <div className="grid grid-cols-3 gap-2 my-[8px] items-center justify-center text-base sm:text-xl">
           <div className="p-2 border rounded-lg border-light-purple text-center">
             <p>Collections</p>
-            <p className="font-semibold">{collections.length}</p>
+            <p className="font-semibold">{collections?.length}</p>
           </div>
           <div className="p-2 border rounded-lg border-light-purple text-center">
             <p>NFTs</p>
-            <p className="font-semibold">{nfts.length}</p>
+            <p className="font-semibold">{nfts?.length}</p>
           </div>
           <div className="p-2  border rounded-lg border-light-purple text-center">
             <p>Owners</p>
-            <p className="font-semibold">{patrons.length}</p>
+            <p className="font-semibold">{patrons?.length}</p>
           </div>
         </div>
       </div>

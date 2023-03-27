@@ -28,13 +28,15 @@ const MainProfile = ({ image, username, location }) => {
       <div>
       <div className="flex gap-x-4">
       <p className="text-xl font-semibold">{user.name}</p>
+      {user?.twitter && (
         <Link href="/">
           <TwitterIconsOutline className="mt-[6px]"/>
         </Link>
+      )}
         </div>
         <p className="text-base font-medium">{user.nationality}</p>
-        <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-5/6    block tracking-wide text-base my-2">
-            Edit
+        <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-8/3    block tracking-wide text-base my-2">
+            Add Profile
           </button>
       </div>
       

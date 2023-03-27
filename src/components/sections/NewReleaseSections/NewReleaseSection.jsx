@@ -94,9 +94,13 @@ const NewReleaseSection = () => {
       </Box>
     );
   })
+ 
   return (
     <section className="text-white font-Montserrat mr-[8px] xl:mr-[16px] ml-[8px] xl:mt-[8px]">
               <h1 className="xl:hidden block  text-[22px] md:text-[32px] font-semibold text-center tracking-wide text-white mb-[8px]">New Releases</h1>
+              {collections.length < 1 && <div className="flex justify-center items-center h-screen">
+                <p className="text-center text-3xl font-bold">New Releases Coming Soon</p>
+              </div>}
       <div className="hidden sm:w-full sm:rounded-[12px] xl:block">
       <Slider {...settings} className="w-full ">
       {displayCarrousel} 

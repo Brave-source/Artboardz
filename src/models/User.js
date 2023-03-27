@@ -29,10 +29,6 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    units: {
-        type: [String],
-        default: []
-    },
     assets: {
         type: [{
             name: {

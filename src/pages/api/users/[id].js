@@ -1,6 +1,5 @@
 import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
-import Asset from "../../../models/Asset";
 import Collection from "@/models/Collection";
 import { getNFTsForAddress } from "@/components/blockfrost/Blockfrost";
 

@@ -2,7 +2,7 @@ import { DetailsCard } from "../New Release/DetailsCard";
 import NewReleaseImage from "../New Release/NewReleaseImage";
 import { PatronsCard } from "../New Release/PatronsCard";
 import useCollapse from 'react-collapsed'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import data from "./DummyData";
 import { useSelector } from "react-redux";
@@ -21,10 +21,17 @@ const ArtBoardzDetails = ({
   items,
   royalty,
   id,
+  policyId
 }) => {
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))
+  // const [policy, setPolicy] = useState("");
+
+  // useEffect(() => {
+  //   setPolicy(collection[0]?.policy)
+  // },[collection])
+
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -110,7 +117,8 @@ const ArtBoardzDetails = ({
                     name={info.name}
                     twitter={info.twitter}
                     country={info.nationality}
-                    assets={info.units}
+                    assets={info.assets}
+                    policyId={policyId}
                   />
                 </div>
             );
@@ -127,7 +135,8 @@ const ArtBoardzDetails = ({
                     name={info.name}
                     twitter={info.twitter}
                     country={info.nationality}
-                    assets={info.units}
+                    assets={info.assets}
+                    policyId={policyId}
                   />
                 </div>
             );
