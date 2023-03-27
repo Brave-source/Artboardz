@@ -164,7 +164,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
         >
           { file ? (
             <img src={URL.createObjectURL(file)} className="rounded-full w-[100%] h-[100%] object-cover" />
-          ) : <Image src={user.image} width={100} height={100} alt="" className="rounded-full w-[100%] h-[100%] object-cover" />}
+          ) : <Image src={user.image} width={190} height={190} alt="" className="rounded-full w-190px h-190px  object-cover" />}
         </label>
         <input type="file" name="image" id="image" hidden onChange={(e) => setFile(e.target.files[0])}/>
         {errors.image && <p className="text-red-400">{errors.image}</p>}
@@ -410,7 +410,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
         />
         {errors.twitter && <p className="text-red-400">{errors.twitter}</p>}
       </div>
-      <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards" sx={{position: 'relative',right: '30%',}}/>
+      {/* <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards" sx={{position: 'relative',right: '30%',}}/> */}
       <div className="flex gap-4 justify-center">
         <button
           type="button"
