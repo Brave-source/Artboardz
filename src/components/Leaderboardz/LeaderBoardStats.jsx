@@ -18,7 +18,12 @@ const LeaderBoardStats = () => {
   //     return singlePolicyIds.includes(item.policyId)
   //   }))
   // },[collectors])
-  const nfts = patrons[0]?.assets?.filter((item) => singlePolicyIds?.includes(item.policyId))
+  // const nfts = patrons[0]?.assets?.filter((item) => singlePolicyIds?.includes(item.policyId))
+  const testNfts =patrons.map((item) => { 
+    return item.assets.filter((ass) => singlePolicyIds.includes(ass.policyId))
+  })
+  const nfts = [].concat(...testNfts);
+
 
   // useEffect(() => {
   //   nfts.length > 0 && setTotalNfts(nfts?.reduce((accumulator, value) => {

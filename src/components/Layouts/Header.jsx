@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardanoWallet, useWallet, useAddress, useAssets} from "@meshsdk/react";
 import axios from "axios";
-import { getUserFailure, getUserStart, getUserSuccess, logUserSuccess } from "@/store/redux-slices/userSlice";
+import { getUserFailure, getUserStart, getUserSuccess, logUserSuccess, updateUserSuccess } from "@/store/redux-slices/userSlice";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import UserBalance from "../User/UserBalance";
 import HeaderProfile from "../User/HeaderProfile";
@@ -20,6 +20,7 @@ const Header = () => {
   const assets = useAssets();
   const { connected } = useWallet();
   const user = useSelector((item) => item.user.user);
+  const id = user._id;
   const collection = useSelector((item) => item.collection.collections);
   
   const collectionPolicyIds = collection.map((item) => {
@@ -34,18 +35,19 @@ const Header = () => {
     // setImage(block.onchain_metadata.image);
     const setPolicyIds = new Set(assets?.map((item) => item.policyId))
     const policyId = [...setPolicyIds];
-    const policyIds = collectionPolicyIds.filter((item) => policyId.includes(item))
+    const policyIds = new Set(collectionPolicyIds.filter((item) => policyId.includes(item)));
+    const policyids = [...policyIds]
 
-    const inputs = {units, policyIds, id: user._id}
-    // console.log(inputs)
+    const inputs = {units, policyIds: policyids, id: user._id}
       try {
           const res = await axios.put( assets &&`http://54.159.18.143:3000/api/users/${user._id}`, inputs)
+          dispatch(updateUserSuccess(res.data))
       }catch(err){
         console.log(err);
       }
     }
     setAssets();
-  },[assets, user])
+  },[assets])
 
   useEffect(() => {
    !connected && dispatch(logUserSuccess())

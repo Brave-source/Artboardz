@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditIcon from "@/assets/icons/EditIcon";
 import TwitterIconsOutline from "@/assets/icons/TwitterIconsOutline";
 import Avatar from "./Avatar";
@@ -7,12 +7,24 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 const MainProfile = ({ image, username, location }) => {
+  const [isRecord, setIsRecord] = useState(false);
   const user = useSelector((item) => item.user.user);
   const [editProfileIsShown, setEditProfileIsShown] = useState(false);
 
   const toggleProfileEditFormHandler = () => {
     setEditProfileIsShown((oldState) => !oldState);
   };
+  useEffect(() =>{
+    if(user.name) {
+      setIsRecord(true)
+    } else if(user.nationality) {
+      setIsRecord(true)
+    } else if(user.image) {
+      setIsRecord(true)
+    } else if(user.twitter) {
+      setIsRecord(true)
+    }
+  },[user]);
 
   return (
     <div className="bg-primary-color p-4 text-white font-Montserrat flex gap-5 items-center tracking-wide relative">
@@ -35,14 +47,20 @@ const MainProfile = ({ image, username, location }) => {
       )}
         </div>
         <p className="text-base font-medium">{user.nationality}</p>
-        <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-8/3    block tracking-wide text-base my-2">
-            Add Profile
-          </button>
+        {isRecord ? (
+           <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-8/3    block tracking-wide text-base my-2">
+           Edit Profile
+       </button>
+        ): (
+          <button onClick={toggleProfileEditFormHandler} className="bg-active-link rounded-xl p-2 font-semibold w-8/3    block tracking-wide text-base my-2">
+          Add Profile
+      </button>
+        )}
       </div>
       
       
       {editProfileIsShown && (
-        <ProfileEditForm onCloseForm={toggleProfileEditFormHandler} />
+        <ProfileEditForm onCloseForm={toggleProfileEditFormHandler}  propUser={user}/>
       )}
     </div>
   );
