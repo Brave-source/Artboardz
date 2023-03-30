@@ -4,13 +4,10 @@ import { CardanoWallet, useWallet, useAddress, useAssets} from "@meshsdk/react";
 import axios from "axios";
 import { getUserFailure, getUserStart, getUserSuccess, logUserSuccess, updateUserSuccess } from "@/store/redux-slices/userSlice";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import UserBalance from "../User/UserBalance";
 import HeaderProfile from "../User/HeaderProfile";
 import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
-import { getNFTsForAddress } from "../blockfrost/Blockfrost";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
-import { baseURL } from "@/lib/index";
 
 const Header = () => {
   
@@ -22,6 +19,8 @@ const Header = () => {
   const user = useSelector((item) => item.user.user);
   const id = user._id;
   const collection = useSelector((item) => item.collection.collections);
+  console.log(address)
+  console.log(connected)
   
   const collectionPolicyIds = collection.map((item) => {
     return item.policy
@@ -40,7 +39,7 @@ const Header = () => {
 
     const inputs = {units, policyIds: policyids, id: user._id}
       try {
-          const res = await axios.put( assets &&`http://54.159.18.143:3000/api/users/${user._id}`, inputs)
+          const res = await axios.put( assets &&`http://localhost:3000/api/users/${user._id}`, inputs)
           dispatch(updateUserSuccess(res.data))
       }catch(err){
         console.log(err);
@@ -57,7 +56,7 @@ const Header = () => {
     const getAddressInfo = async() => {
       dispatch(getUserStart)
       try {
-        const res = await axios.post(connected && "http://54.159.18.143:3000/api/users", profile);
+        const res = await axios.post(connected && "http://localhost:3000/api/users", profile);
         dispatch(getUserSuccess((res.data)))
       }catch(err) {
         dispatch(getUserFailure())
