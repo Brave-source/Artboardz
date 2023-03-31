@@ -115,9 +115,9 @@ const ArtFlowSection = () => {
               Artist creates physical version of the art
               </p>
               </div>
-      <div >
+      {/* <div >
         <h1 className="text-[20px] sm:text-[40px] p-4">Our Roadmap</h1>
-      </div>
+      </div> */}
     </section>
   );
 };
