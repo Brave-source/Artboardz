@@ -3,14 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body
-{
-  display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-background: #011335;
-}
 .menu {
   position: relative;
   width: 300px;
