@@ -54,6 +54,10 @@ const UserSchema = mongoose.Schema({
         }],
         default: []
     },
+    display: {
+        type: Boolean,
+         default: false
+    },
     policyIds: {
         type: [String],
         default: []
