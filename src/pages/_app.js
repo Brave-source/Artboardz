@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }) {
       try {
         // http://54.159.18.143
 // http://54.159.18.143
-        const res = await axios.get('https://drrahldmeerec.cloudfront.net:3000/api/collections');
+        const res = await axios.get('https://54.159.18.143:3000/api/collections');
         dispatch(getCollectionSuccess(res.data))
       }catch(err) {
         dispatch(getCollectionFailure())
@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections =async() => {
       dispatch(getCollectorStart())
       try {
-        const res = await axios.get('https://drrahldmeerec.cloudfront.net:3000/api/users');
+        const res = await axios.get('https://54.159.18.143:3000/api/users');
         dispatch(getCollectorSuccess(res.data))
       }catch(err) {
         dispatch(getCollectorFailure())
