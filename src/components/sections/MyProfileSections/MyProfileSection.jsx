@@ -13,8 +13,6 @@ const DUMMY_USER = {
 const MyProfileSection = () => {
   const user = useSelector((user) => user.user.user);
   const filterAssets = useSelector((item) => item.user.user.assets);
-  console.log(user)
-  console.log(filterAssets)
 
   return (
     <section className=" text-white font-Montserrat relative">

@@ -14,6 +14,7 @@ import useWindowSize from "@/hook/window-size";
 import partner1 from '@/assets/images/partner1.png'
 import partner2 from '@/assets/images/partner2.png'
 import partner3 from '@/assets/images/partner3.png'
+import partner4 from '@/assets/images/splash2.png'
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
@@ -94,9 +95,12 @@ function MyApp({ Component, pageProps }) {
             <Link href="https://theartbank.io">
             <Image src={partner2} width={54} />
             </Link>
-            <Link  href="https://cur8.io">
+            <Link  href="https://cur8labs.io">
             <Image src={partner3} width={54} />
             </Link>
+            <Link href="https://splash.club">
+            <Image src={partner4} width={54} />
+           </Link>
             </div>
                 {/* <div>
                   <p className="text-white font-Montserrat">Pool ID: d19db...44</p>

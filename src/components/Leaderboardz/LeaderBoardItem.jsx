@@ -29,7 +29,7 @@ const LeaderboardItem = ({ position, image, name, amount, policyId }) => {
         </div>
         <p className=" ">{name}</p>
       </div>
-      <p>{policyId.length}({amount.length})</p>
+      <p>{policyId.length}({amount?.length})</p>
     </li>
   );
 };

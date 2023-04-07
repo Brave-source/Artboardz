@@ -5,6 +5,7 @@ import BillboardSection from "@/components/sections/HomeSections/BillboardSectio
 import TwitterIcon from "@/assets/icons/TwitterIcon";
 import DiscordIcon from "@/assets/icons/DiscordIcon";
 import Link from "next/link";
+import Roadmap from "@/components/Roadmap/Roadmap";
 
 const About = () => {
     useEffect(() => {
@@ -15,6 +16,7 @@ const About = () => {
           <BillboardSection />
           <BenefitsSections />
           <ArtFlowSection />
+          <Roadmap/>
           <div className="h-screen w-fit mx-auto mt-auto sm:mb-10 flex items-center flex-col ">
           <div className="flex gap-2">
           <Link href={'https://twitter.com/theartbankers'}>
