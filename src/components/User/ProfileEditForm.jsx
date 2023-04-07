@@ -22,6 +22,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import { baseURL } from "@/lib/index";
 import validation from "./Validation"
 import { updateUserFailure, updateUserStart, updateUserSuccess } from "@/store/redux-slices/userSlice";
   
@@ -57,41 +58,31 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
   
-const ProfileEditForm = ({ onCloseForm }) => {
+const ProfileEditForm = ({ onCloseForm, propUser }) => {
 
-  const handleChange = (event) => {
-    setUserUpdate({
-      ...user,
-      [event.target.name]: event.target.value
-    })
-  }
   const [file, setFile] = useState(null)
-  const [user, setUser] = useState({})
-  const[nationality, setNationality] = useState(user.nationality);
-  const [name, setName] = useState(user.name);
-  const [twitter, setTwitter] = useState(user.twitter);
+
   const [fileUrl, setFileUrl] = useState("");
   const [errors, setErrors] = useState({})
-  const [userUpdate, setUserUpdate] = useState({
-    name: name,
-    nationality:nationality,
-    twitter: twitter
-  });
+
   const [isFetching, setIsFetching] = useState(false)
   const dispatch = useDispatch()
-  const id = user._id;
-
+  const id = propUser._id;
+  
   const store = useSelector(state => state);
-
+  
   useEffect(() => {
     if (store) {
-      setUser(store.user.user);
       setIsFetching(store.user.isFetching);
     }
   }, [store]);
 
+  const[nationality, setNationality] = useState(propUser.nationality);
+  const [name, setName] = useState(propUser.name);
+  const [twitter, setTwitter] = useState(propUser.twitter);
+ 
   const uploadFile = (file, imageUrl) => {
-
+    
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
@@ -130,7 +121,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
     file && uploadFile(file, "image")
   }, [file])
 
-  const updateUser = {image: fileUrl ? fileUrl : user.image, name: name? name : user.name, nationality: nationality? nationality: user.nationality, twitter: twitter ? twitter: user.twitter,}
+  const updateUser = {_id: id, image: fileUrl ? fileUrl : propUser.image, name: name? name : propUser.name, nationality: nationality? nationality: propUser.nationality, twitter: twitter ? twitter: propUser.twitter,}
 
   const formSubmitHandler = async(evt) => {
     evt.preventDefault();
@@ -162,19 +153,18 @@ const ProfileEditForm = ({ onCloseForm }) => {
         >
           { file ? (
             <img src={URL.createObjectURL(file)} className="rounded-full w-[100%] h-[100%] object-cover" />
-          ) : <Image src={user.image} width={100} height={100} alt="" className="rounded-full w-[100%] h-[100%] object-cover" />}
+          ) : <Image src={propUser.image} width={190} height={190} alt="" className="rounded-full w-190px h-190px  object-cover" />}
         </label>
         <input type="file" name="image" id="image" hidden onChange={(e) => setFile(e.target.files[0])}/>
-        {errors.image && <p className="text-red-400">{errors.image}</p>}
+        {/* {errors.image && <p className="text-red-400">{errors.image}</p>} */}
       </div>
       <div className="flex gap-2 flex-col w-full">
         <label htmlFor="name">Name</label>
         <input
           type="text"
-          name="name"
+          // name="name"
           id="Name"
           value={name}
-          placeholder={user.name}
           onChange={(e) => setName(e.target.value)}
           className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500 "
           maxlength="12"
@@ -190,7 +180,6 @@ const ProfileEditForm = ({ onCloseForm }) => {
           id="demo-customized-select"
           name="nationality"
           value={nationality}
-          placeholder={user.nationality}
           onChange={(e) => setNationality(e.target.value)}
           input={<BootstrapInput />}
           className="bg-[#011335]"
@@ -393,7 +382,7 @@ const ProfileEditForm = ({ onCloseForm }) => {
         </Select>
       </FormControl>
     </Box>
-    {errors.nationality && <p className="text-red-400">{errors.nationality}</p>}
+    {/* {errors.nationality && <p className="text-red-400">{errors.nationality}</p>} */}
       </div>
       <div className="flex gap-2 flex-col w-full">
         <label htmlFor="Twitter">Twitter</label>
@@ -402,13 +391,12 @@ const ProfileEditForm = ({ onCloseForm }) => {
           name="twitter"
           id="Twitter"
           value={twitter}
-          placeholder={user.twitter}
           onChange={ (e) => setTwitter(e.target.value)}
           className="bg-[#011335] border  px-3  border-white rounded h-10 focus:outline-blue-500 "
         />
-        {errors.twitter && <p className="text-red-400">{errors.twitter}</p>}
+        {/* {errors.twitter && <p className="text-red-400">{errors.twitter}</p>} */}
       </div>
-      <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards" sx={{position: 'relative',right: '30%',}}/>
+      {/* <FormControlLabel control={<Checkbox defaultChecked /> } label="Receive Rewards" sx={{position: 'relative',right: '30%',}}/> */}
       <div className="flex gap-4 justify-center">
         <button
           type="button"

@@ -2,7 +2,7 @@ import { DetailsCard } from "../New Release/DetailsCard";
 import NewReleaseImage from "../New Release/NewReleaseImage";
 import { PatronsCard } from "../New Release/PatronsCard";
 import useCollapse from 'react-collapsed'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import data from "./DummyData";
 import { useSelector } from "react-redux";
@@ -12,16 +12,26 @@ const ArtBoardzDetails = ({
   artist,
   artDesc,
   patrons,
-  evolution,
   mintDate,
+  physicalUrl,
+  digitalUrl,
+  discord,
+  twitter,
   price,
   items,
   royalty,
   id,
+  policyId
 }) => {
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))
+  // const [policy, setPolicy] = useState("");
+
+  // useEffect(() => {
+  //   setPolicy(collection[0]?.policy)
+  // },[collection])
+
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -76,18 +86,19 @@ const ArtBoardzDetails = ({
         return (
           <div key={index} className="py-12 ">
             <DetailsCard
-              image={info.artistUrl}
-              title={info.title}
-              desc2={info.mintingDetails}
-              desc3={info.aboutMe}
+              image={info?.artistUrl}
+              title={info?.title}
+              desc2={info?.mintingDetails}
+              desc3={info?.aboutMe}
               artist={artist}
-              artDesc={artDesc}
+              artDesc={info?.artDesc}
               mintDate={mintDate}
               price={price}
               items={items}
               royalty={royalty}
-              country={info.country}
-              
+              country={info?.country}
+              discord={info?.discord}
+              twitter={info?.twitter}
             />
           </div>
         );
@@ -106,7 +117,8 @@ const ArtBoardzDetails = ({
                     name={info.name}
                     twitter={info.twitter}
                     country={info.nationality}
-                    assets={info.units}
+                    assets={info.assets}
+                    policyId={policyId}
                   />
                 </div>
             );
@@ -123,7 +135,8 @@ const ArtBoardzDetails = ({
                     name={info.name}
                     twitter={info.twitter}
                     country={info.nationality}
-                    assets={info.units}
+                    assets={info.assets}
+                    policyId={policyId}
                   />
                 </div>
             );
@@ -133,19 +146,19 @@ const ArtBoardzDetails = ({
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
       </div>
-      {evolution?.title && (
-        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">{evolution?.title}</h2>
-      )}
+      {/* {evolution?.title && ( */}
+        <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">Evolution</h2>
+      {/* )} */}
       {/* <Colapse/> */}
       <div className="flex mx-2 my-4">
         <div className={"flex transition-all " + (checked ? "w-1/5" : "w-4/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={evolution?.image} className={'object-cover h-[800px]'}  unoptimized={true}/>
+            <Image src={physicalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100}  unoptimized={true}/>
           </button>
         </div>
         <div className={"flex transition-all " + (checked ? "w-4/5" : "w-1/5")}>
           <button onClick={handleChange} className="w-full">
-            <Image src={evolution?.image2} className={'object-cover h-[800px]'}  unoptimized={true}/>
+            <Image src={digitalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100} unoptimized={true}/>
           </button>
         </div>
       </div>

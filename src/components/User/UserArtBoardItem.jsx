@@ -2,7 +2,7 @@ import Link from "next/link";
 import ArtBoardInfo from "../ArtBoardz/ArtBoardInfo";
 import Image from 'next/image'
 import UserArtboardInfo from "./UserArtboardInfo";
-const UserArtBoardItem = ({ image, name }) => {
+const UserArtBoardItem = ({ image, name, jpgLink }) => {
   console.log(name)
   return (
     <li className="w-[302px]   bg-primary-color border-2 border-light-purple rounded-lg overflow-hidden">
@@ -10,6 +10,7 @@ const UserArtBoardItem = ({ image, name }) => {
       <div className="p-3">
         <UserArtboardInfo
           name={name}
+          jpgLink={jpgLink}
         />
       </div>
     </li>

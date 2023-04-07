@@ -13,6 +13,7 @@ const ConnectWallet = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedWallet, setSelectedWallet] = useState(null)
     const network = useNetwork();
+    const lovelaceAssets = parseInt(lovelace) / 1000000
     useEffect(() => {
         const storedWallet = localStorage.getItem('selectedWallet')
         if (storedWallet) {
@@ -65,7 +66,7 @@ const ConnectWallet = () => {
                             />
                             <ExpandMoreIcon sx={{color:'black'}} className='relative right-1'/>
                         </div>
-                        <div className='bg-[#123D91] w-[101px] py-2 rounded-r-lg text-[#FFFFFF]'><p>{parseInt(lovelace) / 1000000} ₳</p></div>
+                        <div className='bg-[#123D91] w-[101px] py-2 rounded-r-lg text-[#FFFFFF]'><p>{lovelaceAssets.toFixed(0)} ₳</p></div>
                     </div>
                 ) 
                 : connecting ? ( // Connecting

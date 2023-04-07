@@ -29,18 +29,6 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: true
     },
-    collectionSize: {
-        type: Number,
-        default: 0
-    },
-    uniqueCollection: {
-        type: Number,
-        default: 0
-    },
-    units: {
-        type: [String],
-        default: []
-    },
     assets: {
         type: [{
             name: {
@@ -65,6 +53,10 @@ const UserSchema = mongoose.Schema({
             }
         }],
         default: []
+    },
+    display: {
+        type: Boolean,
+         default: false
     },
     policyIds: {
         type: [String],

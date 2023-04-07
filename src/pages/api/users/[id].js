@@ -1,6 +1,5 @@
 import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
-import Asset from "../../../models/Asset";
 import Collection from "@/models/Collection";
 import { getNFTsForAddress } from "@/components/blockfrost/Blockfrost";
 
@@ -25,7 +24,7 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-    getNFTsForAddress
+
     try {
       const user = await User.findById(req.body.id);
      if(user) {

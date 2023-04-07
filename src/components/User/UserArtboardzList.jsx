@@ -10,6 +10,7 @@ const UserArtboardzList = ({ assets }) => {
             key={asset?.id}
             image={asset?.image}
             name={asset?.name}
+            jpgLink={asset?.jpgLink}
           />
         );
       })}

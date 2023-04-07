@@ -22,6 +22,7 @@ import Link from "next/link";
 import { getCollectionFailure, getCollectionStart, getCollectionSuccess } from "@/store/redux-slices/ArtBoardSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { baseURL } from "@/lib/index";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollectorFailure, getCollectorStart, getCollectorSuccess } from "@/store/redux-slices/CollectorSlice";
 
@@ -89,16 +90,16 @@ function MyApp({ Component, pageProps }) {
               <div className="h-screen w-fit mx-auto mt-auto mb-10 flex items-center flex-col lg:hidden ">
               <h1 className="p-2 text-white text-md font-semibold block">Partners</h1>
               <div className="flex gap-2">
-            <Link  href="https://monetsociety.io">
+            <Link  href="https://monetsociety.io" rel="noopener noreferrer" target="_blank">
               <Image src={partner1} width={54} />
             </Link >
-            <Link href="https://theartbank.io">
+            <Link href="https://theartbank.io" rel="noopener noreferrer" target="_blank">
             <Image src={partner2} width={54} />
             </Link>
-            <Link  href="https://cur8labs.io">
+            <Link  href="https://cur8labs.io" rel="noopener noreferrer" target="_blank">
             <Image src={partner3} width={54} />
             </Link>
-            <Link href="https://splash.club">
+            <Link href="https://splash.club" rel="noopener noreferrer" target="_blank">
             <Image src={partner4} width={54} />
            </Link>
             </div>

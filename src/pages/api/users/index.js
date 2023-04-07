@@ -3,7 +3,6 @@ import { COSESign1, COSEKey, BigNum, Label, Int } from "@emurgo/cardano-message-
 import { Ed25519Signature, RewardAddress, PublicKey, Address } from "@emurgo/cardano-serialization-lib-nodejs";
 import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
-import Asset from "../../../models/Asset";
 import Collection from "@/models/Collection";
 
 export default async function handler (req, res) {
@@ -28,9 +27,7 @@ export default async function handler (req, res) {
        
     }
     if (method === "PUT") {
-      console.log("reached route")
         try {
-          console.log(req.body)
           const user = await User.findByIdAndUpdate(req.body._id, req.body, {
             new: true,
           });

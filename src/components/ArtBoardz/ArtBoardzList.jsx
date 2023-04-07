@@ -40,7 +40,7 @@ const ArtBoardzList = () => {
 
   useEffect(() => {
     if (store) {
-      setCollections(store.collection.collections.filter((item) => item.newRelease == "0"));
+      setCollections(store.collection.collections);
     }
   }, [store]);
 
@@ -49,14 +49,14 @@ const ArtBoardzList = () => {
       {collections.map((release) => {
         return (
           <ArtBoardzItem
-            key={release._id}
-            id={release._id}
-            image={release.bannerUrl}
-            art={release.source}
-            artist={release.name}
-            city={release.city}
-            country={release.country}
-            title={release.title}
+            key={release?._id}
+            id={release?._id}
+            image={release?.bannerUrl}
+            art={release?.source}
+            artist={release?.name}
+            city={release?.city}
+            country={release?.country}
+            title={release?.title}
           />
         );
       })}
