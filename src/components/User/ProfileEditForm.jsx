@@ -128,9 +128,8 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     setErrors(validation(updateUser))
     dispatch(updateUserStart())
     try {
-      // 54.159.18.143
-      const res = await axios.post(`https://artboardz.net:3000/api/users/${id}`, updateUser)
-      dispatch(updateUserSuccess(res.data))
+      const res = await axios.post(`https://artboardz.net/api/users/${id}`, updateUser)
+      dispatch(updateUserSuccess(updateUser))
       toast.success("Successfully updated!")
       onCloseForm()
     }catch(err) {

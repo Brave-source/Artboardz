@@ -1,34 +1,42 @@
 import "../styles/globals.css";
 import LoadingScreen from "@/components/LoadingScreen/LoadingScreen";
 import { store, persistor } from "../store/redux-store";
-import { PersistGate } from 'redux-persist/integration/react'
-import { createWrapper } from 'next-redux-wrapper';
-import {Provider } from "react-redux";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { PersistGate } from "redux-persist/integration/react";
+import { createWrapper } from "next-redux-wrapper";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { MeshProvider } from "@meshsdk/react";
 import Header from "@/components/Layouts//Header";
 import { navbarState } from "../store/redux-slices/UI-slice";
 import Navbar from "@/components/Navigation/Navbar";
 import useWindowSize from "@/hook/window-size";
-import partner1 from '@/assets/images/partner1.png'
-import partner2 from '@/assets/images/partner2.png'
-import partner3 from '@/assets/images/partner3.png'
-import partner4 from '@/assets/images/splash2.png'
+import partner1 from "@/assets/images/partner1.png";
+import partner2 from "@/assets/images/partner2.png";
+import partner3 from "@/assets/images/partner3.png";
+import partner4 from "@/assets/images/splash2.png";
 import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { getCollectionFailure, getCollectionStart, getCollectionSuccess } from "@/store/redux-slices/ArtBoardSlice";
+import {
+  getCollectionFailure,
+  getCollectionStart,
+  getCollectionSuccess,
+} from "@/store/redux-slices/ArtBoardSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseURL } from "@/lib/index";
 import { useDispatch, useSelector } from "react-redux";
-import { getCollectorFailure, getCollectorStart, getCollectorSuccess } from "@/store/redux-slices/CollectorSlice";
+import {
+  getCollectorFailure,
+  getCollectorStart,
+  getCollectorSuccess,
+} from "@/store/redux-slices/CollectorSlice";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = React.useState(true);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   React.useEffect(() => {
     setLoading(true);
 
@@ -41,83 +49,104 @@ function MyApp({ Component, pageProps }) {
   const isNavShown = size.width > 1280 ? true : navBarState;
   const router = useRouter();
 
-  useEffect(()=> {
-    const getCollections =async() => {
-      dispatch(getCollectionStart())
+  useEffect(() => {
+    const getCollections = async () => {
+      dispatch(getCollectionStart());
       try {
-        // http://54.159.18.143
-// http://54.159.18.143
-        const res = await axios.get('https://54.159.18.143:3000/api/collections');
-        dispatch(getCollectionSuccess(res.data))
-      }catch(err) {
-        dispatch(getCollectionFailure())
+        const res = await axios.get("https://artboardz.net/api/collections");
+        dispatch(getCollectionSuccess(res.data));
+      } catch (err) {
+        dispatch(getCollectionFailure());
       }
-    }
-    getCollections()
-  },[])
+    };
+    getCollections();
+  }, []);
 
-  useEffect(()=> {
-    const getCollections =async() => {
-      dispatch(getCollectorStart())
+  useEffect(() => {
+    const getCollections = async () => {
+      dispatch(getCollectorStart());
       try {
-        const res = await axios.get('https://54.159.18.143:3000/api/users');
-        dispatch(getCollectorSuccess(res.data))
-      }catch(err) {
-        dispatch(getCollectorFailure())
+        const res = await axios.get("https://artboardz.net:3000/api/users");
+        dispatch(getCollectorSuccess(res.data));
+      } catch (err) {
+        dispatch(getCollectorFailure());
       }
-    }
-    getCollections()
-  },[])
+    };
+    getCollections();
+  }, []);
 
-  const paths = ["/","/new-releases", "/faq"];
+  const paths = ["/", "/new-releases", "/faq"];
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <MeshProvider>
-        {loading ? 
-        <LoadingScreen />
-        :
-        <div>
-          <div className={`h-screen layout scrollbar-hide max-w-8xl mx-auto relative`}>
-            <Header />
-            {isNavShown && <Navbar />}
-            <main
-              id="main-layout"
-              className={` bg-primary-purple main overflow-y-auto bg-transparent flex flex-col scroll-smooth`}
-            >
-              {!paths.includes(router.pathname) ? <div className={`backdrop w-full h-full absolute top-0 left-1/2 -translate-x-1/2`}  /> :<div></div>
-                }
-              <Component {...pageProps} />
-              <ToastContainer />
-              <div className="h-screen w-fit mx-auto mt-auto mb-10 flex items-center flex-col lg:hidden ">
-              <h1 className="p-2 text-white text-md font-semibold block">Partners</h1>
-              <div className="flex gap-2">
-            <Link  href="https://monetsociety.io" rel="noopener noreferrer" target="_blank">
-              <Image src={partner1} width={54} />
-            </Link >
-            <Link href="https://theartbank.io" rel="noopener noreferrer" target="_blank">
-            <Image src={partner2} width={54} />
-            </Link>
-            <Link  href="https://cur8labs.io" rel="noopener noreferrer" target="_blank">
-            <Image src={partner3} width={54} />
-            </Link>
-            <Link href="https://splash.club" rel="noopener noreferrer" target="_blank">
-            <Image src={partner4} width={54} />
-           </Link>
-            </div>
-                {/* <div>
+          {loading ? (
+            <LoadingScreen />
+          ) : (
+            <div>
+              <div
+                className={`h-screen layout scrollbar-hide max-w-8xl mx-auto relative`}
+              >
+                <Header />
+                {isNavShown && <Navbar />}
+                <main
+                  id="main-layout"
+                  className={` bg-primary-purple main overflow-y-auto bg-transparent flex flex-col scroll-smooth`}
+                >
+                  {!paths.includes(router.pathname) ? (
+                    <div
+                      className={`backdrop w-full h-full absolute top-0 left-1/2 -translate-x-1/2`}
+                    />
+                  ) : (
+                    <div></div>
+                  )}
+                  <Component {...pageProps} />
+                  <ToastContainer />
+                  <div className="h-screen w-fit mx-auto mt-auto mb-10 flex items-center flex-col lg:hidden ">
+                    <h1 className="p-2 text-white text-md font-semibold block">
+                      Partners
+                    </h1>
+                    <div className="flex gap-2">
+                      <Link
+                        href="https://monetsociety.io"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <Image src={partner1} width={54} />
+                      </Link>
+                      <Link
+                        href="https://theartbank.io"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <Image src={partner2} width={54} />
+                      </Link>
+                      <Link
+                        href="https://cur8labs.io"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <Image src={partner3} width={54} />
+                      </Link>
+                      <Link
+                        href="https://splash.club"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <Image src={partner4} width={54} />
+                      </Link>
+                    </div>
+                    {/* <div>
                   <p className="text-white font-Montserrat">Pool ID: d19db...44</p>
                 </div> */}
+                  </div>
+                </main>
               </div>
-            </main>
-          </div>
-        </div>
-    }
+            </div>
+          )}
         </MeshProvider>
       </PersistGate>
-   </Provider>
-    
-     
+    </Provider>
   );
 }
 
