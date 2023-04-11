@@ -55,7 +55,6 @@ const Header = () => {
       const policyids = [...policyIds];
 
       const inputs = { units, policyIds: policyids, id: user._id, collectionIds };
-      console.log(inputs)
       try {
         const res = await axios.put(
           assets && `https://artboardz.net/api/users/${user._id}`,

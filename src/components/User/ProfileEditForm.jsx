@@ -143,7 +143,6 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
       onCloseForm();
     } catch (err) {
       dispatch(updateUserFailure());
-      console.log(err);
     }
   };
 
