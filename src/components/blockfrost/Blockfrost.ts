@@ -1,30 +1,15 @@
+const test_api = "preprodrcir5G91CfvybwxV81ovVgRG51u50xh0" ;
+const test_url = "https://cardano-preprod.blockfrost.io/api/v0";
 const API_KEY = 'mainneta8IxXp7xlLz8d7XXBahqSXe6Ph9zdROe';
 const API_URL = 'https://cardano-mainnet.blockfrost.io/api/v0';
 import axios from 'axios';
 
 export async function getNFTsForAddress(address: string) {
   try {
-    const response = await axios.get(`${API_URL}/assets/${address}`, {
-      headers: { 'project_id': API_KEY }
+    const response = await axios.get(`${test_url}/assets/${address}`, {
+      headers: { 'project_id': test_api }
     });
     const data = response.data;
-
-    // Check if the address has any UTXOs (unspent transaction outputs)
-    // if (!data.utxo.length) {
-    //   return [];
-    // }
-
-    // // Filter out any tokens that are not NFTs
-    // const nfts = data.utxo.flatMap((utxo: any) =>
-    //   utxo.output.amount
-    //     .filter((amt: any) => amt.unit === 'lovelace' && amt.quantity === '0')
-    //     .flatMap((amt: any) =>
-    //       amt.multiasset
-    //         ? Object.keys(amt.multiasset).filter((asset: any) => Object.keys(amt.multiasset[asset]).length === 1)
-    //         : []
-    //     )
-    // );
-
     return data;
   } catch (error) {
     console.error(error);

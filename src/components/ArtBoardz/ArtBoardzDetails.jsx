@@ -151,16 +151,16 @@ const ArtBoardzDetails = ({
       {/* )} */}
       {/* <Colapse/> */}
       <div className="flex mx-2 my-4">
-        <div className={"flex transition-all " + (checked ? "w-1/5" : "w-4/5")}>
-          <button onClick={handleChange} className="w-full">
-            <Image src={physicalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100}  unoptimized={true}/>
-          </button>
-        </div>
         <div className={"flex transition-all " + (checked ? "w-4/5" : "w-1/5")}>
           <button onClick={handleChange} className="w-full">
             <Image src={digitalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100} unoptimized={true}/>
           </button>
         </div>
+      </div>
+      <div className={"flex transition-all " + (checked ? "w-1/5" : "w-4/5")}>
+        <button onClick={handleChange} className="w-full">
+          <Image src={physicalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100}  unoptimized={true}/>
+        </button>
       </div>
     </section>
   );

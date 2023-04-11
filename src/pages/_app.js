@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections = async () => {
       dispatch(getCollectorStart());
       try {
-        const res = await axios.get("https://artboardz.net:3000/api/users");
+        const res = await axios.get("https://artboardz.net/api/users");
         dispatch(getCollectorSuccess(res.data));
       } catch (err) {
         dispatch(getCollectorFailure());

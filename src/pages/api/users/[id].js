@@ -46,11 +46,11 @@ export default async function handler(req, res) {
         const policyLength = req.body.policyIds.length
         if(user.assets.length != assetLength || user.policyIds.length != policyLength) {
           const result = await User.findByIdAndUpdate(
-            user._id, 
+            user._id,
             {
               $set: {
                 assets: ass,
-                policyIds: req.body.policyIds
+                policyIds: req.body.policyIds,
               }
             }, 
             {new:true}

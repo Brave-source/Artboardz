@@ -29,10 +29,12 @@ const Header = () => {
   const user = useSelector((item) => item.user.user);
   const id = user._id;
   const collection = useSelector((item) => item.collection.collections);
-
   const collectionPolicyIds = collection.map((item) => {
     return item.policy;
   });
+  const collectionIds = collection.map((item) => {
+    return item._id;
+  })
 
   const profile = {
     stakeAddress: address,
@@ -52,15 +54,15 @@ const Header = () => {
       );
       const policyids = [...policyIds];
 
-      const inputs = { units, policyIds: policyids, id: user._id };
+      const inputs = { units, policyIds: policyids, id: user._id, collectionIds };
+      console.log(inputs)
       try {
         const res = await axios.put(
-          assets && `https://artboardz.net:3000/api/users/${user._id}`,
+          assets && `https://artboardz.net/api/users/${user._id}`,
           inputs
         );
         dispatch(updateUserSuccess(res.data));
       } catch (err) {
-        console.log(err);
       }
     };
     setAssets();
@@ -75,7 +77,7 @@ const Header = () => {
       dispatch(getUserStart);
       try {
         const res = await axios.post(
-          connected && "https://artboardz.net:3000/api/users",
+          connected && "https://artboardz.net/api/users",
           profile
         );
         dispatch(getUserSuccess(res.data));

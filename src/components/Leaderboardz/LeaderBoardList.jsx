@@ -37,7 +37,7 @@ const DUMMY_LEADERS = [
 
 const LeaderBoardList = () => {
   const collectors = useSelector((collector) => collector?.collector?.collectors);
-  const patrons = collectors?.filter((collector) => collector?.policyIds?.length > 0);
+  const patrons = collectors?.filter((collector) => collector?.collectionIds?.length > 0);
 
   return (
     <ul className="bg-primary-color p-4 grid gap-3 rounded-lg sm:max-w-[60vw] m-auto">
