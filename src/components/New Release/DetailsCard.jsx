@@ -13,6 +13,8 @@ import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from "react";
 import { useRouter } from 'next/router';
+import CardanoIcon from "@/assets/images/icons8-cardano-50.png"
+
 
 
 
@@ -73,7 +75,10 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             </div>
             <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
               <p>Price</p>
-              <p className="font-semibold">{price}</p>
+              <div className="flex gap-2 items-center justify-center text-center mx-auto">
+              <p className="font-semibold text-center w-[60px]">{price}</p>
+              <Image src={CardanoIcon} height={20} unoptimized={true}/>
+              </div>
             </div>
             <div className="p-2 border rounded-lg border-light-purple text-center h-[65px]">
               <p>Items</p>
@@ -137,7 +142,10 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             </div>
             <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
               <p>Price</p>
-              <p className="font-semibold">{price}</p>
+              <div className="flex  items-center text-center mx-4">
+              <p className="font-semibold m-auto">{price}</p>
+              <Image src={CardanoIcon} height={20} unoptimized={true}/>
+              </div>
             </div>
             <div className="p-2 border rounded-lg border-light-purple text-center h-[65px]">
               <p>Items</p>

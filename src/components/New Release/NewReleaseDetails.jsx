@@ -39,22 +39,22 @@ const NewReleaseDetails = ({
         return (
           <div key={index} className=" ">
             <DetailsCard
-              image={info?.artistUrl}
-              title={info?.title}
-              desc2={info?.mintingDetails}
-              desc3={info?.aboutMe}
+            image={info?.artistUrl}
+            title={info?.title}
+            desc2={info?.mintingDetails}
+            desc3={info?.aboutMe}
+            artist={artist}
+            artDesc={info?.artDesc}
+            mintDate={mintDate}
+            price={price}
+            items={items}
+            royalty={royalty}
+            country={info?.country}
+            discord={info?.discord}
+            twitter={info?.twitter}
               city={info?.city}
-              country={info?.country}
-              artist={artist}
               buyLink={info?.nmkrLink}
               jpgLink={info?.jpgLink}
-              discord={info.discord}
-              twitter={info?.twitter}
-              artDesc={artDesc}
-              mintDate={mintDate}
-              price={price}
-              items={items}
-              royalty={royalty}
             />
           </div>
         );
