@@ -57,6 +57,7 @@ const ArtBoardzList = () => {
             city={release?.city}
             country={release?.country}
             title={release?.title}
+            items={release?.supply}
           />
         );
       })}

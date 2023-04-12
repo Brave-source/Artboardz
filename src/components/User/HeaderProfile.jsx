@@ -4,10 +4,12 @@ import defaultProfile from "@/assets/images/defaultProfile.png";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useWallet } from "@meshsdk/react";
 
 const HeaderProfile = () => {
   const [user, setUser] = useState({})
   const store = useSelector(state => state);
+  const { connected } = useWallet();
 
   useEffect(() => {
     if (store) {
@@ -16,7 +18,7 @@ const HeaderProfile = () => {
   }, [store]);
   return (
     <div className="flex gap-2 items-center">
-      {user.stakeAddress && (<>
+      {connected && (<>
         <Link
         href="/profile"
         className="block w-[40px] aspect-square border border-[#7EAAFF] rounded-full "

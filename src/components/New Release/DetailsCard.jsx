@@ -90,7 +90,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
           </div>
           <a href={jpgLink} target="_blank" rel="noreferrer">
             <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
-              Jpgstore
+              Buy
             </button>
           </a>
           <ItemPurchaseActions
@@ -156,7 +156,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             </div>
             <a href={jpgLink} target="_blank" rel="noreferrer">
               <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
-              Jpgstore
+                Buy
             </button>
           </a>
           <ItemPurchaseActions
