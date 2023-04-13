@@ -69,7 +69,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
 
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
-  const id = propUser._id;
+  const id = propUser?._id;
 
   const store = useSelector((state) => state);
 
@@ -135,8 +135,9 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     setErrors(validation(updateUser));
     dispatch(updateUserStart());
     try {
-      const res = await axios.post(
-        `https://artboardz.net/api/users/${id}`,
+      const res = await axios.post( propUser._id ? 
+        `https://artboardz.net/api/users/${id}` : 
+        `https://artboardz.net/api/users`,
         updateUser
       );
       dispatch(updateUserSuccess(updateUser));

@@ -11,7 +11,6 @@ export default async function handler (req, res) {
     await dbConnect();
 
     if(method === "POST") {
-
       const sigData = req.body;
       const user = await User.find({stakeAddress: req.body.stakeAddress})
       try {
