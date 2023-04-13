@@ -10,8 +10,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: scale(2);
+
 }
+@media (min-width: 640px) {.menu {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(2);
+}}
+
 
 .menu .toggle {
   position: absolute;

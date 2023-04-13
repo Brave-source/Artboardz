@@ -32,7 +32,7 @@ function ItemPurchaseActions(props) {
           <PlusIcon />
         </button>
       </div>
-        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold" target="_blank" rel="noreferrer">
+        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold hover:bg-transparent border border-2 border-[#6E028F]" target="_blank" rel="noreferrer">
         Buy
         </a>
     </div>
@@ -75,8 +75,8 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             </div>
             <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
               <p>Price</p>
-              <div className="flex gap-2 items-center justify-center text-center mx-auto">
-              <p className="font-semibold text-center w-[60px]">{price}</p>
+              <div className="flex items-center justify-center text-center mx-auto">
+              <p className="font-semibold text-center w-[45px]">{price}</p>
               <Image src={CardanoIcon} height={20} unoptimized={true}/>
               </div>
             </div>
@@ -94,7 +94,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             </div>
           </div>
           <a href={jpgLink} target="_blank" rel="noreferrer">
-            <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
+            <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4 hover:bg-transparent border border-2 border-[#6E028F]": "hidden"}>
               Buy
             </button>
           </a>
@@ -106,7 +106,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
           />
         </div>
 
-        <div className="hidden xl:grid grid-cols-2 grid-rows-1 mt-[36px] py-4">
+        <div className="hidden xl:grid grid-cols-2 grid-rows-1 mt-[16px] py-4">
           <div>
           {image && (
               <Image src={image} alt=""  className="w-full ml-[8px]" width={100} height={100} unoptimized={true}/>
@@ -115,14 +115,14 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
         <div className="justify-center">
           <div className="flex flex-row content-center">
             <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
-            <div className="mt-2 ml-4">
+            <div className="mt-2 ml-4"> 
             <SocialIcons twitter={twitter} discord={discord}  />
             </div> 
           </div>
           
           {artDesc && <p className="text-base xl:text-xl  m-6">{artDesc}</p>}
-          {desc2 && <p className="text-base xl:text-xl  m-6">{desc2}</p>}
           {desc3 && <p className="text-base xl:text-xl  m-6">{desc3}</p>}
+          {desc2 && <p className="text-base xl:text-xl  m-6">{desc2}</p>}
         </div>
         
       </div>
@@ -198,9 +198,9 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        {desc2 && <p className="text-base text-white ">{desc2}</p>}
+        {desc3 && <p className="text-base text-white ">{desc3}</p>}
         <div></div>
-          {desc3 && <p className="text-base text-white ">{desc3}</p>}
+          {desc2 && <p className="text-base text-white ">{desc2}</p>}
         </CardContent>
       </Collapse>
     </Card>

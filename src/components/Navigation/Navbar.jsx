@@ -32,33 +32,47 @@ const Navbar = () => {
 
       <ul className="text-center space-y-8 my-8 xl:text-left xl:space-y-4 xl:pt-2">
         <li onClick={toggleNavbarHandler} className="">
-          <Link href="/" className={router.pathname == "/" ?  "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block" : "px-2 inline-block"}>
+        <Link href="/">
+          <div  className={router.pathname == "/" ?  "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%] px-2 inline-block hover:bg-[#123D91]"}>
+          
             Home
+          
+          </div>
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
-          <Link href="/new-releases" className={router.pathname.split('/')[1] == "new-releases" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block xl:w-full" : "px-2 inline-block"}>
+          <Link href="/new-releases" >
+            <div className={router.pathname.split('/')[1] == "new-releases" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91]"}>
             New Releases
+            </div>
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
-          <Link href="/artboardz" className={router.pathname.split('/')[1] == "artboardz" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block" : "px-2 inline-block"}>
+          <Link href="/artboardz" >
+            <div className={router.pathname.split('/')[1] == "artboardz" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91]"}>
             Artboardz
+            </div>
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
-          <Link href="/leaderboardz" className={router.pathname.split('/')[1] == "leaderboardz" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block" : "px-2 inline-block"}>
+          <Link href="/leaderboardz" >
+            <div className={router.pathname.split('/')[1] == "leaderboardz" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91]"}>
             Leaderboardz
+            </div>
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
-          <Link href="/about" className={router.pathname.split('/')[1] == "about" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block" : "px-2 inline-block"}>
+          <Link href="/about" >
+            <div className={router.pathname.split('/')[1] == "about" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91]"}>
             About
+            </div>
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
-          <Link href="/faq" className={router.pathname.split('/')[1] == "faq" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block" : "px-2 inline-block"}>
+          <Link href="/faq" >
+            <div className={router.pathname.split('/')[1] == "faq" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit xl:pt-0   inline-block hover:bg-[#123D91]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91]"}>
             FAQ
+            </div>
           </Link>
         </li>
         {/* <li className="xl:hidden">
