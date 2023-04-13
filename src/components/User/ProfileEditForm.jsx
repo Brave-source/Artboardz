@@ -123,7 +123,6 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
   }, [file]);
 
   const updateUser = {
-    _id: id,
     image: fileUrl ? fileUrl : propUser.image,
     name: name ? name : propUser.name,
     nationality: nationality ? nationality : propUser.nationality,
@@ -134,6 +133,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     evt.preventDefault();
     setErrors(validation(updateUser));
     dispatch(updateUserStart());
+    console.log(updateUser)
     try {
       const res = await axios.post( propUser._id ? 
         `https://artboardz.net/api/users/${id}` : 
