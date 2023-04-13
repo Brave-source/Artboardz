@@ -29,6 +29,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "@/store/redux-slices/userSlice";
+import { useAddress } from "@meshsdk/react";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
@@ -82,6 +83,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
   const [nationality, setNationality] = useState(propUser.nationality);
   const [name, setName] = useState(propUser.name);
   const [twitter, setTwitter] = useState(propUser.twitter);
+  const address = useAddress();
 
   const uploadFile = (file, imageUrl) => {
     const storage = getStorage(app);
@@ -127,13 +129,13 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     name: name ? name : propUser.name,
     nationality: nationality ? nationality : propUser.nationality,
     twitter: twitter ? twitter : propUser.twitter,
+    stakeAddress: propUser.stakeAddress ? propUser.stakeAddress : address
   };
 
   const formSubmitHandler = async (evt) => {
     evt.preventDefault();
     setErrors(validation(updateUser));
     dispatch(updateUserStart());
-    console.log(updateUser)
     try {
       const res = await axios.post( propUser._id ? 
         `https://artboardz.net/api/users/${id}` : 
