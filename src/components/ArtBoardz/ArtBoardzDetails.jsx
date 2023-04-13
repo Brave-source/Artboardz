@@ -26,11 +26,6 @@ const ArtBoardzDetails = ({
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))
-  // const [policy, setPolicy] = useState("");
-
-  // useEffect(() => {
-  //   setPolicy(collection[0]?.policy)
-  // },[collection])
 
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
@@ -45,43 +40,8 @@ const ArtBoardzDetails = ({
       </h1> 
       <div className="overflow-hidden rounded-[20px] border border-transparent">
         <NewReleaseImage image={image} width={100} height={100} />
-        </div>
-          
-          {/* <div className="grid grid-cols-5 gap-2 my-4 items-center justify-center text-base sm:text-xl tracking-wide">
-          <div className=" p-2 border rounded-lg border-light-purple text-center">
-              <p>Mint Date</p>
-              <p className="font-semibold">Feb 22, 2023</p>
-            </div>
-            <div className=" p-2 border rounded-lg border-light-purple text-center">
-              <p>Price</p>
-              <p className="font-semibold">100</p>
-            </div>
-            <div className="p-2 border rounded-lg border-light-purple text-center">
-              <p>Items</p>
-              <p className="font-semibold">40</p>
-            </div>
-            <div className="p-2  border rounded-lg border-light-purple text-center">
-              <p>Royalty</p>
-              <p className="font-semibold">5%</p>
-            </div>
-            <div className="p-2  border rounded-lg border-light-purple text-center">
-              <p>Location</p>
-              <p className="font-semibold">South Africa</p>
-            </div>
-          </div> */}
-          
-       
+        </div>        
       </div>
-
-      {/* <div className="py-6">
-        <NewReleaseInfo
-          art={art}
-          location={location}
-          artist={artist}
-          links={links}
-          artDesc={artDesc}
-        />
-      </div> */}
       {collection.map((info, index) => {
         return (
           <div key={index} className="py-12 ">

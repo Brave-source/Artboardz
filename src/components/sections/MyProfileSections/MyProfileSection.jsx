@@ -1,7 +1,11 @@
 import MainProfile from "../../User/MainProfile";
 import { DUMMY_RELEASES } from "../NewReleaseSections/NewReleaseSection";
 import UserArtboardzList from "../../User/UserArtboardzList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
+import { getUserFailure, getUserStart, getUserSuccess } from "@/store/redux-slices/userSlice";
+import { useAddress, useWallet } from "@meshsdk/react";
 
 const DUMMY_USER = {
   image:
@@ -11,9 +15,27 @@ const DUMMY_USER = {
 };
 
 const MyProfileSection = () => {
+  const address = useAddress();
+  const { connect } = useWallet();
+  const dispatch = useDispatch();
+  const user = useSelector((user) => user.user.user);
   const policyIds = useSelector((user) => user.user.user.policyIds);
   const filterAssets = useSelector((item) => item.user.user.assets?.filter((item) => policyIds.includes(item.policyId)));
-
+console.log(user)
+console.log(address)
+  useEffect(() => {
+  const getUser = async() => {
+    dispatch(getUserStart())
+    try {
+      console.log("profile routes")
+      const res = await axios.post( !user && `https://artboardz.net/api/users`, {stakeAddress: address});
+      dispatch(getUserSuccess(res.data))
+    }catch(err) {
+      dispatch(getUserFailure())
+    }
+  }
+  getUser();
+},[])
   return (
     <section className=" text-white font-Montserrat relative">
       <MainProfile

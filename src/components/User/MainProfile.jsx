@@ -57,8 +57,6 @@ const MainProfile = ({ image, username, location }) => {
       </button>
         )}
       </div>
-      
-      
       {editProfileIsShown && (
         <ProfileEditForm onCloseForm={toggleProfileEditFormHandler}  propUser={user}/>
       )}

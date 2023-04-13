@@ -84,7 +84,7 @@ const Header = () => {
       }
     };
     getAddressInfo();
-  }, [address, connected]);
+  }, [address,connected]);
 
   const navbarToggleHandler = () => {
     dispatch(UIAction.toggleNavbar());
