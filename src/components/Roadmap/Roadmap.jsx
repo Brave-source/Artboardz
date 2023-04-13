@@ -7,8 +7,8 @@ import CircularMenu from './CircularMenu'
 
 const roadmapData = [
   {
-    title: 'MAPZ',
-    info: 'Explore Artboardz locations and collection info, vote on cities you’d like to see Artboardz in and have a visual display of all Artboardz NFTs you own around the world.'
+    title: 'ARTBOARDZ',
+    info: 'Artboardz is making NFT art interactive and accessible in the real world'
   },
   {
     title: 'MAPZ',
@@ -48,13 +48,13 @@ const Roadmap = () => {
 
   return (
     // <div className='bg-[#011335]'>
-    <section className="tracking-wide mb-8 text-white  mx-auto w-[95%] max-w-[1192px] lg:w-full  font-Montserrat font-medium space-y-6  sm:p-4  text-center">
+    <section className="tracking-wide mb-8 text-white  mx-auto w-[95%] max-w-[1192px] lg:w-full  font-Montserrat font-medium lg:space-y-6  sm:p-4  text-center">
     
-    <h1 className="text-[20px] sm:text-[40px] p-4 mb-[40px]">Our Roadmap</h1>
+    <h1 className="text-[20px] sm:text-[40px] p-4  lg:mb-[40px]">Our Roadmap</h1>
     <div className='grid grid-cols-1 lg:grid-cols-2 mb-8'>
         <CircularMenu setRoadmapInfo={setRoadmapInfo}/>
   
-        <div className='px-4'>
+        <div className='sm:mt-20  lg:mt-0 lg:px-4'>
           <h1 className='text-4xl lg:text-[32px]font-bold text-[#939393] mb-2'>{roadmapData[roadmapInfo].title}</h1>
           <p className='text-[20px] text-left  text-[#FEFEFE]'>{roadmapData[roadmapInfo].info}</p>
       </div>

@@ -121,7 +121,7 @@ const handleExpandClick7 = () => {
   ,
   {
     title: "What is policy on sharing personal information?",
-    description: "Profile information is used expressly to display Leaderboardz rankings and is not shared with any third-party. [insert disclaimer]",
+    description: "Profile information is used expressly to display Leaderboardz rankings and is not shared with any third-party.",
     ref: "q7",
     handleClick: handleExpandClick7,
     expanded: expanded7,
