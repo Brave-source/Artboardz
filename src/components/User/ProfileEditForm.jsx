@@ -62,7 +62,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 const ProfileEditForm = ({ onCloseForm, propUser }) => {
-  console.log(propUser)
   const [file, setFile] = useState(null);
 
   const [fileUrl, setFileUrl] = useState("");
