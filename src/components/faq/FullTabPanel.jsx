@@ -66,7 +66,7 @@ function TabPanel(props) {
       color: 'rgba(255, 255, 255, 0.7)',
       '&.Mui-selected': {
         color: '#fff',
-        backgroundColor: 'rgba(100, 95, 228, 0.32)',
+        backgroundColor: 'rgba(18, 61, 145, 1)',
         borderRadius: '6px'
       },
       '&.Mui-focusVisible': {

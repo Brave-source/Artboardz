@@ -1,7 +1,7 @@
 
 const BillboardSection = () => {
   return (
-    <section className="text-white font-Montserrat mt-[8px]  font-medium mb-8 mr-[8px] ml-[8px]">
+    <section className="text-white font-Montserrat mt-[8px]  font-medium mb-8 lg:mb-[60px] mr-[8px] ml-[8px]">
       <article className="space-y-5">
       <div className="">
           <iframe

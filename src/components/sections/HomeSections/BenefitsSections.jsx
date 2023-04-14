@@ -41,7 +41,7 @@ const BenefitsSections = () => {
                 alt="/"
                 className= 'object-contain h-[12rem]'
               />
-              <p>{info.description}</p>
+              <p className="m-auto pt-4 mt-2 border border-b-transparent border-r-transparent border-l-transparent border-[#6E028F] w-[90%]">{info.description}</p>
               {/* </div>
               <p className=" text-base text-[20px] text-center mt-6">
                 {info.description}
