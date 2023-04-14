@@ -55,7 +55,7 @@ const Roadmap = () => {
         <CircularMenu setRoadmapInfo={setRoadmapInfo}/>
   
         <div className='sm:mt-20  lg:mt-0 lg:px-4'>
-          <h1 className='text-4xl lg:text-[32px]font-bold text-[#939393] mb-2'>{roadmapData[roadmapInfo].title}</h1>
+          <h1 className='text-4xl lg:text-[32px]font-bold text-left  mb-2'>{roadmapData[roadmapInfo].title}</h1>
           <p className='text-[20px] text-left  text-[#FEFEFE]'>{roadmapData[roadmapInfo].info}</p>
       </div>
     </div>

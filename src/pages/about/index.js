@@ -18,14 +18,7 @@ const About = () => {
           <ArtFlowSection />
           <Roadmap/>
           <div className="h-screen w-fit mx-auto mt-auto sm:mb-10 flex items-center flex-col ">
-          <div className="flex gap-2">
-          <Link href={'https://twitter.com/theartbankers'} rel="noopener noreferrer" target="_blank">
-        <TwitterIcon />
-        </Link>
-        <Link href={'https://discord.gg/wCHMvjN7'} rel="noopener noreferrer" target="_blank">
-        <DiscordIcon />
-        </Link>
-    </div>
+         
 
             {/* <div>
               <p className="text-white font-Montserrat">Pool ID: d19db...44</p>

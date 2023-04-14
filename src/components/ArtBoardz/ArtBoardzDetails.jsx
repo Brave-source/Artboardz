@@ -44,7 +44,7 @@ const ArtBoardzDetails = ({
         Artboardz
       </h1> 
       <div className="overflow-hidden rounded-[20px] border border-transparent">
-        <NewReleaseImage image={image} width={100} height={100} />
+        <NewReleaseImage image={image} width={100} zoom={2} />
         </div>
           
           {/* <div className="grid grid-cols-5 gap-2 my-4 items-center justify-center text-base sm:text-xl tracking-wide">

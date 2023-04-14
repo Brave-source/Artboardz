@@ -21,8 +21,8 @@ import CardanoIcon from "@/assets/images/icons8-cardano-50.png"
 function ItemPurchaseActions(props) {
   const router = useRouter();
   return (
-    <div className={router.pathname.split('/')[1] == "artboardz" ? "hidden" :"grid grid-cols-2 gap-2 xl:w-[30vw] xl:mx-auto"}>
-      <div className="border rounded-[5px] border-light-purple flex justify-between p-2">
+    <div className={router.pathname.split('/')[1] == "artboardz" ? "hidden" :"grid grid-cols-2 gap-2 xl:w-[388px] xl:mx-auto"}>
+      <div className="border rounded-[5px] border-light-purple flex justify-between p-[10px]">
         <p>Quantity:</p>
         <button onClick={props.decrementQuantityHandler}>
           <MinusIcon />
@@ -32,7 +32,7 @@ function ItemPurchaseActions(props) {
           <PlusIcon />
         </button>
       </div>
-        <a href={props.buyLink} className="bg-active-link text-center pt-2 rounded-[5px] font-semibold hover:bg-transparent border border-2 border-[#6E028F]" target="_blank" rel="noreferrer">
+        <a href={props.buyLink} className="bg-active-link text-center p-[10px] rounded-[5px] font-semibold hover:bg-transparent border border-2 border-[#6E028F]" target="_blank" rel="noreferrer">
         Buy
         </a>
     </div>
@@ -69,26 +69,26 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
     <div>
       <div className="hidden xl:block xl:max-w-[70vw] mx-auto">
           <div className="grid grid-cols-5 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide">
-          <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
+          <div className=" p-2 border rounded-lg border-light-purple text-center">
               <p>Mint Date</p>
               <p className="font-semibold ">{mintDate}</p>
             </div>
-            <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
+            <div className=" p-2 border rounded-lg border-light-purple text-center ">
               <p>Price</p>
               <div className="flex items-center justify-center text-center mx-auto">
               <p className="font-semibold text-center w-[45px]">{price}</p>
               <Image src={CardanoIcon} height={20} unoptimized={true}/>
               </div>
             </div>
-            <div className="p-2 border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2 border rounded-lg border-light-purple text-center ">
               <p>Items</p>
               <p className="font-semibold">{items}</p>
             </div>
-            <div className="p-2  border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2  border rounded-lg border-light-purple text-center ">
               <p>Royalty</p>
               <p className="font-semibold">{royalty}</p>
             </div>
-            <div className="p-2  border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2  border rounded-lg border-light-purple text-center ">
               <p>Location</p>
               <p className="font-semibold">{country}</p>
             </div>
@@ -112,7 +112,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
               <Image src={image} alt=""  className="w-full ml-[8px]" width={100} height={100} unoptimized={true}/>
           )}
           </div>
-        <div className="justify-center">
+        <div className="justify-center ml-2">
           <div className="flex flex-row content-center">
             <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
             <div className="mt-2 ml-4"> 
@@ -136,28 +136,28 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
       </div>
       <div className="] mx-auto">
           <div className="grid grid-cols-3 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide">
-          <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
+          <div className=" p-[10px] border rounded-lg border-light-purple text-center ">
               <p>Mint Date</p>
               <p className="font-semibold text-sm sm:text-md  ">{mintDate}</p>
             </div>
-            <div className=" p-2 border rounded-lg border-light-purple text-center h-[65px]">
+            <div className=" p-2 border rounded-lg border-light-purple text-center ">
               <p>Price</p>
               <div className="flex  items-center text-center mx-4">
               <p className="font-semibold m-auto">{price}</p>
               <Image src={CardanoIcon} height={20} unoptimized={true}/>
               </div>
             </div>
-            <div className="p-2 border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2 border rounded-lg border-light-purple text-center ">
               <p>Items</p>
               <p className="font-semibold">{items}</p>
             </div>
             </div>
             <div className="grid grid-cols-2 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide">  
-            <div className="p-2  border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2  border rounded-lg border-light-purple text-center ">
               <p>Royalty</p>
               <p className="font-semibold">{royalty}</p>
             </div>
-            <div className="p-2  border rounded-lg border-light-purple text-center h-[65px]">
+            <div className="p-2  border rounded-lg border-light-purple text-center ">
               <p>Location</p>
               <p className="font-semibold">{country}</p>
             </div>

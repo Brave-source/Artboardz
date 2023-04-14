@@ -45,7 +45,7 @@ const ArtBoardzList = () => {
   }, [store]);
 
   return (
-    <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-2  ">
+    <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-[20px]  ">
       {collections.map((release) => {
         return (
           <ArtBoardzItem
