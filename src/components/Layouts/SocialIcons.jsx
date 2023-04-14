@@ -7,12 +7,16 @@ import Link from "next/link";
 export const SocialIcons = (props) => {
   return (
     <div className="flex gap-2">
-      <a href={props.twitter} rel="noopener noreferrer" target="_blank">
-        <TwitterIcon />
-      </a>
-      <a href={props.twitter} rel="noopener noreferrer" target="_blank">
+      {props.twitter && (
+        <a href={props.twitter} rel="noopener noreferrer" target="_blank">
+          <TwitterIcon />
+        </a>
+      )}
+      {props.discord && (
+        <a href={props.discord} rel="noopener noreferrer" target="_blank">
         <DiscordIcon />
-      </a>
+        </a>
+      )}
     </div>
   );
 };

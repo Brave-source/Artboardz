@@ -21,17 +21,12 @@ const ArtBoardzDetails = ({
   items,
   royalty,
   id,
-  policyId
+  policyId,
+  buyLink
 }) => {
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))
-  // const [policy, setPolicy] = useState("");
-
-  // useEffect(() => {
-  //   setPolicy(collection[0]?.policy)
-  // },[collection])
-
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -44,7 +39,7 @@ const ArtBoardzDetails = ({
         Artboardz
       </h1> 
       <div className="overflow-hidden rounded-[20px] border border-transparent">
-        <NewReleaseImage image={image} width={100} zoom={2} />
+        <NewReleaseImage image={image} width={100} height={100}/>
         </div>
           
           {/* <div className="grid grid-cols-5 gap-2 my-4 items-center justify-center text-base sm:text-xl tracking-wide">
@@ -69,19 +64,8 @@ const ArtBoardzDetails = ({
               <p className="font-semibold">South Africa</p>
             </div>
           </div> */}
-          
-       
-      </div>
 
-      {/* <div className="py-6">
-        <NewReleaseInfo
-          art={art}
-          location={location}
-          artist={artist}
-          links={links}
-          artDesc={artDesc}
-        />
-      </div> */}
+      </div>
       {collection.map((info, index) => {
         return (
           <div key={index} className=" ">
@@ -99,6 +83,8 @@ const ArtBoardzDetails = ({
               country={info?.country}
               discord={info?.discord}
               twitter={info?.twitter}
+              buyLink={info?.nmkrLink}
+              jpgLink={info?.jpgLink}
             />
           </div>
         );

@@ -1,7 +1,7 @@
 import MainProfile from "../../User/MainProfile";
 import { DUMMY_RELEASES } from "../NewReleaseSections/NewReleaseSection";
 import UserArtboardzList from "../../User/UserArtboardzList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DUMMY_USER = {
   image:
@@ -11,6 +11,8 @@ const DUMMY_USER = {
 };
 
 const MyProfileSection = () => {
+ 
+  const user = useSelector((user) => user.user.user);
   const policyIds = useSelector((user) => user.user.user.policyIds);
   const filterAssets = useSelector((item) => item.user.user.assets?.filter((item) => policyIds.includes(item.policyId)));
 

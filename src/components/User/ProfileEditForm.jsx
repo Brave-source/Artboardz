@@ -29,6 +29,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "@/store/redux-slices/userSlice";
+import { useAddress } from "@meshsdk/react";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
@@ -68,7 +69,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
 
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
-  const id = propUser._id;
+  const id = propUser?._id;
 
   const store = useSelector((state) => state);
 
@@ -81,6 +82,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
   const [nationality, setNationality] = useState(propUser.nationality);
   const [name, setName] = useState(propUser.name);
   const [twitter, setTwitter] = useState(propUser.twitter);
+  const address = useAddress();
 
   const uploadFile = (file, imageUrl) => {
     const storage = getStorage(app);
@@ -122,11 +124,11 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
   }, [file]);
 
   const updateUser = {
-    _id: id,
     image: fileUrl ? fileUrl : propUser.image,
     name: name ? name : propUser.name,
     nationality: nationality ? nationality : propUser.nationality,
     twitter: twitter ? twitter : propUser.twitter,
+    stakeAddress: propUser.stakeAddress ? propUser.stakeAddress : address
   };
 
   const formSubmitHandler = async (evt) => {
@@ -134,8 +136,9 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     setErrors(validation(updateUser));
     dispatch(updateUserStart());
     try {
-      const res = await axios.post(
-        `https://artboardz.net/api/users/${id}`,
+      const res = await axios.post( propUser._id ? 
+        `https://artboardz.net/api/users/${id}` : 
+        `https://artboardz.net/api/edit`,
         updateUser
       );
       dispatch(updateUserSuccess(updateUser));

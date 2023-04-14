@@ -46,7 +46,6 @@ const Header = () => {
   useEffect(() => {
     const setAssets = async () => {
       const units = assets?.map((item) => item.unit);
-      // setImage(block.onchain_metadata.image);
       const setPolicyIds = new Set(assets?.map((item) => item.policyId));
       const policyId = [...setPolicyIds];
       const policyIds = new Set(
@@ -85,7 +84,7 @@ const Header = () => {
       }
     };
     getAddressInfo();
-  }, [address, connected]);
+  }, [address,connected]);
 
   const navbarToggleHandler = () => {
     dispatch(UIAction.toggleNavbar());

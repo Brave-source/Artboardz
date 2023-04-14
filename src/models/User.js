@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
     },
     display: {
         type: Boolean,
-        default: true
+        default: false
     },
     assets: {
         type: [{
