@@ -44,7 +44,7 @@ const ArtBoardzDetails = ({
       </div>
       {collection.map((info, index) => {
         return (
-          <div key={index} className="py-12 ">
+          <div key={index} className=" ">
             <DetailsCard
               image={info?.artistUrl}
               title={info?.title}
@@ -69,7 +69,7 @@ const ArtBoardzDetails = ({
       {/* {data.title && ( */}
         <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4">Patrons</h2>
       {/* // )} */}
-      <div className="py-1 mx-[8px] rounded-lg" style={{ backgroundColor: '#011335' }}>
+      <div className=" mx-[8px] rounded-lg" style={{ backgroundColor: '#011335' }}>
         <div className="md:flex justify-between">
           {patrons.slice(0, 4).map((info, index) => {
             let first = (index + 4) % 4 === 0;

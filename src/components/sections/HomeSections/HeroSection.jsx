@@ -67,7 +67,7 @@ const HeroSection = () => {
       />
       <div className="xl:absolute xl:bottom-[5%] xl:ml-12 md:h-[20px]">
         <h1 className="hidden md:block md:relative md:bottom-[160px] md:ml-[30px] md:text-left text-[40px] text-center tracking-wide text-white ">{hero.title}</h1>
-        <button className="bg-[#6E028F] md:relative md:bottom-[160px] md:ml-[30px] w-full md:w-[194px] h-[38px] xl:h-[46px] text-white py-2 px-1 xl:px-4 rounded-md text-base tracking-wide font-Poppins font-[16px]  block my-6 ">
+        <button className="hover:bg-transparent border border-2 border-[#6E028F] bg-[#6E028F] md:relative md:bottom-[160px] md:ml-[30px] w-full md:w-[194px] h-[38px] xl:h-[46px] text-white py-2 px-1 xl:px-4 rounded-md text-base tracking-wide font-Poppins font-[16px]  block my-6 ">
         <Link href={'/'+hero.ref} className={router.pathname.split('/')[1] == hero.ref }>{hero.button}</Link>          </button>
       </div>
       </Box>
