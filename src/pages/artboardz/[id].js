@@ -134,6 +134,7 @@ const ArtBoardzDetailsPage = () => {
         discord={collection?.discord}
         twitter={collection?.twitter}
         policyId={collection?.policy}
+        buyLink={collection?.nmkrLink}
       />
     </>
   );

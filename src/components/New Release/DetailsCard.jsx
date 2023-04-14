@@ -52,7 +52,6 @@ const ExpandMore = styled((props) => {
 
 export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink, jpgLink, twitter, discord }) => {
   const [quantity, setQuantity] = useState(1);
-
   const incrementQuantityHandler = () => {
     setQuantity((oldState) => oldState + 1);
   };
@@ -93,7 +92,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
               <p className="font-semibold">{country}</p>
             </div>
           </div>
-          <a href={jpgLink} target="_blank" rel="noreferrer">
+          <a href={buyLink} target="_blank" rel="noreferrer">
             <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
               Buy
             </button>
@@ -131,7 +130,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
       <div className="flex flex-row content-center mt-[16px] justify-between md:justify-center">
           <p className="text-2xl xl:text-[36px] font-medium ">{title} by {artist}</p>
           <div className="mt-2 ml-4 ">
-          <SocialIcons />
+          <SocialIcons twitter={twitter} discord={discord} />
         </div> 
       </div>
       <div className="] mx-auto">
@@ -162,7 +161,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
               <p className="font-semibold">{country}</p>
             </div>
             </div>
-            <a href={jpgLink} target="_blank" rel="noreferrer">
+            <a href={buyLink} target="_blank" rel="noreferrer">
               <button className={router.pathname.split('/')[1] == "artboardz" ? "bg-active-link rounded-xl p-2 font-semibold w-full xl:w-1/6  mx-auto block tracking-wide text-base my-4": "hidden"}>
                 Buy
             </button>
@@ -171,6 +170,7 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
             quantity={quantity}
             incrementQuantityHandler={incrementQuantityHandler}
             decrementQuantityHandler={decrementQuantityHandler}
+            buyLink={buyLink}
           />
         </div>
         <div>

@@ -6,8 +6,8 @@ import axios from 'axios';
 
 export async function getNFTsForAddress(address: string) {
   try {
-    const response = await axios.get(`${test_url}/assets/${address}`, {
-      headers: { 'project_id': test_api }
+    const response = await axios.get(`${API_URL}/assets/${address}`, {
+      headers: { 'project_id': API_KEY }
     });
     const data = response.data;
     return data;

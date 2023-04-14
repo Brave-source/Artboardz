@@ -52,9 +52,9 @@ const NewReleaseDetails = ({
             country={info?.country}
             discord={info?.discord}
             twitter={info?.twitter}
-              city={info?.city}
-              buyLink={info?.nmkrLink}
-              jpgLink={info?.jpgLink}
+            city={info?.city}
+            buyLink={info?.nmkrLink}
+            jpgLink={info?.jpgLink}
             />
           </div>
         );

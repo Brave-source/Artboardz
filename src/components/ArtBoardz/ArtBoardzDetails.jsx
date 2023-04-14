@@ -21,12 +21,12 @@ const ArtBoardzDetails = ({
   items,
   royalty,
   id,
-  policyId
+  policyId,
+  buyLink
 }) => {
 
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))
-
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked((prev) => !prev);
@@ -59,6 +59,8 @@ const ArtBoardzDetails = ({
               country={info?.country}
               discord={info?.discord}
               twitter={info?.twitter}
+              buyLink={info?.nmkrLink}
+              jpgLink={info?.jpgLink}
             />
           </div>
         );
