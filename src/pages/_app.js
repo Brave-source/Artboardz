@@ -49,11 +49,17 @@ function MyApp({ Component, pageProps }) {
   const isNavShown = size.width > 1280 ? true : navBarState;
   const router = useRouter();
 
+//   cron.schedule('* * * * *', () => {
+//     updateNFTs();
+//     console.log("updating in every minute")
+// });
+
+
   useEffect(() => {
     const getCollections = async () => {
       dispatch(getCollectionStart());
       try {
-        const res = await axios.get("https://artboardz.net/api/collections");
+        const res = await axios.get("http://localhost:3000/api/collections");
         dispatch(getCollectionSuccess(res.data));
       } catch (err) {
         dispatch(getCollectionFailure());
@@ -66,7 +72,7 @@ function MyApp({ Component, pageProps }) {
     const getCollections = async () => {
       dispatch(getCollectorStart());
       try {
-        const res = await axios.get("https://artboardz.net/api/users");
+        const res = await axios.get("http://localhost:3000/api/users");
         dispatch(getCollectorSuccess(res.data));
       } catch (err) {
         dispatch(getCollectorFailure());

@@ -17,6 +17,19 @@ export async function getNFTsForAddress(address: string) {
   }
 }
 
+export async function getNFTByAddress(address: string) {
+  try {
+    const response = await axios.get(`${API_URL}/addresses/${address}`, {
+      headers: { 'project_id': API_KEY }
+    });
+    const data = response.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 export async function getNFTById(address: string, nftId: string) {
     try {
       const response = await axios.get(`${API_URL}/addresses/${address}`, {

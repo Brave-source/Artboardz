@@ -1,11 +1,17 @@
 import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
 import Collection from "@/models/Collection";
+import updateNFTs from "../edit/update";
 
 export default async function handler (req, res) {
     const {method} = req;
 
     await dbConnect();
+
+    setInterval(() => {
+      updateNFTs();
+      console.log("interval running")
+    }, 600000)
 
     if(method === "POST") {
       const sigData = req.body;
@@ -34,6 +40,12 @@ export default async function handler (req, res) {
       }
     
       if(method === "GET") {
+        console.log("get users routes")
+        // setTimeout(() => {
+        //   updateNFTs();
+        //   console.log("interval running")
+        // }, 3000)
+
         try {
           const result = await User.find();
           res.status(200).json(result);
