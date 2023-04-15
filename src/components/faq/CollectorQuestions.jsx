@@ -135,10 +135,9 @@ const handleExpandClick7 = () => {
   ];
   const displayQuestions = CollectorsData.map((question, index) => {
     return ( 
-      <section className='font-Montserrat'>
-        <Box key={index} onClick={question.handleClick} sx={{ width:{xl: '1242px',lg: '950px', md: '850px', sm:'590px',xs:'320px'}, height:'full', display: 'flex',
+        <Box className='font-Montserrat' key={index} onClick={question.handleClick} sx={{ width:{xl: '1242px',lg: '950px', md: '850px', sm:'590px',xs:'320px'}, height:'full', display: 'flex',
         flexDirection: 'row', justifyContent:'center'}}>
-      <Card sx={{ border:1, borderColor:"#6E028F" , background:question.expanded ? 'rgba(255,255,255,.08)' : 'transparent',  boxShadow: 0, marginY:'10px',}}>
+      <Card key={index} sx={{ border:1, borderColor:"#6E028F" , background:question.expanded ? 'rgba(255,255,255,.08)' : 'transparent',  boxShadow: 0, marginY:'10px',}}>
       <ExpandMore
         key={index}
         expand={question.expanded}
@@ -178,7 +177,6 @@ const handleExpandClick7 = () => {
     </Collapse>
   </Card>
   </Box>
-  </section>
     );
   })
 
