@@ -113,6 +113,7 @@ expanded: expanded3},
         flexDirection: 'row', justifyContent:'center'}}>
       <Card sx={{ border:1, borderColor:"#6E028F" , background:question.expanded ? 'rgba(255,255,255,.08)' : 'transparent',  boxShadow: 0, marginY:'10px',}}>
       <ExpandMore
+        key={index}
         expand={question.expanded}
         onClick={question.handleClick}
         aria-expanded={question.expanded}
