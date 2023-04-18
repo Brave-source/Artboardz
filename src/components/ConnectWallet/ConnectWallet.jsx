@@ -14,6 +14,8 @@ const ConnectWallet = () => {
     const [selectedWallet, setSelectedWallet] = useState(null)
     const network = useNetwork();
     const lovelaceAssets = parseInt(lovelace) / 1000000
+
+    
     useEffect(() => {
         const storedWallet = localStorage.getItem('selectedWallet')
         if (storedWallet) {
@@ -23,11 +25,15 @@ const ConnectWallet = () => {
     }, [])
 
     const handleWalletSelection = (wallet) => {
+        if (network == 0) {
+          alert('This dapp only works on Cardano Mainnet')
+          return
+        } 
         localStorage.setItem('selectedWallet', JSON.stringify(wallet))
         setSelectedWallet(wallet)
         connect(wallet.name)
         setIsOpen(false)
-    }
+      }
 
     const handleDisconnect = () => {
         localStorage.removeItem('selectedWallet')
@@ -44,6 +50,14 @@ const ConnectWallet = () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    // Network check
+    useEffect(() => {
+        if (connected && network == 0) {
+            alert('This dapp only works on Cardano Mainnet');
+        }
+    }, [connected, network]);
+    
     return (
         <div>
             

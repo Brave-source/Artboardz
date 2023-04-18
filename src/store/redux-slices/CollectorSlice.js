@@ -5,6 +5,7 @@ export const collectorSlice = createSlice({
   initialState: {
     collectors: [],
     isFetching: false,
+    isMainnet: false,
     error: false,
   },
   reducers: {
@@ -22,7 +23,12 @@ export const collectorSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
-
+    setMainnet: (state) => {
+      state.isMainnet = true;
+    },
+    offSetMainnet: (state) => {
+      state.isMainnet = false;
+    }
   },
 });
 
@@ -30,6 +36,8 @@ export const {
   getCollectorStart,
   getCollectorSuccess,
   getCollectorFailure,
+  setMainnet,
+  offSetMainnet,
 } = collectorSlice.actions;
 
 export default collectorSlice.reducer;

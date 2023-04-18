@@ -5,6 +5,7 @@ import {
   useWallet,
   useAddress,
   useAssets,
+  useNetwork,
 } from "@meshsdk/react";
 import axios from "axios";
 import {
@@ -19,16 +20,20 @@ import HeaderProfile from "../User/HeaderProfile";
 import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
+import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const address = useAddress();
   const [image, setImage] = useState("");
+  const [isUser, setIsUser] = useState(false);
+  const network = useNetwork();
   const assets = useAssets();
   const { connected } = useWallet();
   const user = useSelector((item) => item.user.user);
   const id = user._id;
   const collection = useSelector((item) => item.collection.collections);
+  const  isMainnet = useSelector((item) => item.collector.isMainnet);
   const collectionPolicyIds = collection.map((item) => {
     return item.policy;
   });
@@ -43,6 +48,7 @@ const Header = () => {
     twitter: "",
     nationality: "",
   };
+
   useEffect(() => {
     const setAssets = async () => {
       const units = assets?.map((item) => item.unit);
@@ -56,7 +62,7 @@ const Header = () => {
       const inputs = { units, policyIds: policyids, id: user._id, collectionIds };
       try {
         const res = await axios.put(
-          assets && `https://artboardz.net/api/users/${user._id}`,
+          isUser && `https://artboardz.net/api/users/${user._id}`,
           inputs
         );
         dispatch(updateUserSuccess(res.data));
@@ -64,27 +70,46 @@ const Header = () => {
       }
     };
     setAssets();
-  }, [assets]);
-
-  useEffect(() => {
-    !connected && dispatch(logUserSuccess());
-  }, [connected, address]);
+  }, [assets, isUser]);
 
   useEffect(() => {
     const getAddressInfo = async () => {
-      dispatch(getUserStart);
+      dispatch(getUserStart());
       try {
         const res = await axios.post(
-          connected && "https://artboardz.net/api/users",
+          isMainnet && "https://artboardz.net/api/users",
           profile
         );
+        console.log("called")
         dispatch(getUserSuccess(res.data));
       } catch (err) {
         dispatch(getUserFailure());
       }
     };
     getAddressInfo();
-  }, [address,connected]);
+  }, [address,isMainnet]);
+  
+  useEffect(() => {
+    if(user.stakeAddress && assets) {
+      setIsUser(true)
+    }
+  }, [assets, user])
+
+  useEffect(() => {
+    !connected && dispatch(logUserSuccess());
+  }, [connected, address]);
+
+  useEffect(() => {
+    if(connected && network == 1) {
+      dispatch(setMainnet());
+    }
+  },[connected, network]);
+
+  useEffect(() => {
+    if(!connected || network == 0) {
+      dispatch(offSetMainnet());
+    }
+  },[connected, network]);
 
   const navbarToggleHandler = () => {
     dispatch(UIAction.toggleNavbar());

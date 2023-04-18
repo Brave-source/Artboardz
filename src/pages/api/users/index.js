@@ -11,7 +11,7 @@ export default async function handler (req, res) {
     setInterval(() => {
       updateNFTs();
       console.log("interval running")
-    }, 600000)
+    }, 21600000)
 
     if(method === "POST") {
       const sigData = req.body;

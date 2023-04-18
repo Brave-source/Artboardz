@@ -62,6 +62,6 @@ const UserSchema = mongoose.Schema({
         type: [String],
         default: []
     }
-}, {timestamp: true});
+}, {timestamps: true});
 
 export default mongoose.models.User || mongoose.model("User", UserSchema)
