@@ -1,7 +1,7 @@
 import dbConnect from "../../../utils/mongo";
 import User from "../../../models/User";
 import Collection from "@/models/Collection";
-import { getNFTsForAddress } from "@/components/blockfrost/Blockfrost";
+import { getNFTsByAsset } from "@/components/blockfrost/Blockfrost";
 
 
 export default async function handler(req, res) {
@@ -27,12 +27,14 @@ export default async function handler(req, res) {
 
     try {
       const user = await User.findById(req.body.id);
+      console.log(req.body.units)
      if(user) {
       const policyId = req.body.policyIds;
         let ass = [];
         await Promise.all(
           req.body.units.map(async(item) => {
-            const block = await getNFTsForAddress(item)
+            try{
+              const block = await getNFTsByAsset(item)
             return ass.push({
               image:`https://cloudflare-ipfs.com/ipfs/${block.onchain_metadata.image.split("/")[2]}`,
               name: block.onchain_metadata.name,
@@ -40,6 +42,9 @@ export default async function handler(req, res) {
               unit: block.asset,
               quantity: block.quantity
             })
+            }catch(err) {
+              console.log(err)
+            }
           })
         )
         const assetLength = req.body.units.length;

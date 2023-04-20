@@ -21,6 +21,7 @@ import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
+import { getNFTByAddress } from "../blockfrost/Blockfrost";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,9 @@ const Header = () => {
 
   useEffect(() => {
     const setAssets = async () => {
-      const units = assets?.map((item) => item.unit);
+      const res = await getNFTByAddress(address);
+      const units = res.amount?.map((item) => item.unit);
+      const filteredUnits = units?.filter((unit) => unit  !== "lovelace");
       const setPolicyIds = new Set(assets?.map((item) => item.policyId));
       const policyId = [...setPolicyIds];
       const policyIds = new Set(
@@ -59,7 +62,7 @@ const Header = () => {
       );
       const policyids = [...policyIds];
 
-      const inputs = { units, policyIds: policyids, id: user._id, collectionIds };
+      const inputs = { units: filteredUnits, policyIds: policyids, id: user._id, collectionIds };
       try {
         const res = await axios.put(
           isUser && `https://artboardz.net/api/users/${user._id}`,
@@ -74,6 +77,7 @@ const Header = () => {
 
   useEffect(() => {
     const getAddressInfo = async () => {
+      
       dispatch(getUserStart());
       try {
         const res = await axios.post(

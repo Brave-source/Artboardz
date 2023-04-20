@@ -15,6 +15,7 @@ export default async function handler (req, res) {
 
     if(method === "POST") {
       const sigData = req.body;
+      // if(sigData.stakeAddress.slice(0,))
       const user = await User.find({stakeAddress: req.body.stakeAddress})
       try {
           if(user.length > 0) {
