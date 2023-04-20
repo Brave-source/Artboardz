@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 
             }
           })
-        )
+        );
         const assetLength = req.body.units.length;
         const policyLength = req.body.policyIds.length
         if(user.assets.length != assetLength || user.policyIds.length != policyLength) {
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
                 assets: ass,
                 policyIds: req.body.policyIds,
               }
-            }, 
+            },
             {new:true}
             )
           await Promise.all(
@@ -92,6 +92,11 @@ export default async function handler(req, res) {
   }
 
   if(method === "POST") {
+
+    if(req.body.stakeAddress.slice(0,9) == "addr_test") {
+      res.status(500).json("Please connect mainnet wallet");
+    }
+
     try {
       const result = await User.findByIdAndUpdate(id, 
         {
