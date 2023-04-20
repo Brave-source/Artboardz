@@ -27,7 +27,6 @@ export default async function handler(req, res) {
 
     try {
       const user = await User.findById(req.body.id);
-      console.log(req.body.units)
      if(user) {
       const policyId = req.body.policyIds;
         let ass = [];
@@ -43,7 +42,7 @@ export default async function handler(req, res) {
               quantity: block.quantity
             })
             }catch(err) {
-              
+
             }
           })
         )
