@@ -49,12 +49,6 @@ function MyApp({ Component, pageProps }) {
   const isNavShown = size.width > 1280 ? true : navBarState;
   const router = useRouter();
 
-//   cron.schedule('* * * * *', () => {
-//     updateNFTs();
-//     console.log("updating in every minute")
-// });
-
-
   useEffect(() => {
     const getCollections = async () => {
       dispatch(getCollectionStart());

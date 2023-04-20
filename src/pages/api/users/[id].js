@@ -44,12 +44,7 @@ export default async function handler(req, res) {
         )
         const assetLength = req.body.units.length;
         const policyLength = req.body.policyIds.length
-        console.log("user assets length", user.assets.length);
-        console.log("block assets length", assetLength)
-        console.log("user policyIds", user.policyIds.length);
-        console.log("block policyIds", policyLength)
         if(user.assets.length != assetLength || user.policyIds.length != policyLength) {
-          console.log("passed this phase")
           const result = await User.findByIdAndUpdate(
             user._id,
             {

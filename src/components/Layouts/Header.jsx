@@ -80,7 +80,6 @@ const Header = () => {
           isMainnet && "https://artboardz.net/api/users",
           profile
         );
-        console.log("called")
         dispatch(getUserSuccess(res.data));
       } catch (err) {
         dispatch(getUserFailure());
