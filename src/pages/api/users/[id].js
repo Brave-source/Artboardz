@@ -43,7 +43,7 @@ export default async function handler(req, res) {
               quantity: block.quantity
             })
             }catch(err) {
-              console.log(err)
+              
             }
           })
         )
