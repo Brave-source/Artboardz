@@ -98,10 +98,6 @@ export default async function handler(req, res) {
 
   if(method === "POST") {
 
-    if(req.body.stakeAddress.slice(0,9) == "addr_test") {
-      res.status(500).json("Please connect mainnet wallet");
-    }
-
     try {
       const result = await User.findByIdAndUpdate(id, 
         {
