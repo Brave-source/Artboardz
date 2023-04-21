@@ -27,40 +27,45 @@ export default async function handler(req, res) {
 
     try {
       const user = await User.findById(req.body.id);
+      const collections = await Collection.find();
+      const policy = collections.map((item) => item.policy);
      if(user) {
-      const policyId = req.body.policyIds;
         let ass = [];
         await Promise.all(
           req.body.units.map(async(item) => {
             try{
               const block = await getNFTsByAsset(item)
-            return ass.push({
+
+              return ass.push({
               image:`https://cloudflare-ipfs.com/ipfs/${block.onchain_metadata.image.split("/")[2]}`,
               name: block.onchain_metadata.name,
               policyId: block.policy_id,
               unit: block.asset,
               quantity: block.quantity
-            })
+            });
             }catch(err) {
 
             }
           })
         );
-        const assetLength = req.body.units.length;
-        const policyLength = req.body.policyIds.length
+        const filteredAss = ass.filter((item) => policy.includes(item.policyId));
+        const filteredPolicy = [].concat(...new Set(filteredAss.map((item) => item.policyId)))
+
+        const assetLength = filteredAss.length;
+        const policyLength = filteredPolicy.length
         if(user.assets.length != assetLength || user.policyIds.length != policyLength) {
           const result = await User.findByIdAndUpdate(
             user._id,
             {
               $set: {
-                assets: ass,
-                policyIds: req.body.policyIds,
+                assets: filteredAss,
+                policyIds: filteredPolicy
               }
             },
             {new:true}
             )
           await Promise.all(
-            policyId.map(async (policyId) => {
+            filteredPolicy.map(async (policyId) => {
               return await Collection.findOneAndUpdate(
                 { policy: policyId },
                 {

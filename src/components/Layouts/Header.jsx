@@ -35,12 +35,12 @@ const Header = () => {
   const id = user._id;
   const collection = useSelector((item) => item.collection.collections);
   const  isMainnet = useSelector((item) => item.collector.isMainnet);
-  const collectionPolicyIds = collection.map((item) => {
-    return item.policy;
-  });
-  const collectionIds = collection.map((item) => {
-    return item._id;
-  })
+  // const collectionPolicyIds = collection.map((item) => {
+  //   return item.policy;
+  // });
+  // const collectionIds = collection.map((item) => {
+  //   return item._id;
+  // })
 
   const profile = {
     stakeAddress: address,
@@ -55,14 +55,14 @@ const Header = () => {
       const res = await getNFTByAddress(address);
       const units = res.amount?.map((item) => item.unit);
       const filteredUnits = units?.filter((unit) => unit  !== "lovelace");
-      const setPolicyIds = new Set(assets?.map((item) => item.policyId));
-      const policyId = [...setPolicyIds];
-      const policyIds = new Set(
-        collectionPolicyIds.filter((item) => policyId.includes(item))
-      );
-      const policyids = [...policyIds];
+      // const setPolicyIds = new Set(assets?.map((item) => item.policyId));
+      // const policyId = [...setPolicyIds];
+      // const policyIds = new Set(
+      //   collectionPolicyIds.filter((item) => policyId.includes(item))
+      // );
+      // const policyids = [...policyIds];
 
-      const inputs = { units: filteredUnits, policyIds: policyids, id: user._id, collectionIds };
+      const inputs = { units: filteredUnits, id: user._id, };
       try {
         const res = await axios.put(
           isUser && `https://artboardz.net/api/users/${user._id}`,
