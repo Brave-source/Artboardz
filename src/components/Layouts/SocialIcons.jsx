@@ -17,6 +17,11 @@ export const SocialIcons = (props) => {
         <DiscordIcon />
         </a>
       )}
+      {props.web && (
+        <a href={props.web} rel="noopener noreferrer" target="_blank">
+        <WebIcon />
+        </a>
+      )}
     </div>
   );
 };

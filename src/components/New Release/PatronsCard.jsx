@@ -13,7 +13,8 @@ export const PatronsCard = ({ image, name, twitter, country, assets, policyId })
         <div className="flex">
           <h2 className="flex-none font-semibold">{name}</h2>
           {twitter &&
-            <a className="flex-initial" href={twitter}><TwitterIconsOutline className="ml-2 w-4 mt-1" /></a>
+            <a className="flex-initial" href={twitter} rel="noopener noreferrer"
+            target="_blank"><TwitterIconsOutline className="ml-2 w-4 mt-1" /></a>
           }
         </div>
         <div>
