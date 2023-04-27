@@ -21,7 +21,7 @@ import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
-import { getNFTByAddress } from "../blockfrost/Blockfrost";
+import { getNFTByAddress, getNFTById } from "../blockfrost/Blockfrost";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const Header = () => {
       const inputs = { units: filteredUnits, id: user._id, };
       try {
         const res = await axios.put(
-          isUser && `https://artboardz.net/api/users/${user._id}`,
+          isUser && `http://localhost:3000/api/users/${user._id}`,
           inputs
         );
         dispatch(updateUserSuccess(res.data));
@@ -77,11 +77,12 @@ const Header = () => {
 
   useEffect(() => {
     const getAddressInfo = async () => {
-      
+      // const res = await getNFTById("0029cb7c88c7567b63d1a512c0ed626aa169688ec980730c0473b9136c702004");
+      // console.log(res);
       dispatch(getUserStart());
       try {
         const res = await axios.post(
-          isMainnet && "https://artboardz.net/api/users",
+          isMainnet && "http://localhost:3000/api/users",
           profile
         );
         dispatch(getUserSuccess(res.data));

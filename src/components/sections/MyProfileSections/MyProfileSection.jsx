@@ -10,10 +10,10 @@ const DUMMY_USER = {
   location: { city: "Lagos", country: "Nigeria" },
 };
 
-const MyProfileSection = () => {
- 
+const MyProfileSection = () => { 
   const user = useSelector((user) => user.user.user);
   const policyIds = useSelector((user) => user.user.user.policyIds);
+  const collection = useSelector((state) => state.collection.collections.filter((collection) => collection.patronId.includes(user._id)));
   const filterAssets = useSelector((item) => item.user.user.assets?.filter((item) => policyIds.includes(item.policyId)));
 
   return (
