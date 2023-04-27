@@ -104,6 +104,7 @@ const ArtBoardzDetailsPage = () => {
   const { id } = router.query
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))[0];
   const collectors = useSelector((item) => item.collector.collectors.filter((collector) => collector.policyIds.includes(collection?.policy)));
+  const filteredCollectors = collectors.filter((collector) => collector.name !== "");
   useEffect(() => { 
     document.querySelector("#main-layout").scrollTop = 0;
   }, []);
@@ -112,7 +113,7 @@ const ArtBoardzDetailsPage = () => {
     return item
   })
 
-  const patrons = collectors.filter((item) => policyIdList?.includes(item._id))
+  const patrons = filteredCollectors.filter((item) => policyIdList?.includes(item._id))
 
   return (
     <>
