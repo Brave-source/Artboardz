@@ -9,7 +9,7 @@ export const PatronsCard = ({ image, name, twitter, country, assets, policyId })
       <div>
         <Image width={100} height={100} className="object-cover w-100 h-100 rounded-full border border-2 border-light" src={image? image : "https://firebasestorage.googleapis.com/v0/b/cardano-d265c.appspot.com/o/defaultProfile.png?alt=media&token=63108be1-14c5-4f0c-87d5-95453461d972"} alt="Rounded avatar" unoptimized={true}/>
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-center">
         <div className="flex">
           <h2 className="flex-none font-semibold">{name}</h2>
           {twitter &&
