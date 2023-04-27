@@ -65,7 +65,7 @@ const Header = () => {
       const inputs = { units: filteredUnits, id: user._id, };
       try {
         const res = await axios.put(
-          isUser && `http://localhost:3000/api/users/${user._id}`,
+          isUser && `https://artboardz.net/api/users/${user._id}`,
           inputs
         );
         dispatch(updateUserSuccess(res.data));
@@ -82,7 +82,7 @@ const Header = () => {
       dispatch(getUserStart());
       try {
         const res = await axios.post(
-          isMainnet && "http://localhost:3000/api/users",
+          isMainnet && "https://artboardz.net/api/users",
           profile
         );
         dispatch(getUserSuccess(res.data));
