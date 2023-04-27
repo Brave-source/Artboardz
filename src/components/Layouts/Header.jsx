@@ -21,7 +21,7 @@ import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
-import { getNFTByAddress } from "../blockfrost/Blockfrost";
+import { getNFTByAddress, getNFTById } from "../blockfrost/Blockfrost";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -64,7 +64,8 @@ const Header = () => {
 
   useEffect(() => {
     const getAddressInfo = async () => {
-      
+      // const res = await getNFTById("0029cb7c88c7567b63d1a512c0ed626aa169688ec980730c0473b9136c702004");
+      // console.log(res);
       dispatch(getUserStart());
       try {
         const res = await axios.post(

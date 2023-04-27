@@ -12,7 +12,7 @@ const ArtBoardzPage = () => {
         Artboardz
       </h1> 
       <div className="mx-[8px] xl:ml-4 xl:mr-8 xl:mt-8">
-      <SearchBar />
+      {/* <SearchBar /> */}
       <ArtBoardzSection />
       </div>
     </>

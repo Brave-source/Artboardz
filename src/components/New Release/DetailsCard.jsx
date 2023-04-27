@@ -67,12 +67,12 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
   return (
     <div>
       <div className="hidden xl:block xl:max-w-[70vw] mx-auto">
-          <div className="grid grid-cols-5 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide">
+          <div className={router.pathname.split('/')[1] == "artboardz" ? "grid grid-cols-4 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide" : "grid grid-cols-5 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide"}>
           <div className=" p-2 border rounded-lg border-light-purple text-center">
               <p>Mint Date</p>
               <p className="font-semibold ">{mintDate}</p>
             </div>
-            <div className=" p-2 border rounded-lg border-light-purple text-center ">
+            <div className={router.pathname.split('/')[1] == "artboardz" ? "hidden":" p-2 border rounded-lg border-light-purple text-center "}>
               <p>Price</p>
               <div className="flex items-center justify-center text-center mx-auto">
               <p className="font-semibold text-center w-[45px]">{price}</p>
@@ -134,12 +134,12 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
         </div> 
       </div>
       <div className="] mx-auto">
-          <div className="grid grid-cols-3 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide">
+          <div className={router.pathname.split('/')[1] == "artboardz" ? "grid grid-cols-2 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide" : "grid grid-cols-3 gap-2 my-4 items-center justify-center text-base xl:text-xl tracking-wide"}>
           <div className=" p-[10px] border rounded-lg border-light-purple text-center ">
               <p>Mint Date</p>
               <p className="font-semibold text-sm sm:text-md  ">{mintDate}</p>
             </div>
-            <div className=" p-2 border rounded-lg border-light-purple text-center ">
+            <div className={router.pathname.split('/')[1] == "artboardz" ? "hidden" : "p-2 border rounded-lg border-light-purple text-center "}>
               <p>Price</p>
               <div className="flex  items-center text-center mx-4">
               <p className="font-semibold m-auto">{price}</p>

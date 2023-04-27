@@ -102,8 +102,8 @@ import { useSelector } from "react-redux";
 const ArtBoardzDetailsPage = () => {
   const router = useRouter()
   const { id } = router.query
-  const collectors = useSelector((item) => item.collector.collectors);
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id === id))[0];
+  const collectors = useSelector((item) => item.collector.collectors.filter((collector) => collector.policyIds.includes(collection?.policy)));
   useEffect(() => { 
     document.querySelector("#main-layout").scrollTop = 0;
   }, []);
