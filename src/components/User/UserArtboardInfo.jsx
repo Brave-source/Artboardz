@@ -9,7 +9,7 @@ const UserArtboardzInfo = ({ name, jpgLink }) => {
   return (
     <div className="w grid grid-cols-1 space-y-1 tracking-wide text-white font-Montserrat content-evenly">
       <div className="flex flex-row gap-1 items-center justify-between">
-        <p className="text-sm font-semibold ">{name?.slice(0,20)}</p>
+        <p className="text-sm font-semibold ">{name?.slice(0,11)}</p>
         {/* <div className='flex flex-row gap-x-2'>
         <Image src={CardanoIcon} height={20} unoptimized={true}></Image>
         </div> */}
