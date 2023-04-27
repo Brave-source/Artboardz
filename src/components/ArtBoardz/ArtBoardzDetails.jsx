@@ -2,7 +2,7 @@ import { DetailsCard } from "../New Release/DetailsCard";
 import NewReleaseImage from "../New Release/NewReleaseImage";
 import { PatronsCard } from "../New Release/PatronsCard";
 import useCollapse from 'react-collapsed'
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import data from "./DummyData";
 import { useSelector } from "react-redux";
@@ -94,11 +94,11 @@ const ArtBoardzDetails = ({
         <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4">Patrons</h2>
       {/* // )} */}
       <div className=" mx-[8px] rounded-lg" style={{ backgroundColor: '#011335' }}>
-        <div className="md:flex justify-between">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-between">
           {patrons.slice(0, 4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
-<div className={`xs:w-full md:w-1/4 my-2 md:px-5 lg:px-10  ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>                  <PatronsCard 
+<div className={`xs:w-full  my-2 md:px-5 lg:px-5  ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>                  <PatronsCard 
                     image={info.image}
                     name={info.name}
                     twitter={info.twitter}
@@ -111,11 +111,11 @@ const ArtBoardzDetails = ({
           })}
           
         </div>
-        <div className="md:flex justify-between" {...getCollapseProps()}>
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-between" {...getCollapseProps()}>
           {patrons.patron?.slice(4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
-                <div className={`xs:w-full md:w-1/4 my-2 ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>
+                <div className={`xs:w-full w-1/4 my-2 ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>
                   <PatronsCard 
                     image={info.image}
                     name={info.name}
@@ -128,9 +128,11 @@ const ArtBoardzDetails = ({
             );
           })}
         </div>
+        {patrons.patron?.length < 5 ? 
         <p className="text-center underline text-sm" {...getToggleProps()}>
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
+        : <Fragment></Fragment>}
       </div>
       {/* {evolution?.title && ( */}
         <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4 pt-8">Evolution</h2>
