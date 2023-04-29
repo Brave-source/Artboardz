@@ -1,6 +1,6 @@
 import dbConnect from "@/utils/mongo";
 import User from "@/models/User";
-import { getNFTByAddress, getNFTsForAddress } from "@/components/blockfrost/Blockfrost";
+import { getNFTByAddress, getNFTsByAsset } from "@/components/blockfrost/Blockfrost";
 import Collection from "@/models/Collection";
 
 const updateNFTs = async() => {
@@ -21,8 +21,12 @@ const updateNFTs = async() => {
 
             await Promise.all(
                 filteredAssets.map(async(item) => {
-                    const block = await getNFTsForAddress(item);
+                   try{
+                    const block = await getNFTsByAsset(item);
                     return policyIds?.push(block.policy_id), units?.push(block.asset)
+                   }catch(err) {
+                    console.log(err)
+                   }
                 })
             )
         const newPolicyIds = [].concat(...new Set(policyIds));
@@ -32,28 +36,36 @@ const updateNFTs = async() => {
         const filteredPolicyIds = storedPolicyIds?.filter((item) => !newPolicyIds.includes(item));
         await Promise.all(
             filteredPolicyIds.map(async(policy_id) => {
-                await User.findByIdAndUpdate(user._id, {
-                    $pull : {
-                        policyIds: policy_id
-                    }
-                });
-                await Collection.findOneAndUpdate(
-                    {policy: policy_id},
-                    {
-                        $pull : { patronId: user._id } 
-                    }
+                try {
+                    await User.findByIdAndUpdate(user._id, {
+                        $pull : {
+                            policyIds: policy_id
+                        }
+                    });
+                    await Collection.findOneAndUpdate(
+                        {policy: policy_id},
+                        {
+                            $pull : { patronId: user._id } 
+                        }
                     )
+                }catch(err) {
+                    console.log(err);
+                }
             })
         )
         await Promise.all(
             filteredUnits.map(async(unit) => {
-                await User.findByIdAndUpdate(user._id, {
-                    $pull: {
-                        assets: {
-                            unit: unit
+                try {
+                    await User.findByIdAndUpdate(user._id, {
+                        $pull: {
+                            assets: {
+                                unit: unit
+                            }
                         }
-                    }
-                })
+                    })
+                }catch(err) {
+                    console.log(err);
+                }
             })
         )
         }catch(err) {

@@ -4,9 +4,9 @@ const API_KEY = 'mainneta8IxXp7xlLz8d7XXBahqSXe6Ph9zdROe';
 const API_URL = 'https://cardano-mainnet.blockfrost.io/api/v0';
 import axios from 'axios';
 
-export async function getNFTsByAsset(address: string) {
+export async function getNFTsByAsset(asset: string) {
   try {
-    const response = await axios.get(`${API_URL}/assets/${address}`, {
+    const response = await axios.get(`${API_URL}/assets/${asset}`, {
       headers: { 'project_id': API_KEY }
     });
     const data = response.data;
@@ -52,7 +52,6 @@ export async function getNFTById(address: string, nftId: string) {
               : []
           )
       );
-  
       if (!nft.length) {
         throw new Error(`NFT with ID ${nftId} not found for the specified address`);
       }

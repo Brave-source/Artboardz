@@ -97,7 +97,9 @@ export default async function handler(req, res) {
   }
 
   if(method === "POST") {
-
+  
+console.log("pass")
+console.log(req.body)
     try {
       const result = await User.findByIdAndUpdate(id, 
         {
@@ -108,8 +110,10 @@ export default async function handler(req, res) {
             twitter: req.body.twitter
           }
         }, {new: true});
+        console.log(result)
       res.status(200).json(result);
     }catch(err) {
+      console.log(err);
       res.status(500).json(err);
     }
   }
