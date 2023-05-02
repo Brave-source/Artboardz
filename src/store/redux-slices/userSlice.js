@@ -5,6 +5,7 @@ export const userSlice = createSlice({
   initialState: {
     user: {},
     isFetching: false,
+    walletAddress: null,
     error: false,
   },
   reducers: {
@@ -34,12 +35,16 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.error = true;
     },
+    getWalletAddress: (state, action) => {
+      state.walletAddress = action.payload;
+    },
     //LOGOOUT
     logUserStart: (state) => {
       state.isFetching = true;
       state.error = false;
     },
     logUserSuccess: (state) => {
+      state.walletAddress = null;
       state.isFetching = false;
       state.user = {};
     },
@@ -60,6 +65,7 @@ export const {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  getWalletAddress,
   logUserStart,
   logUserSuccess,
   logUserFailure,

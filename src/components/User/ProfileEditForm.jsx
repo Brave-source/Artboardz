@@ -113,6 +113,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setFileUrl(downloadURL);
+          console.log(downloadURL)
           toast.success("Successsfully uploaded");
         });
       }

@@ -7,11 +7,8 @@ export default async function handler (req, res) {
     await dbConnect();
 
     if(method === "POST") {
-      console.log("pass")
-      console.log(req.body)
-      console.log(req.body.stakeAddress)
       try {
-          const savedUser = await User.findOneAndUpdate(req.body.stakeAddress, req.body, {new : true});
+          const savedUser = await User.updateOne({stakeAddress: req.body.stakeAddress}, req.body, {new : true});
           res.status(200).json(savedUser[0])
           console.log(savedUser)
       }catch(err) {

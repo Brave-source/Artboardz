@@ -24,12 +24,12 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-
     try {
       const user = await User.findById(req.body.id);
       const collections = await Collection.find();
       const policy = collections.map((item) => item.policy);
-     if(user) {
+      
+     if(user && req.body.units !== undefined) {
         let ass = [];
         await Promise.all(
           req.body.units.map(async(item) => {
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
               quantity: block.quantity
             });
             }catch(err) {
-
+              res.status(500).json(err);
             }
           })
         );
@@ -98,8 +98,6 @@ export default async function handler(req, res) {
 
   if(method === "POST") {
   
-console.log("pass")
-console.log(req.body)
     try {
       const result = await User.findByIdAndUpdate(id, 
         {
@@ -110,10 +108,8 @@ console.log(req.body)
             twitter: req.body.twitter
           }
         }, {new: true});
-        console.log(result)
       res.status(200).json(result);
     }catch(err) {
-      console.log(err);
       res.status(500).json(err);
     }
   }
