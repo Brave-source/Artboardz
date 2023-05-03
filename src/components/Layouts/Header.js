@@ -25,17 +25,17 @@ import { getNFTByAddress } from "../blockfrost/Blockfrost";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const address = useAddress();
+  const meshaddress = useAddress();
   const [image, setImage] = useState("");
   const [isUser, setIsUser] = useState(false);
   const network = useNetwork();
   const assets = useAssets();
   const { connected } = useWallet();
   const user = useSelector((item) => item.user.user);
-  // const address = useSelector((item) => item.user.walletAddress);
+  const address = useSelector((item) => item.user.walletAddress);
   const id = user._id;
   const  isMainnet = useSelector((item) => item.collector.isMainnet);
-
+  console.log("mesh address",meshaddress)
   const profile = {
     stakeAddress: address,
     name: "",
