@@ -85,6 +85,8 @@ const ArtBoardzDetails = ({
               twitter={info?.twitter}
               buyLink={info?.nmkrLink}
               jpgLink={info?.jpgLink}
+              instagram={info?.instagram}
+              // web={info?.web}
             />
           </div>
         );
@@ -111,7 +113,7 @@ const ArtBoardzDetails = ({
           })}
           
         </div>
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-between" {...getCollapseProps()}>
+        <div className="md:grid grid-cols-4 md:justify-between" {...getCollapseProps()}>
           {patrons.patron?.slice(4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(

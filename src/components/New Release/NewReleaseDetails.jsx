@@ -21,7 +21,8 @@ const NewReleaseDetails = ({
   price,
   items,
   royalty,
-  id
+  id,
+  web
 }) => {
   const collection = useSelector((state) => state.collection.collections.filter((item) => item._id == id));
 
@@ -55,6 +56,8 @@ const NewReleaseDetails = ({
             city={info?.city}
             buyLink={info?.nmkrLink}
             jpgLink={info?.jpgLink}
+            instagram={info?.instagram}
+            // web={info?.web}
             />
           </div>
         );
