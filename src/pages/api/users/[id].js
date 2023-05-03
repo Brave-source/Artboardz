@@ -28,14 +28,12 @@ export default async function handler(req, res) {
       const user = await User.findById(req.body.id);
       const collections = await Collection.find();
       const policy = collections.map((item) => item.policy);
-      
      if(user && req.body.units !== undefined) {
         let ass = [];
         await Promise.all(
           req.body.units.map(async(item) => {
             try{
               const block = await getNFTsByAsset(item)
-
               return ass.push({
               image:`https://cloudflare-ipfs.com/ipfs/${block.onchain_metadata.image.split("/")[2]}`,
               name: block.onchain_metadata.name,
@@ -44,7 +42,6 @@ export default async function handler(req, res) {
               quantity: block.quantity
             });
             }catch(err) {
-              res.status(500).json(err);
             }
           })
         );
@@ -66,13 +63,18 @@ export default async function handler(req, res) {
             )
           await Promise.all(
             filteredPolicy.map(async (policyId) => {
-              return await Collection.findOneAndUpdate(
-                { policy: policyId },
-                {
-                  $addToSet: { patronId: user._id}
-                }
+              try{
+                return await Collection.findOneAndUpdate(
+                  { policy: policyId },
+                  {
+                    $addToSet: { patronId: user._id}
+                  }
                 );
-            })
+              }catch(err) {
+                console.log(err);
+              }
+            }
+            )
           );
           res.status(200).json("updated successfully");
         } else {
