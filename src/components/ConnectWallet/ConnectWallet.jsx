@@ -27,13 +27,36 @@ const ConnectWallet = () => {
             connect(JSON.parse(storedWallet).name);
         }
         if(address) {
-            LuciConnectWalletAddress();
+            LuciConnectWalletAddress(JSON.parse(storedWallet).name);
         }
     }, [])
-
-    const LuciConnectWalletAddress = async() => {
+    const walletList = ["eternl", "Nami", "GeroWallet", "Flint Wallet"]
+    const filteredWallets = wallets.filter((wallet) => walletList.includes(wallet.name));
+    const LuciConnectWalletAddress = async(name) => {
+        let api;
+        switch(name) {
+            case "eternl":
+                api = await window.cardano?.eternl.enable();
+                break;
+            case "Nami":
+                api = await window.cardano.nami.enable();
+                break;
+            case "Flint Wallet":
+                api = await window.cardano.flint.enable();
+                break;
+            // case "Typhon Wallet":
+            //     api = await window.cardano.typhon.enable();
+            //     break;
+            // case "Yoroi":
+            //     api = await window.cardano.yoroi.enable();
+            //     break;
+            case "GeroWallet":
+                api = await window.cardano.gerowallet.enable();
+                break;
+            default:
+                                                                                     
+        }
         const  lucid = await Lucid.new();
-        const api = await window.cardano.eternl.enable();
         lucid.selectWallet(api);
         const address = await lucid.wallet.address();
         localStorage.setItem("walletAddress", JSON.stringify(address));
@@ -49,7 +72,7 @@ const ConnectWallet = () => {
         setSelectedWallet(wallet)
         connect(wallet.name)
         setIsOpen(false)
-        LuciConnectWalletAddress();
+        LuciConnectWalletAddress(wallet.name);
       }
 
     const handleDisconnect = () => {
@@ -152,7 +175,7 @@ const ConnectWallet = () => {
                       }}
                     
                 >
-                    {wallets.map((wallet, index) => (
+                    {filteredWallets.map((wallet, index) => (
                         <MenuItem sx={{
                             width: '147px',
                           }} key={index} onClick={() => handleWalletSelection(wallet)} >
