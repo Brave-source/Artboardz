@@ -115,7 +115,10 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
           <div className="flex flex-row content-center">
             <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
             <div className="mt-2 ml-4"> 
-            <SocialIcons twitter={twitter} discord={discord}  />
+            <SocialIcons twitter={twitter} discord={discord} 
+            // web={web}
+            //  instagram={instagram}
+               />
             </div> 
           </div>
           
