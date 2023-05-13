@@ -8,10 +8,10 @@ export default async function handler (req, res) {
 
     await dbConnect();
 
-    setInterval(() => {
-      updateNFTs();
-      console.log("interval running")
-    }, 86400000)
+    // setInterval(() => {
+    //   updateNFTs();
+    //   console.log("interval running")
+    // }, 86400000)
 
     if(method === "POST") {
 
@@ -43,7 +43,7 @@ export default async function handler (req, res) {
     
       if(method === "GET") {
         try {
-          const result = await User.find();
+          const result = await User.find().sort({assets: -1});
           res.status(200).json(result);
         }catch(err){
           res.status(500).json(err);
