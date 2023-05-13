@@ -13,16 +13,17 @@ const updateNFTs = async() => {
         const storedPolicyIds = user.policyIds;
         try{
             let res = await getNFTByAddress(user.stakeAddress);
-            const assets = res?.amount?.map((asset) => asset?.unit);
-            const filteredAssets = assets?.filter((asset) => asset !== "lovelace");
-            
-            let policyIds = [];
-            let units = [];
-
-            await Promise.all(
-                filteredAssets.map(async(item) => {
+            if(res.amount.length > 0) {
+                const assets = res?.amount?.map((asset) => asset?.unit);
+                const filteredAssets = assets?.filter((asset) => asset !== "lovelace");
+                
+                let policyIds = [];
+                let units = [];
+                
+                await Promise.all(
+                    filteredAssets.map(async(item) => {
                    try{
-                    const block = await getNFTsByAsset(item);
+                       const block = await getNFTsByAsset(item);
                     return policyIds?.push(block.policy_id), units?.push(block.asset)
                    }catch(err) {
                     console.log(err)
@@ -52,22 +53,23 @@ const updateNFTs = async() => {
                     console.log(err);
                 }
             })
-        )
-        await Promise.all(
-            filteredUnits.map(async(unit) => {
-                try {
-                    await User.findByIdAndUpdate(user._id, {
-                        $pull: {
-                            assets: {
-                                unit: unit
+            )
+            await Promise.all(
+                filteredUnits.map(async(unit) => {
+                    try {
+                        await User.findByIdAndUpdate(user._id, {
+                            $pull: {
+                                assets: {
+                                    unit: unit
+                                }
                             }
-                        }
-                    })
+                        })
                 }catch(err) {
                     console.log(err);
                 }
             })
-        )
+            )
+        }
         }catch(err) {
             console.log(err)
         }
