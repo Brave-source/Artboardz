@@ -173,7 +173,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
             />
           ) : (
             <Image
-              src={propUser.image}
+              src={propUser.image ? propUser.image : "https://firebasestorage.googleapis.com/v0/b/cardano-d265c.appspot.com/o/defaultProfile.png?alt=media&token=63108be1-14c5-4f0c-87d5-95453461d972"}
               width={190}
               height={190}
               alt=""
