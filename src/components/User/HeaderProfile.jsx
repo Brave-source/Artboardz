@@ -42,10 +42,12 @@ const HeaderProfile = () => {
             image={user.image ? user.image : defaultProfile}
             username={"profile"}
           />
-        <span aria-hidden>
-          <ChevronDownIcon className="w-4 text-[#7EAAFF]" />
-        </span>
       </Link>
+        <span aria-hidden>
+          <Link href="/profile">
+          <ChevronDownIcon className="w-4 text-[#7EAAFF]" />
+          </Link>
+        </span>
       </>)}
     </div>
   );
