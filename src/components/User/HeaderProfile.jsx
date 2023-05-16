@@ -37,7 +37,7 @@ const HeaderProfile = () => {
         <Link
         href="/profile"
         className="block w-[40px] aspect-square border border-[#7EAAFF] rounded-full "
-      > 
+        > 
           <Avatar
             image={user.image ? user.image : defaultProfile}
             username={"profile"}
