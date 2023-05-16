@@ -50,7 +50,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink, jpgLink, twitter, discord }) => {
+export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, price, items, royalty, country, artDesc, buyLink, jpgLink, twitter, discord, instagram, webLink }) => {
   const [quantity, setQuantity] = useState(1);
   const incrementQuantityHandler = () => {
     setQuantity((oldState) => oldState + 1);
@@ -115,9 +115,11 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
           <div className="flex flex-row content-center">
             <p className="text-2xl xl:text-[36px] font-medium ml-6 mb-6">{title} by {artist}</p>
             <div className="mt-2 ml-4"> 
-            <SocialIcons twitter={twitter} discord={discord} 
-            // web={web}
-            //  instagram={instagram}
+            <SocialIcons 
+              twitter={twitter} 
+              discord={discord} 
+              instagram={instagram}
+              web={webLink}
                />
             </div> 
           </div>
@@ -133,7 +135,12 @@ export const DetailsCard = ({ image, artist, desc2, desc3, mintDate, title, pric
       <div className="flex flex-row content-center mt-[16px] justify-between md:justify-center">
           <p className="text-2xl xl:text-[36px] font-medium ">{title} by {artist}</p>
           <div className="mt-2 ml-4 ">
-          <SocialIcons twitter={twitter} discord={discord} />
+          <SocialIcons 
+          twitter={twitter} 
+          discord={discord} 
+          instagram={instagram}
+          web={webLink}
+          />
         </div> 
       </div>
       <div className="] mx-auto">

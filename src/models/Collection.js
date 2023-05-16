@@ -77,6 +77,10 @@ const CollectionSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    webLink: {
+        type: String,
+        required: false
+    },
     discord: {
         type: String,
         required: false

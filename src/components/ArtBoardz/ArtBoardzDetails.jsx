@@ -86,7 +86,7 @@ const ArtBoardzDetails = ({
               buyLink={info?.nmkrLink}
               jpgLink={info?.jpgLink}
               instagram={info?.instagram}
-              // web={info?.web}
+              webLink={info?.webLink}
             />
           </div>
         );
