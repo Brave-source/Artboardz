@@ -153,6 +153,19 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     }
   };
 
+  const ImageRendering = (prop) => {
+
+    const UserImage = <Image
+              src={prop.image }
+              width={190}
+              height={190}
+              alt=""
+              className="rounded-full w-190px h-190px  object-cover"
+            />
+
+    return prop.image ? UserImage : <CameraIcon />
+  }
+
   return (
     <form
       onSubmit={formSubmitHandler}
@@ -172,13 +185,7 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
               className="rounded-full w-[100%] h-[100%] object-cover"
             />
           ) : (
-            <Image
-              src={propUser.image}
-              width={190}
-              height={190}
-              alt=""
-              className="rounded-full w-190px h-190px  object-cover"
-            />
+            <ImageRendering image={propUser.image} />
           )}
         </label>
         <input

@@ -22,12 +22,14 @@ import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
 import { getNFTByAddress } from "../blockfrost/Blockfrost";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const dispatch = useDispatch();
   const meshaddress = useAddress();
   const [image, setImage] = useState("");
   const [isUser, setIsUser] = useState(false);
+  const router = useRouter();
   const network = useNetwork();
   const assets = useAssets();
   const { connected } = useWallet();
@@ -57,6 +59,7 @@ const Header = () => {
         );
         dispatch(updateUserSuccess(res.data));
       } catch (err) {
+        
       }
     };
     setAssets();
@@ -64,6 +67,7 @@ const Header = () => {
 
   useEffect(() => {
     const getAddressInfo = async () => {
+      let newUser = false;
       dispatch(getUserStart());
       try {
         const res = await axios.post(
@@ -71,6 +75,12 @@ const Header = () => {
           profile
         );
         dispatch(getUserSuccess(res.data));
+        if(!res.data.name) {
+          newUser = true;
+        }else if(!res.data.image) {
+          newUser = true;
+        }
+        newUser && router.push("/profile");
       } catch (err) {
         dispatch(getUserFailure());
       }

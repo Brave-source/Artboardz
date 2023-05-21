@@ -24,14 +24,14 @@ const ConnectWallet = () => {
         const address = JSON.parse(localStorage.getItem("walletAddress"));
         if (storedWallet) {
             setSelectedWallet(JSON.parse(storedWallet))
-            connect(JSON.parse(storedWallet).name);
+            connect(JSON.parse(storedWallet)?.name);
         }
         if(address) {
-            LuciConnectWalletAddress(JSON.parse(storedWallet).name);
+            LuciConnectWalletAddress(JSON.parse(storedWallet)?.name);
         }
     }, [])
     const walletList = ["eternl", "Nami", "GeroWallet", "Flint Wallet"]
-    const filteredWallets = wallets.filter((wallet) => walletList.includes(wallet.name));
+    const filteredWallets = wallets.filter((wallet) => walletList.includes(wallet?.name));
     const LuciConnectWalletAddress = async(name) => {
         let api;
         switch(name) {

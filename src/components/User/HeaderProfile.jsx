@@ -37,15 +37,17 @@ const HeaderProfile = () => {
         <Link
         href="/profile"
         className="block w-[40px] aspect-square border border-[#7EAAFF] rounded-full "
-      > 
-        <Avatar
-          image={user.image ? user.image : defaultProfile}
-          username={"profile"}
-        />
+        > 
+          <Avatar
+            image={user.image ? user.image : defaultProfile}
+            username={"profile"}
+          />
       </Link>
-      <span aria-hidden>
-        <ChevronDownIcon className="w-4 text-[#7EAAFF]" />
-      </span>
+        <span aria-hidden>
+          <Link href="/profile">
+          <ChevronDownIcon className="w-4 text-[#7EAAFF]" />
+          </Link>
+        </span>
       </>)}
     </div>
   );

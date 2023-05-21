@@ -24,7 +24,6 @@ export default async function handler(req, res) {
   }
 
   if (method === "PUT") {
-    console.log("pass")
     try {
       const user = await User.findById(req.body.id);
       const collections = await Collection.find();
