@@ -38,6 +38,7 @@ const Header = () => {
   const id = user._id;
   const  isMainnet = useSelector((item) => item.collector.isMainnet);
   console.log("mesh address",meshaddress)
+  console.log("lucid address",address)
   const profile = {
     stakeAddress: address,
     name: "",

@@ -17,6 +17,7 @@ export const collectorSlice = createSlice({
     getCollectorSuccess: (state, action) => {
       state.isFetching = false;
       state.collectors = action.payload;
+      state.collectors.sort((a, b) => b.assets.length - a.assets.length)
       state.collectors.sort((a, b) => b.policyIds.length - a.policyIds.length)
     },
     getCollectorFailure: (state) => {

@@ -3,7 +3,6 @@ import User from "../../../models/User";
 import Collection from "@/models/Collection";
 import { getNFTsByAsset } from "@/components/blockfrost/Blockfrost";
 
-
 export default async function handler(req, res) {
   const {
     method,
