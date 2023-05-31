@@ -7,6 +7,13 @@ const LeaderBoardStats = () => {
   const collectors = useSelector((collector) => collector.collector.collectors);
   const patrons = collectors?.filter((collector) => collector.policyIds.length > 0);
 
+  // Calculating the number of supply
+  const supply = collections.map((item) => { return item.supply});
+  const totalSupply = supply.reduce((output, cal) => {
+    return Number(output) + Number(cal);
+  });
+ 
+
   const doublePolicyIds = patrons.map((item) => {
     return item.policyIds
   })
@@ -43,7 +50,7 @@ const LeaderBoardStats = () => {
           </div>
           <div className="p-2 border rounded-lg border-light-purple text-center">
             <p>NFTs</p>
-            <p className="font-semibold">{nfts?.length}</p>
+            <p className="font-semibold">{totalSupply}</p>
           </div>
           <div className="p-2  border rounded-lg border-light-purple text-center">
             <p>Owners</p>

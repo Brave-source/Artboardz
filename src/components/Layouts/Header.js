@@ -35,8 +35,8 @@ const Header = () => {
   const { connected } = useWallet();
   const user = useSelector((item) => item.user.user);
   const address = useSelector((item) => item.user.walletAddress);
-  const id = user._id;
-  const  isMainnet = useSelector((item) => item.collector.isMainnet);
+  const id = user?._id;
+  const isMainnet = useSelector((item) => item.collector.isMainnet);
   console.log("mesh address",meshaddress)
   console.log("lucid address",address)
   const profile = {
@@ -52,7 +52,7 @@ const Header = () => {
       const units = res.amount?.map((item) => item.unit);
       const filteredUnits = units?.filter((unit) => unit  !== "lovelace");
 
-      const inputs = { units: filteredUnits, id: user._id, };
+      const inputs = { units: filteredUnits, id: user?._id, };
       try {
         const res = await axios.put(
           isUser && `https://artboardz.net/api/users/${user._id}`,
@@ -90,7 +90,7 @@ const Header = () => {
   }, [address,isMainnet]);
   
   useEffect(() => {
-    if(user.stakeAddress && assets) {
+    if(user?.stakeAddress && assets) {
       setIsUser(true)
     }
   }, [assets, user])
