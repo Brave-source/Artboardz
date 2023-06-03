@@ -100,7 +100,7 @@ const ArtBoardzDetails = ({
           {patrons.slice(0, 4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
-<div className={`xs:w-full  my-2 md:px-5 lg:px-5  ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>                  <PatronsCard 
+                <div className={`xs:w-full  my-2 md:px-5 lg:px-5  ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>                  <PatronsCard 
                     image={info.image}
                     name={info.name}
                     twitter={info.twitter}
@@ -114,7 +114,7 @@ const ArtBoardzDetails = ({
           
         </div>
         <div className="md:grid grid-cols-4 md:justify-between" {...getCollapseProps()}>
-          {patrons.patron?.slice(4).map((info, index) => {
+          {patrons?.slice(4).map((info, index) => {
             let first = (index + 4) % 4 === 0;
             return(
                 <div className={`xs:w-full w-1/4 my-2 ${first ? '' : 'xs:border-b md:border-l border-purple-800'}`} key={index}>
@@ -130,7 +130,7 @@ const ArtBoardzDetails = ({
             );
           })}
         </div>
-        {patrons.patron?.length < 5 ? 
+        {patrons?.length < 5 ? 
         <p className="text-center underline text-sm" {...getToggleProps()}>
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
