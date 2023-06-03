@@ -6,6 +6,7 @@ import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import data from "./DummyData";
 import { useSelector } from "react-redux";
+import Map from "../Mapz/Map";
 
 const ArtBoardzDetails = ({
   image,
@@ -152,6 +153,7 @@ const ArtBoardzDetails = ({
           <Image src={physicalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100}  unoptimized={true}/>
         </button>
       </div>
+      <Map/>
     </section>
   );
 };
