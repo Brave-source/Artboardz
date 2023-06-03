@@ -130,7 +130,7 @@ const ArtBoardzDetails = ({
             );
           })}
         </div>
-        {patrons?.length < 5 ? 
+        {patrons?.length > 5 ? 
         <p className="text-center underline text-sm" {...getToggleProps()}>
             {isExpanded ? 'Collapse' : 'View All'}
         </p>
