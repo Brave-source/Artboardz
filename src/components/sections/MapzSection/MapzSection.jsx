@@ -6,8 +6,11 @@ import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 
 let Globe = () => null;
-if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
-
+if (typeof window !== "undefined") {
+  import("react-globe.gl").then((module) => {
+    Globe = module.default;
+  });
+}
 import { createClient } from "@supabase/supabase-js";
 import toast, { Toaster } from "react-hot-toast";
 
