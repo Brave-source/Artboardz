@@ -105,18 +105,18 @@ const ConnectWallet = () => {
 
   return (
     <div>
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="bg-white rounded p-8 max-w-md m-auto">
-          <h2 className="text-lg font-semibold mb-4">Connect Wallet</h2>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)} >
+        <div className="bg-[#011335] rounded p-8 max-w-md mt-36 mx-auto text-white h-[360px]">
+          <h2 className="text-lg font-semibold mb-4 text-center">Connect Wallet</h2>
           <div className="flex m-auto justify-between">
             {filteredWallets.map((wallet, index) => (
               <div key={index} className="align-center">
-                <div className="mr-4">
-                  <Image src={wallet.icon} alt={wallet.name} width="30" height="30" />
+                <div className='h-[50px]'>
+                  <Image src={wallet.icon} alt={wallet.name} width="50" height="50" className="mx-auto my-4"/>
                 </div>
-                <div className="font-medium">{wallet.name}</div>
+                <div className="text-[12px] text-center my-2">{wallet.name}</div>
                 <button
-                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  className="w-full m-auto  px-1 bg-transparent border border-1 border-white text-white rounded rounded-lg hover:bg-[#6E028F]"
                   onClick={() => handleWalletSelection(wallet)}
                 >
                   Connect
@@ -124,56 +124,113 @@ const ConnectWallet = () => {
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-4">
-            <Button variant="outlined" onClick={handleLoginClick}>
-              Login
-            </Button>
-            <Button variant="outlined" onClick={handleSignupClick}>
-              Signup
-            </Button>
-          </div>
+          <h2 className="text-lg font-semibold my-4 text-center">Email Login</h2>
+          <button
+                  className="w-full m-auto h-[35px] px-2 bg-[#6E028F] border border-1 border-white text-white rounded rounded-md hover:bg-transparent"
+                  onClick={handleLoginClick}
+                >
+                 Login
+                </button>
+                <button
+                  className="w-full m-auto mt-4 px-1 bg-transparent  text-white "
+                  onClick={handleSignupClick}
+                >
+                  Create an Account
+                </button>
+
         </div>
       </Modal>
 
       {isLoginModalOpen && (
         <Modal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}>
-          {/* Login Modal Content */}
-          <div className="bg-white rounded p-8 max-w-md m-auto">
-            <h2 className="text-lg font-semibold mb-4">Login</h2>
-            {/* Login form goes here */}
-            <form onSubmit={handleLoginSubmit}>
-              {/* Login form fields */}
-              <div>
-                <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-              <div>
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" required />
-              </div>
-              <button type="submit">Login</button>
-            </form>
-          </div>
-        </Modal>
+        {/* Login Modal Content */}
+        <div className="bg-[#011335] rounded p-8 max-w-md mt-36 mx-auto text-white h-[360px]">
+          <h2 className="text-lg font-semibold mb-4 text-center">Email Login</h2>
+          {/* Login form goes here */}
+          <form onSubmit={handleLoginSubmit}>
+            {/* Login form fields */}
+            <div className="flex gap-2 flex-col w-full">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                // onChange={(e) => setName(e.target.value)}
+                required
+                className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500"
+              />
+            </div>
+      
+            <div className="flex gap-2 flex-col w-full mt-2">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                className="bg-[#011335] px-3 border border-white rounded h-10 focus:outline-blue-500"
+              />
+            </div>
+      
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              <button  className="w-full m-auto h-[35px] px-2 bg-transparent border border-1 border-white text-white rounded rounded-lg hover:bg-[#6E028F]" type="button" onClick={() => setIsLoginModalOpen(false)}>
+                Cancel
+              </button>
+              <button 
+              className="w-full m-auto  px-2 h-[35px] bg-[#6E028F] border border-1 border-white text-white rounded rounded-md hover:bg-transparent" 
+              type="submit">Login</button>
+            </div>
+          </form>
+        </div>
+      </Modal>
       )}
 
       {isSignupModalOpen && (
         <Modal open={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}>
           {/* Signup Modal Content */}
-          <div className="bg-white rounded p-8 max-w-md m-auto">
-            <h2 className="text-lg font-semibold mb-4">Signup</h2>
+          <div className="bg-[#011335] rounded p-8 max-w-md mt-36 mx-auto text-white h-[380px]">
+          <h2 className="text-lg font-semibold mb-4 text-center">Create an Account</h2>
             {/* Signup form goes here */}
             <form onSubmit={handleSignupSubmit}>
               {/* Signup form fields */}
-              <div>
-                <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+              <div className="flex gap-2 flex-col w-full">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                // onChange={(e) => setName(e.target.value)}
+                required
+                className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500"
+              />
+            </div>
+      
+            <div className="flex gap-2 flex-col w-full mt-2">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                className="bg-[#011335] px-3 border border-white rounded h-10 focus:outline-blue-500"
+              />
+            </div>
+            <div className="flex gap-2 flex-col w-full mt-2">
+              <label htmlFor="password">Repeat Password:</label>
+              <input
+                type="password"
+                id="repeatPassword"
+                name="repeatPassword"
+                required
+                className="bg-[#011335] border border-white rounded h-10 focus:outline-blue-500"
+              />
               </div>
-              <div>
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" required />
+          <div className="grid grid-cols-2 gap-4 mt-4">
+              <button  className="w-full m-auto h-[35px] px-2 bg-transparent border border-1 border-white text-white rounded rounded-lg hover:bg-[#6E028F]" type="button" onClick={() => setIsSignupModalOpen(false)}>
+                Cancel
+              </button>
+              <button 
+              className="w-full m-auto  px-2 h-[35px] bg-[#6E028F] border border-1 border-white text-white rounded rounded-md hover:bg-transparent" 
+              type="submit">Create</button>
               </div>
-              <button type="submit">Signup</button>
             </form>
           </div>
         </Modal>

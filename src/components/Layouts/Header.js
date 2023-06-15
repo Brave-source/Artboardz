@@ -20,6 +20,7 @@ import HeaderProfile from "../User/HeaderProfile";
 import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
+import ConnectWalletandLogin from "../ConnectWallet/ConnectWalletandLogin";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
 import { getNFTByAddress } from "../blockfrost/Blockfrost";
 import { useRouter } from "next/router";
@@ -127,7 +128,8 @@ const Header = () => {
       <div className="flex z-40 text-[#FFFFFF] items-center gap-2 ml-auto">
         <div className="flex lg:flex">
           {/* <CardanoWallet/> */}
-          <ConnectWallet />
+          {/* <ConnectWallet /> */}
+          <ConnectWalletandLogin/>
         </div>
         <HeaderProfile />
       </div>
