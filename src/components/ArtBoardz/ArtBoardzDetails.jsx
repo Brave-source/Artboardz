@@ -95,6 +95,7 @@ const ArtBoardzDetails = ({
       {/* {data.title && ( */}
         <h2 className="text-2xl md:text-3xl font-medium ml-[8px] pb-4">Patrons</h2>
       {/* // )} */}
+
       <div className=" mx-[8px] rounded-lg" style={{ backgroundColor: '#011335' }}>
         <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-between">
           {patrons.slice(0, 4).map((info, index) => {
