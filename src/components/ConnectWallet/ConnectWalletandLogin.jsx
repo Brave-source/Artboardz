@@ -78,7 +78,7 @@ const ConnectWallet = () => {
     dispatch(logUserSuccess());
   };
 
-  // Network check
+  // Network checks
   useEffect(() => {
     if (connected && network === 0) {
       alert('This dapp only works on Cardano Mainnet');
