@@ -370,3 +370,33 @@ height: 6px;
 background: #FFFFFF;
 border-radius: 8px;
 } */
+
+.gm-style-iw{
+  border: none !important;
+  box-shadow: none !important;
+  padding: none !important;
+  background-color: black !important;
+  margin:none !important;
+}
+
+.gm-style-iw-c {
+  border: none !important;
+  box-shadow: none !important;
+  padding: none !important;
+  background-color: black !important;
+  margin:none !important;
+  
+}
+
+.gm-style-iw-d {
+  border: none !important;
+  box-shadow: none !important;
+  padding: none !important;
+  background-color: black !important;
+  overflow: auto !important;
+  margin:none !important;
+}
+
+.gm-style-iw-tc::after{
+ display: none !important;
+}
