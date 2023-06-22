@@ -5,6 +5,15 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: false
     },
+    email: {
+        type: String,
+        required: false,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: false,
+    },
     image: {
         type: String,
         default: ""
@@ -19,7 +28,7 @@ const UserSchema = mongoose.Schema({
     },
     stakeAddress: {
         type: String,
-        required: true,
+        required: false,
     },
     artboardTag: {
         type: String,
