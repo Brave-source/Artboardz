@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useWallet, useWalletList, useLovelace, useNetwork } from '@meshsdk/react';
 import Image from 'next/image';
+import axios from "axios";
 import { Button, Modal } from '@mui/material';
 import { Lucid } from 'lucid-cardano';
-import { getWalletAddress, logUserSuccess } from '../../store/redux-slices/userSlice';
+import { getWalletAddress, logUserFailure, logUserStart, logUserSuccess } from '../../store/redux-slices/userSlice';
 import { useDispatch } from 'react-redux';
 
 const ConnectWallet = () => {
@@ -12,6 +13,8 @@ const ConnectWallet = () => {
   const lovelace = useLovelace();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState(null);
+  const [loggedInData, setLoggedInData] = useState({});
+  const [signupData, setSignUpData] = useState({});
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
   const network = useNetwork();
@@ -93,14 +96,46 @@ const ConnectWallet = () => {
     setIsSignupModalOpen(true);
   };
 
-  const handleLoginSubmit = (formData) => {
+  const handleLoggedIn = (e) => {
+    setLoggedInData((prev) => ({...prev, [e.target.name]: e.target.value}))
+  }
+  
+  const handleSignUp = (e) => {
+    setSignUpData((prev) => {
+      return {...prev, [e.target.name]: e.target.value}
+    })
+  }
+
+// Logged In function
+  const handleLoginSubmit = async(e) => {
+    e.preventDefault();
     // Handle login form submission
-    console.log(formData);
+    dispatch(logUserStart())
+    try{
+       const res = await axios.put('http://localhost:3000/api/login', loggedInData);
+       console.log(res.data)
+       dispatch(logUserSuccess(res.data))
+       setIsSignupModalOpen(false)
+       setIsLoginModalOpen(false);
+       setIsOpen(false);
+    }catch(err) {
+      console.log(err)
+      dispatch(logUserFailure())
+    }
   };
 
-  const handleSignupSubmit = (formData) => {
+  // Sign Up function
+  const handleSignupSubmit = async(e) => {
+    e.preventDefault();
     // Handle signup form submission
-    console.log(formData);
+    try {
+      const res = await axios.post('http://localhost:3000/api/login', signupData);
+      console.log(res.data)
+      setIsSignupModalOpen(false)
+      setIsLoginModalOpen(true);
+    }catch(err) {
+      console.log(err)
+    }
   };
 
   return (
@@ -154,7 +189,8 @@ const ConnectWallet = () => {
               <input
                 type="email"
                 id="email"
-                // onChange={(e) => setName(e.target.value)}
+                name="email"
+                onChange={handleLoggedIn}
                 required
                 className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500"
               />
@@ -166,6 +202,7 @@ const ConnectWallet = () => {
                 type="password"
                 id="password"
                 name="password"
+                onChange={handleLoggedIn}
                 required
                 className="bg-[#011335] px-3 border border-white rounded h-10 focus:outline-blue-500"
               />
@@ -197,6 +234,8 @@ const ConnectWallet = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
+                onChange={handleSignUp}
                 // onChange={(e) => setName(e.target.value)}
                 required
                 className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500"
@@ -209,6 +248,7 @@ const ConnectWallet = () => {
                 type="password"
                 id="password"
                 name="password"
+                onChange={handleSignUp}
                 required
                 className="bg-[#011335] px-3 border border-white rounded h-10 focus:outline-blue-500"
               />
@@ -218,7 +258,8 @@ const ConnectWallet = () => {
               <input
                 type="password"
                 id="repeatPassword"
-                name="repeatPassword"
+                name="confirmPassword"
+                onChange={handleSignUp}
                 required
                 className="bg-[#011335] border border-white rounded h-10 focus:outline-blue-500"
               />
