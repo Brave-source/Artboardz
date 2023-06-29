@@ -7,8 +7,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
+  lat: 9.083333,
+  lng: 7.536111
 };
 const position = {
   lat: -3.744,
@@ -39,7 +39,7 @@ function Map() {
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
-        <InfoBox
+        {/* <InfoBox
       onLoad={onLoad}
       options={options}
       position={center}
@@ -52,7 +52,18 @@ function Map() {
     </InfoBox>
     <Marker
      onLoad={onLoad}
-     position={center}/>
+     position={center}/> */}
+     <InfoBox
+      options={options}
+      position={center}
+     >
+      Hello world
+     </InfoBox>
+     <Marker
+      position={center}
+     >
+
+     </Marker>
       </GoogleMap>
   ) : <></>
 }

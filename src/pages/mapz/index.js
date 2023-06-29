@@ -1,12 +1,10 @@
 import MapzSection from '@/components/sections/MapzSection/MapzSection'
-import React from 'react'
 
 const index = () => {
+
   return (
-    <div>
-      <MapzSection/>
-    </div>
+    <MapzSection />
   )
 }
 
-export default index
+export default index;
