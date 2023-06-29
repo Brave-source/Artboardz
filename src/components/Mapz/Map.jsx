@@ -1,5 +1,8 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader,Marker, InfoBox} from '@react-google-maps/api';
+
+import React, { useState } from 'react';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
+import image from '../../assets/images/hero0Image.png';
+import Image from 'next/image';
 
 const containerStyle = {
   width: '85vw',
@@ -10,62 +13,81 @@ const center = {
   lat: 9.083333,
   lng: 7.536111
 };
-const position = {
-  lat: -3.744,
-  lng: -38.522
-};
-const options = { closeBoxURL: '', enableEventPropagation: true };
 
-const onLoad = infoBox => {
-  console.log('infoBox: ', infoBox)
-};
+const markers = [
+  {
+    position: { lat: -3.794, lng: -38.112 },
+    title: 'Marker 1',
+    description: 'Marker 1 description',
+    link: 'Link',
+    image: image
+  },
+  {
+    position: { lat: -3.749, lng: -38.514 },
+    title: 'Marker 2',
+    description: 'Marker 2 description',
+    link: 'Link',
+    image: image
+  }
+];
 
+const options = {
+  closeBoxURL: '',
+  enableEventPropagation: true,
+  pixelOffset: { width: 0, height: 0 }, // Adjust the pixel offset as needed
+  disableAutoPan: true,
+  pane: 'overlayLayer',
+  boxClass: 'custom-infowindow',
+};
 
 function Map() {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyCMQynRL57gTKZB6dbZAyp1fyR7QdT1pNE"
-  })
+  });
 
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
+  const handleMarkerClick = (marker) => {
+    setSelectedMarker(marker);
+  };
 
-  
+  const handleMarkerCloseClick = () => {
+    setSelectedMarker(null);
+  };
+
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-    
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-        {/* <InfoBox
-      onLoad={onLoad}
-      options={options}
-      position={center}
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={10}
     >
-      <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 12 }}>
-        <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-          Hello, World!
-        </div>
-      </div>
-    </InfoBox>
-    <Marker
-     onLoad={onLoad}
-     position={center}/> */}
-     <InfoBox
-      options={options}
-      position={center}
-     >
-      Hello world
-     </InfoBox>
-     <Marker
-      position={center}
-     >
+      {markers.map((marker, index) => (
+        <Marker
+          key={index}
+          position={marker.position}
+          onClick={() => handleMarkerClick(marker)}
+        />
+      ))}
 
-     </Marker>
-      </GoogleMap>
-  ) : <></>
+      {selectedMarker && (
+        <InfoWindow
+          position={selectedMarker.position}
+          onCloseClick={handleMarkerCloseClick}
+          options={options}
+        >
+          <div className='custom-popup h-[200px] w-[200px]' style={{ backgroundColor: 'black', color: 'white', padding: '10px' }}>
+            <Image src={selectedMarker.image} alt="Marker Image" className='h-[120px] w-[190px] relative right-[10px]' />
+            <h2 className=' relative right-[10px] mb-2'>{selectedMarker.title}</h2>
+            <p className=' relative right-[10px] mb-2'>{selectedMarker.description}</p>
+            <a className=' relative right-[10px]'>{selectedMarker.link}</a>
+          </div>
+        </InfoWindow>
+      )}
+    </GoogleMap>
+  ) : null;
 }
 
-export default React.memo(Map)
+export default React.memo(Map);
+
+

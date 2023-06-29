@@ -153,7 +153,7 @@ const ArtBoardzDetails = ({
           <Image src={physicalUrl} className={'object-cover h-[800px] w-full'} width={100} height={100}  unoptimized={true}/>
         </button>
       </div>
-      {/* <Map/> */}
+      <Map/>
     </section>
   );
 };
