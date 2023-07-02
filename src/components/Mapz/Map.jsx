@@ -67,6 +67,7 @@ function Map({markers}) {
     lat: 9.9327629,
     lng: -11.3580296
   };
+  console.log(markers)
 
   const handleMarkerCloseClick = () => {
     setSelectedMarker(null);
