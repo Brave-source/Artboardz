@@ -77,7 +77,7 @@ function Map({markers}) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={3}
+      zoom={2}
     >
       {markers?.map((marker, index) => (
         <Marker
@@ -94,10 +94,10 @@ function Map({markers}) {
           options={options}
         >
           <div className='custom-popup h-[200px] w-[200px]' style={{ backgroundColor: 'black', color: 'white', padding: '10px' }}>
-            <Image src={selectedMarker.img} alt="Marker Image" className='h-[120px] w-[190px] relative right-[10px]' />
+            <Image src={selectedMarker.img} alt="Marker Image" className='h-[120px] w-[190px] relative right-[10px]' width={100} height={100} />
             <h2 className=' relative right-[10px] mb-2'>{selectedMarker.title}</h2>
             <p className=' relative right-[10px] mb-2'>{selectedMarker.desc}</p>
-            <a className=' relative right-[10px]'>{selectedMarker.link}</a>
+            {/* <a className=' relative right-[10px]'>{selectedMarker.link}</a> */}
           </div>
         </InfoWindow>
       )}
