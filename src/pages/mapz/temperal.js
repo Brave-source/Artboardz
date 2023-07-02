@@ -15,7 +15,7 @@ import Pin from './pin';
 
 import CITIES from './cities.json';
 
-const TOKEN = 'pk.eyJ1IjoiZW1teXplZTQ1IiwiYSI6ImNsamRsYTFmMjA1djkzbHRhN3lqNDNxdjMifQ.X2B9q5YIPfiuYLLSX_ZbMg'; // Set your mapbox token here
+const TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN// Set your mapbox token here
 
 export default function temperalMap() {
   const [popupInfo, setPopupInfo] = useState(null);

@@ -64,7 +64,7 @@ export default async function handler (req, res) {
             reply_to,
             template,
             name,
-            link
+            linkP
             );
             res.status(200).json({ message: "Verification Email Sent" });
         } catch (error) {
