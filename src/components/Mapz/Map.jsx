@@ -70,7 +70,7 @@ function Map() {
         />
       ))}
 
-      {selectedMarker && (
+{selectedMarker && (
         <InfoWindow
           position={selectedMarker.position}
           onCloseClick={handleMarkerCloseClick}
