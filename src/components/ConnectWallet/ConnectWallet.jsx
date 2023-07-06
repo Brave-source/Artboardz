@@ -97,8 +97,13 @@ const ConnectWallet = () => {
     };
   const handleClose = () => {
     setAnchorEl(null);
+    setIsOpenNested(false)
   };
 
+  const handleCloseNested = () => {
+  
+    setIsOpenNested(false)
+  };
   // Network check
   useEffect(() => {
     if (connected && network == 0) {
@@ -166,7 +171,7 @@ const ConnectWallet = () => {
           }}
         >
           {/* Nested Menu */}
-          <MenuItem>
+          <MenuItem className='w-[200px]'>
             <button onClick={() => setIsOpenNested(!isOpenNested)} className='flex'>
               <WalletIcon className='w-6 pr-1'/> Connect Wallet {isOpenNested ? <ChevronDownIcon className='w-6 pl-1'/> : <ChevronUpIcon className='w-6 pl-1'/>}
             </button>
@@ -174,12 +179,13 @@ const ConnectWallet = () => {
               id="basic-menu"
               anchorEl={anchorEl}
               open={isOpenNested}
-              onClose={handleClose}
+              onClose={handleCloseNested}
               sx={{
-                marginLeft: '8px'
+                marginLeft: '8px',
+                marginTop:'40px'
               }}
             >
-              <MenuItem>Wallet 123</MenuItem>
+              <MenuItem className='w-[200px]'>Wallet 123</MenuItem>
               <MenuItem>Wallet 123</MenuItem>
               <MenuItem>Wallet 123</MenuItem>
             </Menu>
