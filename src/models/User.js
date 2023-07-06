@@ -70,6 +70,10 @@ const UserSchema = mongoose.Schema({
     policyIds: {
         type: [String],
         default: []
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
     }
 }, {timestamps: true});
 

@@ -64,6 +64,13 @@ const Navbar = () => {
           </Link>
         </li>
         <li onClick={toggleNavbarHandler}>
+          <Link href="/mapz" >
+            <div className={router.pathname.split('/')[1] == "leaderboardz" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit    inline-block hover:bg-[#123D91] lg:pt-[10px] lg:pb-[10px]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91] lg:pt-[10px] lg:pb-[10px]"}>
+            Tourz
+            </div>
+          </Link>
+        </li>
+        <li onClick={toggleNavbarHandler}>
           <Link href="/about" >
             <div className={router.pathname.split('/')[1] == "about" ? "w-[95%] m-auto h-[46px] pt-2 bg-active-link xl:px-2  xl:h-fit    inline-block hover:bg-[#123D91] lg:pt-[10px] lg:pb-[10px]" : "rounded-[3px] w-[95%]  px-2 inline-block hover:bg-[#123D91] lg:pt-[10px] lg:pb-[10px]"}>
             About

@@ -45,7 +45,7 @@ const CollectionSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    physicallArtUrl: {
+    physicalArtUrl: {
         type: String,
         default: "",
     },
@@ -77,11 +77,11 @@ const CollectionSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    webLink: {
+    discord: {
         type: String,
         required: false
     },
-    discord: {
+    webLink: {
         type: String,
         required: false
     },
@@ -95,6 +95,33 @@ const CollectionSchema = new mongoose.Schema({
     },
     patronId: {
         type: [String],
+        default: []
+    },
+    vendors: {
+        type: [{
+            position: {
+                  lat: {
+                    type: Number,
+                    required: true
+                  },
+                  lng: {
+                    type: Number,
+                    required: true
+                  }
+            },
+            title: {
+                type: String,
+                required: false
+            },
+            desc: {
+                type: String,
+                required: false
+            },
+            img: {
+                type: String,
+                default: ""
+            }
+        }],
         default: []
     }
 }, {timestamps: true})
