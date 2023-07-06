@@ -16,11 +16,9 @@ import {
   updateUserSuccess,
 } from "@/store/redux-slices/userSlice";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import HeaderProfile from "../User/HeaderProfile";
 import { LogoSmall } from "./LogoSmall";
 import { UIAction } from "../../store/redux-slices/UI-slice";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
-import ConnectWalletandLogin from "../ConnectWallet/ConnectWalletandLogin";
 import { offSetMainnet, setMainnet } from "@/store/redux-slices/CollectorSlice";
 import { getNFTByAddress } from "../blockfrost/Blockfrost";
 import { useRouter } from "next/router";
@@ -28,7 +26,6 @@ import { useRouter } from "next/router";
 const Header = () => {
   const dispatch = useDispatch();
   const meshaddress = useAddress();
-  const [image, setImage] = useState("");
   const [isUser, setIsUser] = useState(false);
   const router = useRouter();
   const network = useNetwork();
@@ -36,7 +33,6 @@ const Header = () => {
   const { connected } = useWallet();
   const user = useSelector((item) => item.user.user);
   const address = useSelector((item) => item.user.walletAddress);
-  const id = user?._id;
   const isMainnet = useSelector((item) => item.collector.isMainnet);
   console.log("mesh address",meshaddress)
   console.log("lucid address",address)
@@ -127,11 +123,8 @@ const Header = () => {
       </div>
       <div className="flex z-40 text-[#FFFFFF] items-center gap-2 ml-auto">
         <div className="flex lg:flex">
-          {/* <CardanoWallet/> */}
-          {/* <ConnectWallet /> */}
-          <ConnectWalletandLogin/>
+          <ConnectWallet />
         </div>
-        <HeaderProfile />
       </div>
     </header>
   );
