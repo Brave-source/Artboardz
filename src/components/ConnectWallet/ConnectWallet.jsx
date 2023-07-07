@@ -185,9 +185,9 @@ const ConnectWallet = () => {
                 marginTop:'40px'
               }}
             >
-              <MenuItem className='w-[200px]'>Wallet 123</MenuItem>
-              <MenuItem>Wallet 123</MenuItem>
-              <MenuItem>Wallet 123</MenuItem>
+              <MenuItem className='w-[200px]'>Wallet 1</MenuItem>
+              <MenuItem>Wallet 2</MenuItem>
+              <MenuItem>Wallet 3</MenuItem>
             </Menu>
           </MenuItem>
           <MenuItem><UserIcon className='w-6 pr-1'/>Profile</MenuItem>
