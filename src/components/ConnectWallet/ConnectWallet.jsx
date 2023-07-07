@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react';
 import { useWallet, useWalletList, useLovelace, useNetwork } from '@meshsdk/react'
 // import { BsChevronDown } from 'react-icons/bs'
+import LoginModal from './LoginModal';
 import Image from 'next/image'
 import { Button, Menu, MenuItem } from '@mui/material'
 import { Lucid } from "lucid-cardano";
