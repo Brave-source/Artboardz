@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useNetwork, useWallet } from "@meshsdk/react";
 
 const HeaderProfile = () => {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const [isMainnet, setIsMainnet] = useState(false);
   const store = useSelector(state => state);
   const { connected } = useWallet();
@@ -20,35 +20,32 @@ const HeaderProfile = () => {
   }, [store]);
 
   useEffect(() => {
-    if(!connected || network == 0) {
+    if (!connected || network === 0) {
       setIsMainnet(false);
     }
-  },[connected, network])
+  }, [connected, network]);
 
   useEffect(() => {
-    if(connected && network == 1) {
+    if (connected && network === 1) {
       setIsMainnet(true);
     }
-  },[connected, network]);
+  }, [connected, network]);
 
   return (
-    <div className="flex gap-2 items-center">
-      {isMainnet && (<>
-        <Link
-        href="/profile"
-        className="block w-[40px] aspect-square border border-[#7EAAFF] rounded-full "
-        > 
-          <Avatar
-            image={user.image ? user.image : defaultProfile}
-            username={"profile"}
-          />
-      </Link>
-        <span aria-hidden>
-          <Link href="/profile">
-          <ChevronDownIcon className="w-4 text-[#7EAAFF]" />
+    <div className="flex gap-2 items-center pl-1">
+      {isMainnet && (
+        <>
+          <Link
+            href="/profile"
+            className="block w-[32px] aspect-square border border-[#7EAAFF] rounded-full "
+          >
+            <Avatar
+              image={user.image ? user.image : defaultProfile}
+              username={"profile"}
+            />
           </Link>
-        </span>
-      </>)}
+        </>
+      )}
     </div>
   );
 };
