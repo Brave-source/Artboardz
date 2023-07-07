@@ -197,6 +197,7 @@ const ConnectWallet = () => {
         :
         <Fragment />
       }
+      //LoginModal popup
       <LoginModal isOpen={isOpenLogin} setIsOpen={setIsOpenLogin} />
     </div>
   )
