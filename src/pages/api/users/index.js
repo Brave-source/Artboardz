@@ -8,10 +8,10 @@ export default async function handler (req, res) {
 
     await dbConnect();
 
-    setInterval(() => {
-      updateNFTs();
-      console.log("interval running")
-    }, 86400000)
+    // setInterval(() => {
+    //   updateNFTs();
+    //   console.log("interval running")
+    // }, 86400000)
 
     if(method === "POST") {
 
