@@ -400,3 +400,12 @@ border-radius: 8px;
 .gm-style-iw-tc::after{
  display: none !important;
 }
+
+.MuiMenuItem-root {
+  /* background-color:#0056FF; */
+}
+
+.MuiPaper-root {
+  background-color:#011335 !important;
+  color: #ffffff !important
+}
