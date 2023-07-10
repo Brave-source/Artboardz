@@ -44,12 +44,6 @@ const ConnectWallet = () => {
             case "Flint Wallet":
                 api = await window.cardano.flint.enable();
                 break;
-            // case "Typhon Wallet":
-            //     api = await window.cardano.typhon.enable();
-            //     break;
-            // case "Yoroi":
-            //     api = await window.cardano.yoroi.enable();
-            //     break;
             case "GeroWallet":
                 api = await window.cardano.gerowallet.enable();
                 break;
