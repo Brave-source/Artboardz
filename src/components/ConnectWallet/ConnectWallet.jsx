@@ -10,6 +10,9 @@ import { useDispatch } from 'react-redux';
 import LoginModal from './LoginModal';
 import HeaderProfile from '../User/HeaderProfile';
 import { ChevronDownIcon, ChevronUpIcon, PowerIcon, UserIcon, WalletIcon } from '@heroicons/react/24/solid';
+import sprayIcon from '../../assets/images/spray-12.png'
+import monetIcon from '../../assets/images/transferir 2.png'
+
 
 const ConnectWallet = () => {
   const { wallet, connected, connect, disconnect, connecting } = useWallet()
@@ -122,7 +125,7 @@ const ConnectWallet = () => {
   const [isOpenNested, setIsOpenNested] = useState(false);
 
   return (
-    <div>
+    <div className='text-[#ffffff]'>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -134,9 +137,11 @@ const ConnectWallet = () => {
         {connected && !connecting ? (
           <div className='flex items-center w-[200px] h-[40px] bg-[#123D91] rounded text-white'>
             <HeaderProfile />
-            <Typography className='pl-3'>2 ℘</Typography>
+            <Typography className='pl-3'>2 </Typography>
+            <Image src={sprayIcon} className='h-[16px] w-[16px]'></Image>
             <Typography className='px-2'>|</Typography>
-            <Typography className='pr-1'>120,000 ℘</Typography>
+            <Typography className='pr-1'>120,000 </Typography>
+            <Image src={monetIcon} className='h-[16px] w-[16px]'></Image>
             {/* Here goes the divider */}
             {open ?
               <ChevronUpIcon className='w-6 pr-1' />
@@ -146,13 +151,13 @@ const ConnectWallet = () => {
           </div>
         )
           : connecting ? ( // Connecting
-            <div className='flex items-center h-[40px]'>
+            <div className='flex items-center h-[40px] text-white'>
               <div className='bg-[#123D91] w-[147px] py-2 rounded-lg text-[#FFFFFF]'>Connecting</div>
             </div>
           )
             :
             ( // Not Connected
-              <div className='flex items-center h-[40px]'>
+              <div className='flex items-center h-[40px] text-white'>
                 <div className='bg-[#123D91] w-[147px] py-2 rounded text-[#FFFFFF]'>Connect</div>
               </div>
             )}
@@ -171,7 +176,7 @@ const ConnectWallet = () => {
           }}
         >
           {/* Nested Menu */}
-          <MenuItem className='w-[200px]'>
+          <MenuItem className='w-[200px] text-white'>
             <button onClick={() => setIsOpenNested(!isOpenNested)} className='flex'>
               <WalletIcon className='w-6 pr-1'/> Connect Wallet {isOpenNested ? <ChevronDownIcon className='w-6 pl-1'/> : <ChevronUpIcon className='w-6 pl-1'/>}
             </button>
@@ -182,7 +187,8 @@ const ConnectWallet = () => {
               onClose={handleCloseNested}
               sx={{
                 marginLeft: '8px',
-                marginTop:'40px'
+                marginTop:'40px',
+                
               }}
             >
               <MenuItem className='w-[200px]'>Wallet 1</MenuItem>
