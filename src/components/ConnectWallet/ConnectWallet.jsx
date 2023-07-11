@@ -31,16 +31,16 @@ const ConnectWallet = () => {
       setSelectedWallet(JSON.parse(storedWallet))
       connect(JSON.parse(storedWallet)?.name);
     }
-    if(address) {
+    if (address) {
       LuciConnectWalletAddress(JSON.parse(storedWallet)?.name);
     }
   }, [])
 
   const walletList = ["eternl", "Nami", "GeroWallet", "Flint Wallet"]
   const filteredWallets = wallets.filter((wallet) => walletList.includes(wallet?.name));
-  const LuciConnectWalletAddress = async(name) => {
+  const LuciConnectWalletAddress = async (name) => {
     let api;
-    switch(name) {
+    switch (name) {
       case "eternl":
         api = await window.cardano?.eternl.enable();
         break;
@@ -86,19 +86,19 @@ const ConnectWallet = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    if(connected && !connecting) {
+    if (connected && !connecting) {
       setAnchorEl(event.currentTarget);
     } else {
       setIsOpenLogin(!isOpenLogin);
     }
-    };
+  };
   const handleClose = () => {
     setAnchorEl(null);
     setIsOpenNested(false)
   };
 
   const handleCloseNested = () => {
-  
+
     setIsOpenNested(false)
   };
   // Network check
@@ -172,7 +172,7 @@ const ConnectWallet = () => {
           {/* Nested Menu */}
           <MenuItem className='w-[200px] text-white'>
             <button onClick={() => setIsOpenNested(!isOpenNested)} className='flex'>
-              <WalletIcon className='w-6 pr-1'/> Connect Wallet {isOpenNested ? <ChevronDownIcon className='w-6 pl-1'/> : <ChevronUpIcon className='w-6 pl-1'/>}
+              <WalletIcon className='w-6 pr-1' /> Connect Wallet {isOpenNested ? <ChevronDownIcon className='w-6 pl-1' /> : <ChevronUpIcon className='w-6 pl-1' />}
             </button>
             <Menu
               id="basic-menu"
@@ -181,24 +181,35 @@ const ConnectWallet = () => {
               onClose={handleCloseNested}
               sx={{
                 marginLeft: '8px',
-                marginTop:'40px',
-                
+                marginTop: '40px',
+
               }}
             >
-              <MenuItem className='w-[200px]'>Wallet 1</MenuItem>
-              <MenuItem>Wallet 2</MenuItem>
-              <MenuItem>Wallet 3</MenuItem>
+              {filteredWallets.map((wallet, index) => (
+                <MenuItem className='w-[200px]' sx={{
+                  width: '147px',
+                }} key={index} onClick={() => handleWalletSelection(wallet)}>
+                  <Image
+                    src={wallet.icon}
+                    alt={wallet.name}
+                    width='30'
+                    height='30'
+                    className='mr-2 relative right-2'
+                  />
+                  {wallet.name}
+                </MenuItem>
+              ))}
             </Menu>
           </MenuItem>
-          <MenuItem><UserIcon className='w-6 pr-1'/>Profile</MenuItem>
-          <MenuItem onClick={handleDisconnect} sx={menuStyle}><PowerIcon className='w-6 pr-1'/>Logout</MenuItem>
-        </Menu>
+          <MenuItem><UserIcon className='w-6 pr-1' />Profile</MenuItem>
+          <MenuItem onClick={handleDisconnect} sx={menuStyle}><PowerIcon className='w-6 pr-1' />Logout</MenuItem>
+        </Menu >
       )
         :
         <Fragment />
       }
       <LoginModal isOpen={isOpenLogin} setIsOpen={setIsOpenLogin} />
-    </div>
+    </div >
   )
 }
 
