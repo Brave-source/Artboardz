@@ -55,9 +55,9 @@ const AddWallet = ({ isOpen, setIsOpen }) => {
           }}
           className="ml-[170px] "
         >
-          <MenuItem onClick={handleMenuClose}>Menu Item 1</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Menu Item 2</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Menu Item 3</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Eternl</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Nami</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Flint</MenuItem>
         </Menu>
 
         <div className="h-[226px] overflow-y-auto">
