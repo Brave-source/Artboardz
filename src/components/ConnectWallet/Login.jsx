@@ -1,7 +1,8 @@
-import { logUserFailure, logUserStart, logUserSuccess } from "@/store/redux-slices/userSlice";
+import { getUserFailure, getUserStart, getUserSuccess } from "@/store/redux-slices/userSlice";
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Login = ({setIsSignupModalOpen, setIsLoginModalOpen, setIsOpen}) => {
     const dispatch = useDispatch();
@@ -15,17 +16,18 @@ const Login = ({setIsSignupModalOpen, setIsLoginModalOpen, setIsOpen}) => {
   const handleLoginSubmit = async(e) => {
     e.preventDefault();
     // Handle login form submission
-    dispatch(logUserStart())
+    dispatch(getUserStart())
     try{
-       const res = await axios.put('http://localhost:3000/api/login', loggedInData);
-       console.log(res.data)
-       dispatch(logUserSuccess(res.data))
-       setIsSignupModalOpen(false)
-       setIsLoginModalOpen(false);
-       setIsOpen(false);
+      const res = await axios.post('http://localhost:3000/api/login', loggedInData);
+      dispatch(getUserSuccess(res.data))
+      setIsSignupModalOpen(false)
+      setIsLoginModalOpen(false);
+      setIsOpen(false);
+      toast.success("logged In")
     }catch(err) {
       console.log(err)
-      dispatch(logUserFailure())
+      dispatch(getUserFailure())
+      toast.error("something went wrong")
     }
   };
 

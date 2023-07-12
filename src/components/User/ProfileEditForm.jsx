@@ -139,10 +139,15 @@ const ProfileEditForm = ({ onCloseForm, propUser }) => {
     console.log(updateUser)
     try {
       const res = await axios.post( propUser._id ? 
-        `https://artboardz.net/api/users/${id}` : 
-        `https://artboardz.net/api/edit`,
+        `http://localhost:3000/api/users/${id}` : 
+        `http://localhost:3000/api/edit`,
         updateUser
       );
+      // const res = await axios.post( propUser._id ? 
+      //   `https://artboardz.net/api/users/${id}` : 
+      //   `https://artboardz.net/api/edit`,
+      //   updateUser
+      // );
       console.log(res.data);
       dispatch(updateUserSuccess(updateUser));
       toast.success("Successfully updated!");

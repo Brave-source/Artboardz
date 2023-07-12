@@ -10,10 +10,8 @@ export default async function handler (req, res) {
       try {
           const savedUser = await User.updateOne({stakeAddress: req.body.stakeAddress}, req.body, {new : true});
           res.status(200).json(savedUser[0])
-          console.log(savedUser)
       }catch(err) {
           res.status(500).json(err);
-          console.log(err)
       }
     }
     if (method === "PUT") {

@@ -26,10 +26,10 @@ const HeaderProfile = () => {
   }, [connected, network]);
 
   useEffect(() => {
-    if (connected && network === 1) {
+    if (connected && network === 1 || user) {
       setIsMainnet(true);
     }
-  }, [connected, network]);
+  }, [connected, network, user]);
 
   return (
     <div className="flex gap-2 items-center pl-1">

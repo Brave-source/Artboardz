@@ -2,15 +2,22 @@ const validate = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-// import { FaTimes } from "react-icons/fa";
-// import { BsCheck2All } from "react-icons/bs";
+import Card from "./Card";
+import { FaTimes } from "react-icons/fa";
+import { BsCheck2All } from "react-icons/bs";
 
 const initialState = {
-    name: "",
     email: "",
     password: "",
     password2: "",
   };
+
+  const indicator = {
+    display: "flex", 
+    justifyContent: 'flex-start', 
+    alignItems: 'center', 
+    fontSize: '12px'
+  }
 
 const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
     const [signupData, setSignUpData] = useState(initialState);
@@ -21,42 +28,42 @@ const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
     const [sChar, setSChar] = useState(false);
     const [passLength, setPassLength] = useState(false);
 
-    // const timesIcon = <FaTimes color="red" size={15} />;
-    // const checkIcon = <BsCheck2All color="green" size={15} />;
+    const timesIcon = <FaTimes color="red" size={15} />;
+    const checkIcon = <BsCheck2All color="green" size={15} />;
   
-    // const switchIcon = (condition) => {
-    //   if (condition) {
-    //     return checkIcon;
-    //   }
-    //   return timesIcon;
-    // };
+    const switchIcon = (condition) => {
+      if (condition) {
+        return checkIcon;
+      }
+      return timesIcon;
+    };
 
-    // useEffect(() => {
-    //     // Check Lower and Uppercase
-    //     if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
-    //       setUCase(true);
-    //     } else {
-    //       setUCase(false);
-    //     }
-    //     // Check for numbers
-    //     if (password.match(/([0-9])/)) {
-    //       setNum(true);
-    //     } else {
-    //       setNum(false);
-    //     }
-    //     // Check for special character
-    //     if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
-    //       setSChar(true);
-    //     } else {
-    //       setSChar(false);
-    //     }
-    //     // Check for PASSWORD LENGTH
-    //     if (password.length > 5) {
-    //       setPassLength(true);
-    //     } else {
-    //       setPassLength(false);
-    //     }
-    //   }, [password]);
+    useEffect(() => {
+        // Check Lower and Uppercase
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+          setUCase(true);
+        } else {
+          setUCase(false);
+        }
+        // Check for numbers
+        if (password.match(/([0-9])/)) {
+          setNum(true);
+        } else {
+          setNum(false);
+        }
+        // Check for special character
+        if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+          setSChar(true);
+        } else {
+          setSChar(false);
+        }
+        // Check for PASSWORD LENGTH
+        if (password.length > 5) {
+          setPassLength(true);
+        } else {
+          setPassLength(false);
+        }
+      }, [password]);
      
   const handleSignUp = (e) => {
     setSignUpData((prev) => {
@@ -66,33 +73,34 @@ const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
      // Sign Up function
   const handleSignupSubmit = async(e) => {
     e.preventDefault();
-    // if (!email || !password) {
-    //     return toast.error("All fields are required");
-    //   }
-    //   if (password.length < 6) {
-    //     return toast.error("Password must be up to 6 characters");
-    //   }
-    //   if (!email.match(validate)) {
-    //     return toast.error("Please enter a valid email");
-    //   }
-    //   if (password !== password2) {
-    //     return toast.error("Passwords do not match");
-    //   }
+    if (!email || !password) {
+        return toast.error("All fields are required", {theme: 'dark'});
+      }
+      if (password.length < 6) {
+        return toast.error("Password must be up to 6 characters", {theme: 'dark'});
+      }
+      if (!email.match(validate)) {
+        return toast.error("Please enter a valid email", {theme: 'dark'});
+      }
+      if (password !== password2) {
+        return toast.success("Passwords do not match", {theme: 'dark'});
+      }
     // Handle signup form submission
     try {
-      const res = await axios.post('http://localhost:3000/api/login', signupData);
+      // const res = await axios.post("https://artboardz.net/api/register")
+      const res = await axios.post('http://localhost:3000/api/register', signupData);
       // await axios.post("http://localhost:3000/api/verification");
-      console.log(res.data)
       setIsSignupModalOpen(false)
       setIsLoginModalOpen(true);
-      toast.success("Email sent")
+      toast.success("Registration successful", {theme: 'dark'})
     }catch(err) {
       console.log(err)
+      toast.error("Something went wrong", {theme: 'dark'})
     }
   };
 
     return (
-        <div className="bg-[#011335] rounded p-8 max-w-md mt-36 mx-auto text-white h-[380px]">
+        <div className="bg-[#011335] rounded p-8 max-w-md mt-36 mx-auto text-white h-[450px]">
           <h2 className="text-lg font-semibold mb-4 text-center">Create an Account</h2>
             {/* Signup form goes here */}
             <form onSubmit={handleSignupSubmit}>
@@ -105,7 +113,6 @@ const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
                 name="email"
                 onChange={handleSignUp}
                 // onChange={(e) => setName(e.target.value)}
-                required
                 className="bg-[#011335] border  px-3 border-white rounded h-10 focus:outline-blue-500"
               />
             </div>
@@ -117,7 +124,6 @@ const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
                 id="password"
                 name="password"
                 onChange={handleSignUp}
-                required
                 className="bg-[#011335] px-3 border border-white rounded h-10 focus:outline-blue-500"
               />
             </div>
@@ -128,10 +134,44 @@ const Register = ({setIsLoginModalOpen, setIsSignupModalOpen}) => {
                 id="repeatPassword"
                 name="password2"
                 onChange={handleSignUp}
-                required
+                onPaste={(e) => {
+                  e.preventDefault();
+                  toast.error("Cannot paste into input field");
+                  return false;
+                }}
                 className="bg-[#011335] border border-white rounded h-10 focus:outline-blue-500"
               />
               </div>
+              
+            {/* Password Strength */}
+            <Card >
+              <ul className="form-list">
+                <li>
+                  <span style={indicator}>
+                    {switchIcon(uCase)}
+                    &nbsp; Lowercase & Uppercase
+                  </span>
+                </li>
+                <li>
+                  <span style={indicator}>
+                    {switchIcon(num)}
+                    &nbsp; Number (0-9)
+                  </span>
+                </li>
+                <li>
+                  <span style={indicator}>
+                    {switchIcon(sChar)}
+                    &nbsp; Special Character (!@#$%^&*)
+                  </span>
+                </li>
+                <li>
+                  <span style={indicator}>
+                    {switchIcon(passLength)}
+                    &nbsp; At least 6 Character
+                  </span>
+                </li>
+              </ul>
+            </Card>
           <div className="grid grid-cols-2 gap-4 mt-4">
               <button  className="w-full m-auto h-[35px] px-2 bg-transparent border border-1 border-white text-white rounded rounded-lg hover:bg-[#6E028F]" type="button" onClick={() => setIsSignupModalOpen(false)}>
                 Cancel

@@ -1,25 +1,26 @@
 import { useState, useEffect, Fragment } from 'react'
-import { useWallet, useWalletList, useLovelace, useNetwork } from '@meshsdk/react'
-// import { BsChevronDown } from 'react-icons/bs'
+import { useWallet, useWalletList, useLovelace, useNetwork, useAssets } from '@meshsdk/react'
 import Image from 'next/image'
 import { Button, Menu, MenuItem, Typography } from '@mui/material'
 import { Lucid } from "lucid-cardano";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getWalletAddress, logUserSuccess } from '../../store/redux-slices/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginModal from './LoginModal';
 import HeaderProfile from '../User/HeaderProfile';
 import { ChevronDownIcon, ChevronUpIcon, PowerIcon, UserIcon, WalletIcon } from '@heroicons/react/24/solid';
 import sprayIcon from '../../assets/images/spray-12.png'
 import monetIcon from '../../assets/images/transferir 2.png'
+import Link from 'next/link';
 
 
 const ConnectWallet = () => {
   const { wallet, connected, connect, disconnect, connecting } = useWallet()
   const wallets = useWalletList()
+  const assets = useAssets();
   const lovelace = useLovelace();
   const [isOpen, setIsOpen] = useState(false)
   const [selectedWallet, setSelectedWallet] = useState(null)
+  const user = useSelector((state) => state.user.user);
   const network = useNetwork();
   const lovelaceAssets = parseInt(lovelace) / 1000000;
   const dispatch = useDispatch();
@@ -35,7 +36,6 @@ const ConnectWallet = () => {
       LuciConnectWalletAddress(JSON.parse(storedWallet)?.name);
     }
   }, [])
-
   const walletList = ["eternl", "Nami", "GeroWallet", "Flint Wallet"]
   const filteredWallets = wallets.filter((wallet) => walletList.includes(wallet?.name));
   const LuciConnectWalletAddress = async (name) => {
@@ -114,7 +114,6 @@ const ConnectWallet = () => {
   const menuStyle = {
     width: '190px',
   }
-
   // Nested Menu for Connect Wallet
   const [isOpenNested, setIsOpenNested] = useState(false);
 
@@ -128,13 +127,13 @@ const ConnectWallet = () => {
         onClick={handleClick} // Dropdown
       >
         {/* Wallet connected */}
-        {connected && !connecting ? (
+        {connected || user ? (
           <div className='flex items-center w-[200px] h-[40px] bg-[#123D91] rounded text-white'>
             <HeaderProfile />
             <Typography className='pl-3'>2 </Typography>
             <Image src={sprayIcon} className='h-[16px] w-[16px]'></Image>
             <Typography className='px-2'>|</Typography>
-            <Typography className='pr-1'>120,000 </Typography>
+            <Typography className='pr-1'>{lovelaceAssets}</Typography>
             <Image src={monetIcon} className='h-[16px] w-[16px]'></Image>
             {/* Here goes the divider */}
             {open ?
@@ -201,7 +200,7 @@ const ConnectWallet = () => {
               ))}
             </Menu>
           </MenuItem>
-          <MenuItem><UserIcon className='w-6 pr-1' />Profile</MenuItem>
+          <MenuItem><UserIcon className='w-6 pr-1' /><Link href="/profile">Profile</Link></MenuItem>
           <MenuItem onClick={handleDisconnect} sx={menuStyle}><PowerIcon className='w-6 pr-1' />Logout</MenuItem>
         </Menu >
       )
