@@ -5,15 +5,23 @@ import Avatar from "./Avatar";
 import ProfileEditForm from "./ProfileEditForm";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import AddWallet from "../ConnectWallet/AddWallet";
 
 const MainProfile = ({ image, username, location }) => {
   const [isRecord, setIsRecord] = useState(false);
   const user = useSelector((item) => item.user.user);
   const [editProfileIsShown, setEditProfileIsShown] = useState(false);
+  const [AddWalletopen, setAddWallet] =useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleWalletModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const toggleProfileEditFormHandler = () => {
     setEditProfileIsShown((oldState) => !oldState);
   };
+
   useEffect(() =>{
     if(user.name) {
       setIsRecord(true)
@@ -56,6 +64,14 @@ const MainProfile = ({ image, username, location }) => {
           Add Profile
       </button>
         )}
+      <button
+        onClick={toggleWalletModal}
+        className="bg-active-link rounded-xl p-2 font-semibold w-8/3 block tracking-wide text-base my-2"
+      >
+        Wallets
+      </button>
+      <AddWallet isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+          
       </div>
       {editProfileIsShown && (
         <ProfileEditForm onCloseForm={toggleProfileEditFormHandler}  propUser={user}/>
